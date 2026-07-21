@@ -40,10 +40,10 @@
       --drawer-bg:     #0A0E0C;
     }
     :root[data-theme="light"] {
-      --bg-base:       #F7F5F2;
-      --bg-card:       #FFFFFF;
-      --bg-card-hi:    #F0EDE9;
-      --bg-nav:        #FFFFFF;
+      --bg-base:       #FFFFFF;
+      --bg-card:       #F7F5F2;
+      --bg-card-hi:    #EEE9E3;
+      --bg-nav:        #F7F5F2;
       --border:        #E0DDD8;
       --border-sub:    #EBE9E5;
       --text-hi:       #0E1A14;
@@ -59,7 +59,6 @@
       --amber:         #B7791F;
       --blue:          #2B6CB0;
       --purple:        #6B46C1;
-      --drawer-bg:     #F0EDE9;
     }
 
     /* =====================================================
@@ -83,10 +82,13 @@
     /* =====================================================
        LAYOUT
        ===================================================== */
-    .app-shell { display: flex; min-height: 100vh; flex-direction: column; }
+    /* =====================================================
+       LAYOUT — push-sidebar model
+       ===================================================== */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
     /* =====================================================
-       TOPBAR
+       TOPBAR — fixed full-width strip
        ===================================================== */
     .topbar {
       height: 48px;
@@ -96,29 +98,12 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      position: sticky;
-      top: 0;
+      flex-shrink: 0;
       z-index: 80;
-      flex-shrink: 0;
+      transition: background .25s, border-color .25s;
     }
-    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-left  { display: flex; align-items: center; gap: 10px; }
     .topbar-right { display: flex; align-items: center; gap: 12px; }
-
-    /* Hamburger button — always visible */
-    .ham-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px; height: 34px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: border-color .15s, color .15s;
-      flex-shrink: 0;
-    }
-    .ham-btn:hover { border-color: var(--accent); color: var(--accent); }
 
     .live-dot {
       width: 6px; height: 6px;
@@ -134,7 +119,7 @@
       font-size: 11px;
       color: var(--text-muted);
     }
-    @media(max-width:520px){ .topbar-breadcrumb { display: none; } }
+    @media(max-width:540px){ .topbar-breadcrumb { display: none; } }
 
     .topbar-node-tag {
       font-family: 'JetBrains Mono', monospace;
@@ -180,25 +165,246 @@
     .t-pill.on::after { transform: translateX(12px); }
 
     /* =====================================================
+       BODY ROW — sidebar + scrollable main
+       ===================================================== */
+    .body-row {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* =====================================================
+       NAV SIDEBAR — push model, expanded 240 / collapsed 72
+       ===================================================== */
+    .nav-sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      height: 100%;
+      background: var(--bg-nav);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: width .28s cubic-bezier(.4,0,.2,1), background .25s, border-color .25s;
+      position: relative;
+      z-index: 60;
+    }
+    .nav-sidebar.collapsed { width: 72px; }
+    .nav-sidebar::-webkit-scrollbar { width: 3px; }
+
+    /* --- Sidebar toggle button (always visible in strip) --- */
+    .sb-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: border-color .15s, color .15s, background .15s;
+    }
+    .sb-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* --- Header row (logo area when expanded, toggle when collapsed) --- */
+    .sb-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 16px 14px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      min-height: 60px;
+    }
+    .nav-sidebar.collapsed .sb-header { display: none; }
+
+    /* Logo images */
+    .sb-logo { height: 24px; width: auto; display: block; }
+    .sb-logo-dark  { display: block; }
+    .sb-logo-light { display: none; }
+    :root[data-theme="light"] .sb-logo-dark  { display: none; }
+    :root[data-theme="light"] .sb-logo-light { display: block; }
+    /* Hide logo when collapsed */
+    .nav-sidebar.collapsed .sb-logo-wrap { display: none; }
+    /* Footer logo */
+    .footer-logo-dark  { display: inline-block; vertical-align: middle; }
+    .footer-logo-light { display: none; vertical-align: middle; }
+    :root[data-theme="light"] .footer-logo-dark  { display: none; }
+    :root[data-theme="light"] .footer-logo-light { display: inline-block; }
+
+    /* --- Full nav content (only when expanded) --- */
+    .sb-full-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .sb-full-content::-webkit-scrollbar { width: 3px; }
+    .sb-full-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .nav-sidebar.collapsed .sb-full-content { display: none; }
+
+    /* --- Mini nav (only when collapsed) --- */
+    .sb-mini-content {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .nav-sidebar.collapsed .sb-mini-content { display: flex; }
+
+    .sb-mini-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: border-color .15s, color .15s, background .15s;
+    }
+    .sb-mini-pill:hover { border-color: var(--accent-border); background: var(--accent-dim); color: var(--accent); }
+    .sb-mini-pill.active { border-color: var(--accent-border); background: var(--accent-dim); color: var(--accent); }
+
+    /* --- Section labels & links --- */
+    .drawer-section-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      padding: 16px 20px 5px;
+    }
+    .drawer-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color .15s, border-color .15s, background .15s;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+    .drawer-link:hover { color: var(--text-hi); background: var(--accent-dim); text-decoration: none; }
+    .drawer-link.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-dim);
+      font-weight: 500;
+    }
+    .dl-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--text-muted);
+      min-width: 22px;
+      flex-shrink: 0;
+    }
+    .drawer-link.active .dl-num { color: var(--accent); }
+
+    .drawer-footer {
+      margin-top: auto;
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .drawer-status-row { display: flex; flex-direction: column; gap: 5px; }
+    .drawer-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .status-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Mobile: sidebar becomes overlay below 768px */
+    @media(max-width:768px){
+      .nav-sidebar {
+        position: absolute;
+        top: 0; left: 0; bottom: 0;
+        z-index: 75;
+        transform: translateX(-100%);
+        transition: transform .28s cubic-bezier(.4,0,.2,1), width .28s, background .25s;
+        width: 240px !important;
+      }
+      .nav-sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      .sb-backdrop {
+        display: none;
+        position: absolute;
+        inset: 0;
+        z-index: 74;
+        background: rgba(0,0,0,.45);
+      }
+      .sb-backdrop.open { display: block; }
+      .mob-ham {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px; height: 34px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: border-color .15s, color .15s;
+      }
+      .mob-ham:hover { border-color: var(--accent); color: var(--accent); }
+    }
+    @media(min-width:769px){ .mob-ham { display: none; } .sb-backdrop { display: none !important; } }
+
+    /* =====================================================
+       MAIN SCROLL AREA
+       ===================================================== */
+    .main-scroll {
+      flex: 1;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: var(--bg-base);
+      transition: background .25s;
+    }
+    .main-scroll::-webkit-scrollbar { width: 6px; }
+    .main-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .main { min-width: 0; }
+    /* =====================================================
        UX DISCLAIMER BANNER
        ===================================================== */
     .ux-banner {
       background: var(--bg-card);
       border-bottom: 1px solid var(--accent-border);
-      border-top: 1px solid var(--accent-border);
       padding: 10px 20px;
       display: flex;
       align-items: flex-start;
       gap: 12px;
       position: sticky;
-      top: 48px;
-      z-index: 70;
+      top: 0;
+      z-index: 55;
     }
     .ux-banner.hidden { display: none; }
-    .ux-banner-icon {
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+    .ux-banner-icon { flex-shrink: 0; margin-top: 1px; }
     .ux-banner-text {
       flex: 1;
       font-size: 12px;
@@ -224,136 +430,6 @@
     }
     .ux-banner-dismiss:hover { color: var(--text-hi); }
 
-    /* =====================================================
-       NAV DRAWER (hamburger slide-in)
-       ===================================================== */
-    .drawer-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 88;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(2px);
-    }
-    .drawer-backdrop.open { display: block; }
-
-    .nav-drawer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 280px;
-      background: var(--drawer-bg);
-      border-right: 1px solid var(--border);
-      z-index: 90;
-      display: flex;
-      flex-direction: column;
-      transform: translateX(-100%);
-      transition: transform .28s cubic-bezier(.4,0,.2,1);
-      overflow-y: auto;
-    }
-    .nav-drawer.open { transform: translateX(0); }
-    .nav-drawer::-webkit-scrollbar { width: 3px; }
-    .nav-drawer::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-    .drawer-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .drawer-logo-wrap { display: flex; flex-direction: column; gap: 6px; }
-    .drawer-logo { height: 26px; width: auto; display: block; }
-    .drawer-logo-dark  { display: block; }
-    .drawer-logo-light { display: none; }
-    :root[data-theme="light"] .drawer-logo-dark  { display: none; }
-    :root[data-theme="light"] .drawer-logo-light { display: block; }
-    .drawer-sub {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      color: var(--text-muted);
-    }
-    .drawer-close {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      width: 30px; height: 30px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: border-color .15s, color .15s;
-      flex-shrink: 0;
-    }
-    .drawer-close:hover { border-color: var(--accent); color: var(--accent); }
-
-    .drawer-section-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-      padding: 16px 20px 5px;
-    }
-    .drawer-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 20px;
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      border-left: 2px solid transparent;
-      transition: color .15s, border-color .15s, background .15s;
-      line-height: 1.4;
-    }
-    .drawer-link:hover { color: var(--text-hi); background: var(--accent-dim); text-decoration: none; }
-    .drawer-link.active {
-      color: var(--accent);
-      border-left-color: var(--accent);
-      background: var(--accent-dim);
-      font-weight: 500;
-    }
-    .dl-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      color: var(--text-muted);
-      min-width: 22px;
-    }
-    .drawer-link.active .dl-num { color: var(--accent); }
-
-    .drawer-footer {
-      margin-top: auto;
-      padding: 16px 20px;
-      border-top: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .drawer-status-row {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .drawer-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      color: var(--text-muted);
-    }
-    .status-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    /* =====================================================
-       MAIN CONTENT
-       ===================================================== */
-    .main { flex: 1; min-width: 0; }
     .content-wrap {
       max-width: 840px;
       margin: 0 auto;
@@ -1195,11 +1271,12 @@
 <div class="app-shell">
 
   <!-- ============================================================
-       TOPBAR
+       TOPBAR — fixed 48 px strip
        ============================================================ -->
   <header class="topbar">
     <div class="topbar-left">
-      <button class="ham-btn" id="hamBtn" aria-label="Open navigation">
+      <!-- Mobile-only hamburger (desktop sidebar handles toggle) -->
+      <button class="mob-ham" id="mobHam" aria-label="Open navigation">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="3" y1="7" x2="21" y2="7"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
@@ -1219,84 +1296,111 @@
   </header>
 
   <!-- ============================================================
-       UX DISCLAIMER BANNER
+       BODY ROW — sidebar + scrollable main
        ============================================================ -->
-  <div class="ux-banner" id="uxBanner">
-    <div class="ux-banner-icon">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent);margin-top:1px;">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
-    </div>
-    <div class="ux-banner-text">
-      <strong>UX ARCHITECT SPECIFICATION DISCLAIMER</strong> &nbsp;—&nbsp;
-      This document defines the behavioral, spatial, and conversational alignment targets for Jemm from a UX perspective. It serves as a behavioral contract for AI Engineering and is open to collaborative technical refinement.
-    </div>
-    <button class="ux-banner-dismiss" id="bannerDismiss" aria-label="Dismiss banner">×</button>
-  </div>
+  <div class="body-row">
 
-  <!-- ============================================================
-       DRAWER BACKDROP
-       ============================================================ -->
-  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <!-- Mobile backdrop -->
+    <div class="sb-backdrop" id="sbBackdrop"></div>
 
-  <!-- ============================================================
-       NAV DRAWER
-       ============================================================ -->
-  <nav class="nav-drawer" id="navDrawer" aria-label="Site navigation">
-    <div class="drawer-header">
-      <div class="drawer-logo-wrap">
-        <img src="logo-dark.png"  alt="Jemm" class="drawer-logo drawer-logo-dark">
-        <img src="logo-light.png" alt="Jemm" class="drawer-logo drawer-logo-light">
-        <span class="drawer-sub">Behavioral Tenets · v1.0</span>
+    <!-- ==========================================
+         NAV SIDEBAR
+         ========================================== -->
+    <nav class="nav-sidebar" id="navSidebar" aria-label="Site navigation">
+
+      <!-- Header row (toggle button + logo) -->
+      <div class="sb-header">
+        <div class="sb-logo-wrap">
+          <img src="logo-dark.png"  alt="Jemm" class="sb-logo sb-logo-dark">
+          <img src="logo-light.png" alt="Jemm" class="sb-logo sb-logo-light">
+        </div>
+        <button class="sb-toggle" id="sbToggle" aria-label="Collapse navigation">
+          <!-- X icon (shown when expanded) -->
+          <svg class="icon-close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
-      <button class="drawer-close" id="drawerClose" aria-label="Close navigation">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
 
-    <div class="drawer-section-label">Overview</div>
-    <a href="#hero" class="drawer-link active" data-sec="hero">
-      <span class="dl-num">00</span>Behavioral Tenets Overview
-    </a>
+      <!-- Full nav (visible when expanded) -->
+      <div class="sb-full-content">
+        <div class="drawer-section-label">Overview</div>
+        <a href="#hero" class="drawer-link active" data-sec="hero">
+          <span class="dl-num">00</span>Behavioral Tenets Overview
+        </a>
 
-    <div class="drawer-section-label">Specification</div>
-    <a href="#preamble" class="drawer-link" data-sec="preamble">
-      <span class="dl-num">01</span>Executive Preamble &amp; Research
-    </a>
-    <a href="#is-is-not" class="drawer-link" data-sec="is-is-not">
-      <span class="dl-num">02</span>Jemm Is / Jemm Is Not
-    </a>
-    <a href="#funnel" class="drawer-link" data-sec="funnel">
-      <span class="dl-num">03</span>Real-Time Evaluation Funnel
-    </a>
+        <div class="drawer-section-label">Specification</div>
+        <a href="#preamble" class="drawer-link" data-sec="preamble">
+          <span class="dl-num">01</span>Executive Preamble &amp; Research
+        </a>
+        <a href="#is-is-not" class="drawer-link" data-sec="is-is-not">
+          <span class="dl-num">02</span>Jemm Is / Jemm Is Not
+        </a>
+        <a href="#funnel" class="drawer-link" data-sec="funnel">
+          <span class="dl-num">03</span>Real-Time Evaluation Funnel
+        </a>
 
-    <div class="drawer-section-label">Alignment Framework</div>
-    <a href="#tiers" class="drawer-link" data-sec="tiers">
-      <span class="dl-num">04</span>Behavioral Tenets &amp; Priority Tiers
-    </a>
-    <a href="#tone" class="drawer-link" data-sec="tone">
-      <span class="dl-num">05</span>Adaptive Persona &amp; Tone Sliders
-    </a>
-    <a href="#cai-engine" class="drawer-link" data-sec="cai-engine">
-      <span class="dl-num">06</span>CAI Self-Critique Engine
-    </a>
+        <div class="drawer-section-label">Alignment Framework</div>
+        <a href="#tiers" class="drawer-link" data-sec="tiers">
+          <span class="dl-num">04</span>Behavioral Tenets &amp; Priority Tiers
+        </a>
+        <a href="#tone" class="drawer-link" data-sec="tone">
+          <span class="dl-num">05</span>Adaptive Persona &amp; Tone Sliders
+        </a>
+        <a href="#cai-engine" class="drawer-link" data-sec="cai-engine">
+          <span class="dl-num">06</span>CAI Self-Critique Engine
+        </a>
 
-    <div class="drawer-footer">
-      <div class="drawer-status-row">
-        <div class="drawer-status-pill"><div class="status-dot"></div>NODE: 100% LOCAL</div>
-        <div class="drawer-status-pill"><div class="status-dot"></div>EGRESS: ZERO</div>
-        <div class="drawer-status-pill"><div class="status-dot"></div>RBAC: ACTIVE</div>
+        <div class="drawer-footer">
+          <div class="drawer-status-row">
+            <div class="drawer-status-pill"><div class="status-dot"></div>NODE: 100% LOCAL</div>
+            <div class="drawer-status-pill"><div class="status-dot"></div>EGRESS: ZERO</div>
+            <div class="drawer-status-pill"><div class="status-dot"></div>RBAC: ACTIVE</div>
+          </div>
+        </div>
       </div>
-    </div>
-  </nav>
 
-  <!-- ============================================================
-       MAIN CONTENT
-       ============================================================ -->
-  <main class="main">
-    <div class="content-wrap">
+      <!-- Mini nav pills (visible when collapsed 72 px) -->
+      <div class="sb-mini-content">
+        <button class="sb-toggle" id="sbToggleCollapsed" aria-label="Expand navigation">
+          <!-- Hamburger icon (shown when collapsed) -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="3" y1="7" x2="21" y2="7"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="17" x2="21" y2="17"/>
+          </svg>
+        </button>
+        <a href="#hero"      class="sb-mini-pill active" data-sec="hero"      title="00 — Overview">00</a>
+        <a href="#preamble"  class="sb-mini-pill" data-sec="preamble"  title="01 — Preamble">01</a>
+        <a href="#is-is-not" class="sb-mini-pill" data-sec="is-is-not" title="02 — Is / Is Not">02</a>
+        <a href="#funnel"    class="sb-mini-pill" data-sec="funnel"    title="03 — Funnel">03</a>
+        <a href="#tiers"     class="sb-mini-pill" data-sec="tiers"     title="04 — Tenets">04</a>
+        <a href="#tone"      class="sb-mini-pill" data-sec="tone"      title="05 — Tone">05</a>
+        <a href="#cai-engine" class="sb-mini-pill" data-sec="cai-engine" title="06 — CAI Engine">06</a>
+      </div>
+    </nav>
+
+    <!-- ==========================================
+         MAIN SCROLL AREA
+         ========================================== -->
+    <div class="main-scroll" id="mainScroll">
+
+      <!-- UX Disclaimer Banner (inside scroll area) -->
+      <div class="ux-banner" id="uxBanner">
+        <div class="ux-banner-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent);margin-top:1px;">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="ux-banner-text">
+          <strong>UX ARCHITECT SPECIFICATION DISCLAIMER</strong> &nbsp;—&nbsp;
+          This document defines the behavioral, spatial, and conversational alignment targets for Jemm from a UX perspective. It serves as a behavioral contract for AI Engineering and is open to collaborative technical refinement.
+        </div>
+        <button class="ux-banner-dismiss" id="bannerDismiss" aria-label="Dismiss banner">×</button>
+      </div>
+
+      <main class="main">
+        <div class="content-wrap">
 
       <!-- §00 — HERO ============================================= -->
       <section class="section" id="hero">
@@ -2027,7 +2131,9 @@
         <a href="https://erikjemmai.github.io/jemm-brand-guidelines/" target="_blank" rel="noopener" class="footer-link">Brand Guidelines ↗</a>
       </div>
     </footer>
-  </main>
+      </main>
+    </div><!-- /main-scroll -->
+  </div><!-- /body-row -->
 
 </div><!-- /app-shell -->
 
@@ -2059,44 +2165,74 @@ catch(e){ setTheme('dark'); }
    ================================================================ */
 document.getElementById('bannerDismiss').addEventListener('click', () => {
   document.getElementById('uxBanner').classList.add('hidden');
-  // Update sticky offset for sections
-  document.querySelectorAll('.section').forEach(s => {
-    s.style.scrollMarginTop = '64px';
-  });
 });
 
 /* ================================================================
-   HAMBURGER NAV DRAWER
+   SIDEBAR — push-collapse toggle
+   Desktop: toggles between 240 px (expanded) and 72 px (collapsed)
+   Mobile:  slides in/out as overlay
    ================================================================ */
-const navDrawer      = document.getElementById('navDrawer');
-const drawerBackdrop = document.getElementById('drawerBackdrop');
-const hamBtn         = document.getElementById('hamBtn');
-const drawerClose    = document.getElementById('drawerClose');
+const navSidebar   = document.getElementById('navSidebar');
+const sbToggle     = document.getElementById('sbToggle');
+const sbToggleC    = document.getElementById('sbToggleCollapsed');
+const sbBackdrop   = document.getElementById('sbBackdrop');
+const mobHam       = document.getElementById('mobHam');
 
-function openDrawer() {
-  navDrawer.classList.add('open');
-  drawerBackdrop.classList.add('open');
-  document.body.style.overflow = 'hidden';
+// Default: expanded on desktop, closed on mobile
+function isMobile() { return window.innerWidth <= 768; }
+
+function expandSidebar() {
+  if (isMobile()) {
+    navSidebar.classList.add('mobile-open');
+    navSidebar.classList.remove('collapsed');
+    sbBackdrop.classList.add('open');
+  } else {
+    navSidebar.classList.remove('collapsed');
+  }
 }
-function closeDrawer() {
-  navDrawer.classList.remove('open');
-  drawerBackdrop.classList.remove('open');
-  document.body.style.overflow = '';
+
+function collapseSidebar() {
+  if (isMobile()) {
+    navSidebar.classList.remove('mobile-open');
+    sbBackdrop.classList.remove('open');
+  } else {
+    navSidebar.classList.add('collapsed');
+  }
 }
 
-hamBtn.addEventListener('click', openDrawer);
-drawerClose.addEventListener('click', closeDrawer);
-drawerBackdrop.addEventListener('click', closeDrawer);
+// Header X button (visible when expanded)
+sbToggle.addEventListener('click', collapseSidebar);
+// Mini hamburger button (visible when collapsed)
+sbToggleC.addEventListener('click', expandSidebar);
+// Mobile topbar hamburger
+if (mobHam) mobHam.addEventListener('click', expandSidebar);
+// Backdrop dismisses on mobile
+sbBackdrop.addEventListener('click', collapseSidebar);
 
-// Close on link click
-document.querySelectorAll('.drawer-link').forEach(l => {
-  l.addEventListener('click', closeDrawer);
+// On resize: reset mobile-open if switching to desktop
+window.addEventListener('resize', () => {
+  if (!isMobile()) {
+    navSidebar.classList.remove('mobile-open');
+    sbBackdrop.classList.remove('open');
+  }
+});
+
+// Sidebar starts expanded on desktop, collapsed (hidden) on mobile
+if (isMobile()) {
+  navSidebar.classList.remove('collapsed');
+} else {
+  navSidebar.classList.remove('collapsed'); // expanded by default
+}
+
+// Close mobile sidebar on link click
+document.querySelectorAll('.drawer-link, .sb-mini-pill').forEach(l => {
+  l.addEventListener('click', () => { if (isMobile()) collapseSidebar(); });
 });
 
 /* ================================================================
    ACTIVE NAV — IntersectionObserver
    ================================================================ */
-const drawerLinks = document.querySelectorAll('.drawer-link[data-sec]');
+const drawerLinks = document.querySelectorAll('.drawer-link[data-sec], .sb-mini-pill[data-sec]');
 const sections    = document.querySelectorAll('section[id]');
 
 const io = new IntersectionObserver(entries => {
@@ -2105,7 +2241,7 @@ const io = new IntersectionObserver(entries => {
       drawerLinks.forEach(l => l.classList.toggle('active', l.dataset.sec === e.target.id));
     }
   });
-}, { rootMargin: '-10% 0px -75% 0px' });
+}, { root: document.getElementById('mainScroll'), rootMargin: '-5% 0px -80% 0px' });
 
 sections.forEach(s => io.observe(s));
 
