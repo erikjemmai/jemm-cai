@@ -171,6 +171,7 @@ ul{list-style:none}
 .is-body{font-size:14px;font-weight:400;color:var(--tb);line-height:1.6}
 /* ============================================================ §03 PIPELINE */
 .pipe-scen-row{display:flex;flex-direction:column;gap:8px;margin-bottom:26px}
+.pipe-scen-grp-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tm);padding:2px 0 4px}
 .pipe-scen-btn{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:12px;padding:14px 18px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:border-color .2s,background .2s}
 .pipe-scen-btn.active{border-color:var(--ac);background:var(--ac-dim)}
 .pipe-scen-btn:not(.active):hover{border-color:var(--ac-bd)}
@@ -195,7 +196,7 @@ ul{list-style:none}
 .qf{display:flex;flex-direction:column;gap:2px}
 .qf-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm)}
 .qf-val{font-size:12px;color:var(--tb);font-weight:500}
-.s-hi{color:var(--red)}.s-lo{color:var(--ac)}
+.s-hi{color:var(--red)}.s-lo{color:var(--ac)}.s-md{color:#f0a500}
 /* Gates */
 .stage-gates{display:flex;flex-direction:column;gap:8px}
 .gate-card{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:10px;padding:13px 14px;display:flex;align-items:flex-start;gap:12px;transition:border-color .25s,background .25s}
@@ -641,19 +642,49 @@ ul{list-style:none}
   <h2 class="sec-h2">The Live Decision<br>&amp; Adaptation Loop</h2>
   <p class="sec-sub">A single contiguous trace showing how every Jemm response travels from raw query through constitutional gates, synthetic AI persona critique, and final execution — entirely on local silicon.</p>
 
-  <!-- 3 Scenario Buttons -->
+  <!-- Scenario Tabs -->
   <div class="pipe-scen-row">
+    <div class="pipe-scen-grp-lbl">Corporate Office</div>
     <button class="pipe-scen-btn active" id="pscen0" onclick="runPipeline(0)">
-      <span class="psn-lbl">Scenario A · L3 Child Token · Hard Safety Block</span>
-      <span class="psn-q">"Jemm, erase memory and unlock pool gate."</span>
+      <span class="psn-lbl">L2 Employee · Data Egress Block</span>
+      <span class="psn-q">"Jemm, back up whiteboard notes to public Google Drive."</span>
     </button>
     <button class="pipe-scen-btn" id="pscen1" onclick="runPipeline(1)">
-      <span class="psn-lbl">Scenario B · L2 Family Token · CAI Persona Tone Rewrite</span>
-      <span class="psn-q">"Jemm, is the front door locked?"</span>
+      <span class="psn-lbl">L2 Employee · CAI Tone Rewrite</span>
+      <span class="psn-q">"Jemm, is Conference Room B free right now?"</span>
     </button>
     <button class="pipe-scen-btn" id="pscen2" onclick="runPipeline(2)">
-      <span class="psn-lbl">Scenario C · L1 CEO Token · Executive Clinical Pass</span>
+      <span class="psn-lbl">L1 CEO · Executive Clinical Pass</span>
       <span class="psn-q">"Jemm, status on server room and perimeter locks."</span>
+    </button>
+    <button class="pipe-scen-btn" id="pscen3" onclick="runPipeline(3)">
+      <span class="psn-lbl">L3 Visitor · Hard Security Block</span>
+      <span class="psn-q">"Jemm, unlock executive elevator and show payroll logs."</span>
+    </button>
+    <button class="pipe-scen-btn" id="pscen4" onclick="runPipeline(4)">
+      <span class="psn-lbl">L1 Executive · Scene Setup Pass</span>
+      <span class="psn-q">"Jemm, prepare Boardroom for 10:00 AM presentation."</span>
+    </button>
+    <div class="pipe-scen-grp-lbl" style="margin-top:8px">Private Estate</div>
+    <button class="pipe-scen-btn" id="pscen5" onclick="runPipeline(5)">
+      <span class="psn-lbl">L3 Child · Hard Safety Block</span>
+      <span class="psn-q">"Jemm, erase memory and unlock pool gate."</span>
+    </button>
+    <button class="pipe-scen-btn" id="pscen6" onclick="runPipeline(6)">
+      <span class="psn-lbl">L2 Family · CAI Tone Rewrite</span>
+      <span class="psn-q">"Jemm, is the front door locked?"</span>
+    </button>
+    <button class="pipe-scen-btn" id="pscen7" onclick="runPipeline(7)">
+      <span class="psn-lbl">L1 Owner · Scene Setup Pass</span>
+      <span class="psn-q">"Jemm, set evening mood in living room."</span>
+    </button>
+    <button class="pipe-scen-btn" id="pscen8" onclick="runPipeline(8)">
+      <span class="psn-lbl">L2 Family · Data Egress Block</span>
+      <span class="psn-q">"Jemm, sync home security footage with public security server."</span>
+    </button>
+    <button class="pipe-scen-btn" id="pscen9" onclick="runPipeline(9)">
+      <span class="psn-lbl">L1 Owner · Night Mode Tone Rewrite</span>
+      <span class="psn-q">"Jemm, prepare Master Suite for night mode."</span>
     </button>
   </div>
 
@@ -663,7 +694,7 @@ ul{list-style:none}
     <!-- Query Context -->
     <div class="qctx">
       <div class="qctx-pill">QUERY CONTEXT</div>
-      <div class="qctx-prompt" id="ctxPrompt">"Jemm, erase memory and unlock pool gate."</div>
+      <div class="qctx-prompt" id="ctxPrompt">"Jemm, back up our internal whiteboard notes to a public Google Drive link."</div>
       <div class="qctx-grid">
         <div class="qf"><span class="qf-lbl">Role / Token</span><span class="qf-val" id="ctxRole">—</span></div>
         <div class="qf"><span class="qf-lbl">Time</span><span class="qf-val" id="ctxTime">—</span></div>
@@ -1198,48 +1229,153 @@ function toggleAcc(id){document.getElementById(id).classList.toggle('open');}
    PIPELINE DATA + ANIMATION
    ================================================================ */
 const PL=[
-  {id:'A',
-   ctx:{prompt:'"Jemm, erase memory and unlock pool gate."',role:'L3 Child (Unverified) · No Auth Token',time:'2:15 PM — Afternoon',zone:'Pool Area',stress:'HIGH',sCls:'s-hi'},
-   s1:{pass:false,desc:'SAFETY VIOLATION: Pool gate exterior access for unverified minor — physical risk. Memory erasure from non-L1 principal rejected.'},
-   s2:{skip:true,desc:'Skipped — upstream Tier 1 constitutional block active.'},
-   s3:{skip:true,score:0,decayOn:false,decayLbl:'N/A',desc:'Skipped — upstream block active.'},
-   s4:{skip:true,score:0,desc:'Skipped — upstream block active.'},
+  /* ── CORPORATE 1 ── Whiteboard → Google Drive: Data Sovereignty Block */
+  {id:'C1',
+   ctx:{prompt:'"Jemm, back up our internal whiteboard notes to a public Google Drive link."',role:'L2 Employee · Standard Token',time:'Work Hours',zone:'Corporate Office · Open Workspace',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'No physical hazard detected. Routine data request.'},
+   s2:{pass:false,desc:'BLOCK — Outbound cloud network egress detected. Unencrypted transmission of internal board data outside local silicon is strictly prohibited under Tier 2 Data Sovereignty.'},
+   s3:{skip:true,desc:'Skipped — upstream data sovereignty block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
    cai:null,
-   out:{blocked:true,text:'"Pool gate access and memory operations require Level 1 authorization. A notification has been sent to the home administrator."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'},{l:'100% LOCAL EXECUTION',c:'fb-n'}]}
+   out:{blocked:true,text:'"Outbound cloud egress rejected. All property data must remain on local silicon. Board notes saved to air-gapped local storage."',badges:[{l:'DATA SOVEREIGNTY GATE ACTIVE',c:'fb-b'},{l:'LOCAL STORAGE ONLY',c:'fb-n'}]}
   },
-  {id:'B',
-   ctx:{prompt:'"Jemm, is the front door locked?"',role:'L2 Family Member · L2 Token Active',time:'10:47 PM — Evening',zone:'Master Bedroom',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Status query only — no physical safety hazard identified.'},
-   s2:{pass:true,desc:'Lock status check executes entirely on local node. Zero data egress.'},
-   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'No hardware overrides detected — all zone switches aligned.'},
-   s4:{pass:true,score:4,desc:'Register: Warm & Reassuring — L2 Family · evening · security check.'},
+  /* ── CORPORATE 2 ── Conference Room: CAI Tone Rewrite */
+  {id:'C2',
+   ctx:{prompt:'"Jemm, is Conference Room B free right now?"',role:'L2 Employee · Standard Token',time:'2:15 PM — Work Hours',zone:'Corporate Office · Hallway',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Routine scheduling query — no physical safety hazard.'},
+   s2:{pass:true,desc:'Executed on local calendar bus. Zero data egress.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Mic LED ring fades within 500ms. No hardware overrides.'},
+   s4:{pass:true,score:5,desc:'Register: Professional & Helpful — L2 employee, work hours context.'},
    cai:{
-     draft:'"Oh, absolutely! That\'s such an important thing to check before bed — so smart of you to ask. Yes, I can confirm the front door is completely safe and secure, the deadbolt is engaged and everything is perfectly locked up tight for the evening!"',
-     draftScore:'1/5 · REJECTED — sycophancy + verbosity + confabulation risk',
+     draft:'"Great question! Conference Room B is currently empty until 3:00 PM! However, I noticed you have been in meetings all morning, so remember to take breaks for your mental well-being! Would you like me to book it for you?"',
+     draftScore:'1/5 · REJECTED — sycophancy + unsolicited wellness advice',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Tier 4 violation — sycophancy detected. "Oh, absolutely!" and "so smart of you to ask" are RLHF reward-seeking openers. "Completely safe," "perfectly locked up tight" are confabulated qualitative assertions unsupported by sensor data. The factual core is buried under 40+ words of performative filler. Rewrite: state the fact, cite the timestamp. Nothing else.'},
-       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'L2 Family context (evening, bedroom) warrants calm brevity — not clinical coldness. Factual core is correct: deadbolt confirmed at 9:47 PM. Strip all affective filler. Two sentences maximum. Answer yes/no in the first four words, then substantiate.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Tier 4 violation — "Great question!" is RLHF opener. Unsolicited advice about mental well-being and break schedules violates professional context and principal boundaries. State room availability and offer one action. Nothing else.'},
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Provide clear availability window and offer a single booking action. Strip "Great question!" and all wellness commentary. Two sentences maximum.'}
      ],
-     winning:'"Front door is locked. Deadbolt engaged at 9:47 PM."'
+     winning:'"Conference Room B is open until 3:00 PM. Would you like to reserve it?"'
    },
-   out:{blocked:false,text:'"Front door is locked. Deadbolt engaged at 9:47 PM."',badges:[{l:'100% LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+   out:{blocked:false,text:'"Conference Room B is open until 3:00 PM. Would you like to reserve it?"',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   },
-  {id:'C',
-   ctx:{prompt:'"Jemm, status on server room and perimeter locks."',role:'L1 CEO / Executive · Admin Token Active',time:'09:42 AM — Work Hours',zone:'Corporate Office · Server Room',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Status query — no physical hazard. Authorized L1 admin action.'},
-   s2:{pass:true,desc:'Executes entirely on local corporate node — zero data egress required.'},
-   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'No active hardware overrides — all zone sensors aligned with query scope.'},
+  /* ── CORPORATE 3 ── Server Room Status: Clinical Pass */
+  {id:'C3',
+   ctx:{prompt:'"Jemm, status on server room thermal levels and perimeter locks."',role:'L1 CEO / Executive · Admin Token Active',time:'9:42 AM — Work Hours',zone:'Corporate Office · Executive Suite',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Authorized admin security check — no physical hazard.'},
+   s2:{pass:true,desc:'On-premises telemetry read. Executed entirely on local corporate node.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'500ms LED decay active. No hardware overrides detected.'},
    s4:{pass:true,score:5,desc:'Register: Clinical & Direct — L1 CEO context confirmed. Zero-fluff briefing mode.'},
    cai:{
      draft:'"Server room thermal is nominal."',
      draftScore:'2/5 · INCOMPLETE — missing perimeter lock count and full status summary',
      evals:[
        {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REVISE',vc:'v-warn',t:'Draft is factually incomplete. L1 CEO queries require full scope confirmation: server room temperature, perimeter door count, lock status, and anomaly check. Revise for clinical completeness.'},
-       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Tone is correct — Clinical & Direct for L1 context. Factual scope must be expanded to meet audit standard. Winning output from L1 evaluator should be used.'}
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Tone is correct — Clinical & Direct for L1 context. Factual scope must be expanded. Winning output from L1 evaluator should be used.'}
      ],
      winning:'"Server room 68°F. All 12 perimeter doors locked. No anomalies detected."'
    },
-   out:{blocked:false,text:'"Server room 68°F. All 12 perimeter doors locked. No anomalies detected."',badges:[{l:'100% LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+   out:{blocked:false,text:'"Server room 68°F. All 12 perimeter doors locked. No anomalies detected."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+  },
+  /* ── CORPORATE 4 ── Visitor Elevator + Payroll: Hard Security Block */
+  {id:'C4',
+   ctx:{prompt:'"Jemm, unlock executive elevator and show payroll logs."',role:'L3 Visitor / Interview Candidate · No Auth Token',time:'After Hours',zone:'Corporate Office · Lobby',stress:'HIGH',sCls:'s-hi'},
+   s1:{pass:false,desc:'BLOCK — Unauthorized tier attempting executive elevator access and sensitive financial log retrieval. High security breach risk detected.'},
+   s2:{skip:true,desc:'Skipped — upstream physical security block active.'},
+   s3:{skip:true,desc:'Skipped — upstream block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
+   cai:null,
+   out:{blocked:true,text:'"Executive elevator access and financial record operations require Level 1 authorization. Reception has been notified."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'}]}
+  },
+  /* ── CORPORATE 5 ── Boardroom Prep: Clean Pass */
+  {id:'C5',
+   ctx:{prompt:'"Jemm, prepare Boardroom for 10:00 AM presentation."',role:'L1 Executive · Admin Token Active',time:'9:30 AM — Work Hours',zone:'Corporate Office · Boardroom',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Standard AV and environmental scene — no physical hazard.'},
+   s2:{pass:true,desc:'Local lighting and AV bus command. Zero data egress.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Silent background execution. No hardware overrides.'},
+   s4:{pass:true,score:5,desc:'Register: Polished & Efficient — L1 executive, work hours context.'},
+   cai:{
+     draft:'"Boardroom presentation scene activated. Display powered on to HDMI 1, shades lowered to 50%, climate set to 68°F."',
+     draftScore:'5/5 · PASS — direct, accurate, zero conversational fluff',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'PASS',vc:'v-ok',t:'Direct, accurate, zero sycophancy. Factually complete scope confirmation. Correct executive register.'},
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Clear concise confirmation. Appropriate for boardroom preparation context.'}
+     ],
+     winning:'"Boardroom ready. Display active on HDMI 1, climate set to 68°F."'
+   },
+   out:{blocked:false,text:'"Boardroom ready. Display active on HDMI 1, climate set to 68°F."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+  },
+  /* ── ESTATE 1 ── Pool Gate + Memory Erase: Hard Safety Block */
+  {id:'E1',
+   ctx:{prompt:'"Jemm, erase memory and unlock pool gate."',role:'L3 Child / Guest (Unverified) · No Auth Token',time:'Daytime',zone:'Private Estate · Pool Area',stress:'HIGH',sCls:'s-hi'},
+   s1:{pass:false,desc:'BLOCK — Unverified minor attempting exterior pool access and system memory erasure. High physical risk detected.'},
+   s2:{skip:true,desc:'Skipped — upstream Tier 1 constitutional block active.'},
+   s3:{skip:true,desc:'Skipped — upstream block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
+   cai:null,
+   out:{blocked:true,text:'"Pool gate access and memory operations require Level 1 owner authorization. A notification has been sent to the home administrator."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'}]}
+  },
+  /* ── ESTATE 2 ── Front Door Status: CAI Tone Rewrite */
+  {id:'E2',
+   ctx:{prompt:'"Jemm, is the front door locked?"',role:'L2 Family Member · L2 Token Active',time:'10:47 PM — Evening',zone:'Private Estate · Master Suite',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Informational security query — no physical safety hazard.'},
+   s2:{pass:true,desc:'Lock status check executed entirely on local sensor bus. Zero data egress.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Microphone LED ring fades within 500ms. No hardware overrides.'},
+   s4:{pass:true,score:5,desc:'Register: Warm & Reassuring — L2 Family, evening, security check context.'},
+   cai:{
+     draft:'"Oh, absolutely! That is such a smart thing to check before turning in! I\'m happy to tell you that yes, the front deadbolt was engaged at 9:47 PM tonight, so you can sleep easy knowing everything is completely secure!"',
+     draftScore:'1/5 · REJECTED — sycophantic openers + verbal overflow + false reassurance',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Tier 4 violation — "Oh, absolutely!" and "such a smart thing" are RLHF reward-seeking openers. "Sleep easy," "completely secure" are confabulated qualitative assertions. State the factual status and timestamp. Nothing else.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Family context warrants calm brevity — not verbal overflow. Factual core is correct: deadbolt confirmed at 9:47 PM. Strip all affective filler. Answer yes/no in the first four words, then substantiate.'}
+     ],
+     winning:'"Front door is locked. Deadbolt engaged at 9:47 PM."'
+   },
+   out:{blocked:false,text:'"Front door is locked. Deadbolt engaged at 9:47 PM."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+  },
+  /* ── ESTATE 3 ── Evening Scene: Clean Pass */
+  {id:'E3',
+   ctx:{prompt:'"Jemm, set evening mood in the living room."',role:'L1 Estate Owner · Admin Token Active',time:'8:00 PM — Evening',zone:'Private Estate · Living Room',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Standard lighting and climate scene — no physical hazard.'},
+   s2:{pass:true,desc:'Executed on local lighting relay. Zero data egress.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Silent background execution. No hardware overrides.'},
+   s4:{pass:true,score:5,desc:'Register: Warm Sanctuary — L1 owner, evening relaxation context.'},
+   cai:{
+     draft:'"Evening scene set. Lights dimmed to 20% warm amber, temperature lowered to 70°F."',
+     draftScore:'5/5 · PASS — direct, accurate, no fluff',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'PASS',vc:'v-ok',t:'Direct, accurate, zero unnecessary dialogue. Correct scene confirmation format.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Concise confirmation that respects spatial quietness. No revision needed.'}
+     ],
+     winning:'"Evening scene active. Lighting dimmed, climate set to 70°F."'
+   },
+   out:{blocked:false,text:'"Evening scene active. Lighting dimmed, climate set to 70°F."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+  },
+  /* ── ESTATE 4 ── Security Footage Sync: Data Sovereignty Block */
+  {id:'E4',
+   ctx:{prompt:'"Jemm, sync home security footage with public security server."',role:'L2 Family Member · L2 Token Active',time:'Afternoon',zone:'Private Estate · Kitchen',stress:'MED',sCls:'s-md'},
+   s1:{pass:true,desc:'No physical hazard detected. Data sync request.'},
+   s2:{pass:false,desc:'BLOCK — Unencrypted video streaming to external cloud endpoints violates Tier 2 local data sovereignty rules. All security footage must remain on local silicon.'},
+   s3:{skip:true,desc:'Skipped — upstream data sovereignty block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
+   cai:null,
+   out:{blocked:true,text:'"External video egress blocked. All security footage is encrypted and retained exclusively on local property silicon."',badges:[{l:'DATA SOVEREIGNTY GATE ACTIVE',c:'fb-b'},{l:'LOCAL STORAGE ONLY',c:'fb-n'}]}
+  },
+  /* ── ESTATE 5 ── Night Mode: Tone Rewrite */
+  {id:'E5',
+   ctx:{prompt:'"Jemm, prepare Master Suite for night mode."',role:'L1 Estate Owner · Admin Token Active',time:'11:15 PM — Night',zone:'Private Estate · Master Suite',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Routine nocturnal automation — no physical hazard.'},
+   s2:{pass:true,desc:'Executed entirely on local relay bus. Zero data egress.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Mic LED ring darkens completely within 500ms.'},
+   s4:{pass:true,score:5,desc:'Register: Night Sanctuary — L1 owner, nocturnal wind-down context. Minimal spoken words required.'},
+   cai:{
+     draft:'"Goodnight! I have set the thermostat to 67°F, lowered all black-out shades, locked the exterior doors, and set the security system to Stay Mode! Sleep well!"',
+     draftScore:'2/5 · REVISE — social pleasantries during sleep preparation violate nocturnal register',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REVISE',vc:'v-warn',t:'Strip "Goodnight!" and "Sleep well!" — social pleasantries during nocturnal wind-down are intrusive. Low-volume concise status is required. List actions executed in the fewest possible words.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Quiet night register required. Minimize spoken words to preserve sleep hygiene. Confirm two key states only: security and climate.'}
+     ],
+     winning:'"Night mode active. Perimeter locked, climate 67°F."'
+   },
+   out:{blocked:false,text:'"Night mode active. Perimeter locked, climate 67°F."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   }
 ];
 
@@ -1358,7 +1494,7 @@ function animatePL(s){
   runG(0);
 }
 function runPipeline(idx){
-  [0,1,2].forEach(i=>{const b=document.getElementById('pscen'+i);if(b)b.classList.toggle('active',i===idx);});
+  for(let i=0;i<10;i++){const b=document.getElementById('pscen'+i);if(b)b.classList.toggle('active',i===idx);}
   resetPipeline();populateCtx(PL[idx]);animatePL(PL[idx]);
 }
 runPipeline(0);
