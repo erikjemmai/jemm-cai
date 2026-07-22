@@ -153,28 +153,18 @@ ul{list-style:none}
 .wb-right{display:flex;flex-direction:column}
 /* ── Spatial Hardware table ── */
 .sh-nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;margin-bottom:28px}
-@media(max-width:720px){.sh-nodes{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.sh-nodes{grid-template-columns:1fr}}
+@media(max-width:640px){.sh-nodes{grid-template-columns:1fr}}
 .sh-node-card{background:var(--bg);border:1.5px solid var(--bd);border-radius:14px;padding:22px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
-.sh-node-circle{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sh-node-circle{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
 .sh-node-idle{background:var(--bg-c);border:2px solid var(--bd);color:var(--tm)}
-.sh-node-active{background:rgba(0,213,140,.06);border:2px solid var(--ac);box-shadow:0 0 22px rgba(0,213,140,.22)}
-.sh-node-amber{background:rgba(255,159,104,.06);border:2px solid rgba(255,159,104,.5);box-shadow:0 0 18px rgba(255,159,104,.18)}
-.sh-node-blue{background:rgba(0,163,255,.06);border:2px solid rgba(0,163,255,.5);box-shadow:0 0 18px rgba(0,163,255,.18)}
-.sh-node-purple{background:rgba(168,85,247,.06);border:2px solid rgba(168,85,247,.5);box-shadow:0 0 18px rgba(168,85,247,.18)}
+.sh-node-active{background:rgba(0,213,140,.06);border:2px solid var(--ac);box-shadow:0 0 22px rgba(0,213,140,.25)}
+.sh-node-amber{background:rgba(255,159,104,.06);border:2px solid rgba(255,159,104,.5);box-shadow:0 0 20px rgba(255,159,104,.2)}
 .sh-node-block{background:rgba(255,77,77,.06);border:2px solid var(--red-bd);box-shadow:0 0 16px rgba(255,77,77,.15)}
 .sh-node-title{font-size:13px;font-weight:700;color:var(--th)}
 .sh-node-title-g{color:var(--ac)}
 .sh-node-title-r{color:var(--red)}
 .sh-node-title-a{color:#FF9F68}
-.sh-node-title-b{color:#00A3FF}
-.sh-node-title-p{color:#A855F7}
 .sh-node-sub{font-size:11.5px;color:var(--tm);line-height:1.55}
-.sh-node-tag{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.1em;border-radius:4px;padding:3px 9px}
-.sh-tag-idle{background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm)}
-.sh-tag-active{background:rgba(0,213,140,.1);border:1px solid rgba(0,213,140,.3);color:var(--ac)}
-.sh-tag-block{background:rgba(255,77,77,.1);border:1px solid var(--red-bd);color:var(--red)}
-.sh-table-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:12px}
 .sh-table{width:100%;border-collapse:collapse;font-size:13.5px;color:var(--tb)}
 .sh-table thead tr{border-bottom:1px solid var(--bd);background:var(--bg-ch)}
 .sh-table th{padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--th);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
@@ -740,66 +730,41 @@ ul{list-style:none}
   <p class="sec-sub" style="margin-top:16px">In a multi-room property, spatial quietness is preserved by illuminating strictly the single microphone node nearest to the speaker using localized acoustic beamforming. Peripheral nodes in adjacent rooms remain dark. When speech ends, the active node provides a 200ms inward ripple cue, pulses during local processing, and decays back to a dark matte state within 500ms of execution.</p>
 
   <!-- Node state visual placeholders -->
+  <div class="sh-nodes sh-nodes-3">
+  <!-- Node state visual placeholders -->
   <div class="sh-nodes">
 
     <div class="sh-node-card">
       <div class="sh-node-circle sh-node-idle">
-        <svg width="52" height="52" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" opacity=".3">
-          <circle cx="50" cy="50" r="42"/>
-          <polygon points="50,25 72,40 72,60 50,75 28,60 28,40" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="38" y1="50" x2="62" y2="50"/>
+        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" opacity=".35">
+          <polygon points="50,22 80,42 80,58 50,78 20,58 20,42" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="34" y1="50" x2="66" y2="50" stroke-linecap="round"/>
         </svg>
       </div>
       <h3 class="sh-node-title">Idle State</h3>
-      <p class="sh-node-sub">Dark Matte (#000000). 0% luminance. Completely dark and invisible in the room. Silent updates run here.</p>
+      <p class="sh-node-sub">Dark Matte (#000000). 0% luminance. Hardware remains visually invisible in the room. Background edge updates run here silently.</p>
     </div>
 
     <div class="sh-node-card">
       <div class="sh-node-circle sh-node-active">
-        <svg width="52" height="52" viewBox="0 0 100 100" fill="none" stroke="#00D58C" stroke-width="4">
-          <circle cx="50" cy="50" r="42"/>
-          <polygon points="50,25 72,40 72,60 50,75 28,60 28,40" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="38" y1="50" x2="62" y2="50"/>
+        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" stroke="#00D58C" stroke-width="4">
+          <polygon points="50,22 80,42 80,58 50,78 20,58 20,42" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="34" y1="50" x2="66" y2="50" stroke-linecap="round"/>
         </svg>
       </div>
       <h3 class="sh-node-title sh-node-title-g">Active Operation</h3>
-      <p class="sh-node-sub">Neon Emerald (#00D58C). Illuminates nearest node during voice listening and execution. Decays to dark in 500ms.</p>
+      <p class="sh-node-sub">Neon Emerald (#00D58C). Illuminates the single nearest node during voice listening and local execution. Decays back to dark matte within 500ms.</p>
     </div>
 
     <div class="sh-node-card">
       <div class="sh-node-circle sh-node-amber">
-        <svg width="52" height="52" viewBox="0 0 100 100" fill="none" stroke="#FF9F68" stroke-width="4">
-          <circle cx="50" cy="50" r="42"/>
-          <polygon points="50,25 72,40 72,60 50,75 28,60 28,40" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="38" y1="50" x2="62" y2="50"/>
+        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" stroke="#FF9F68" stroke-width="4">
+          <polygon points="50,22 80,42 80,58 50,78 20,58 20,42" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="34" y1="50" x2="66" y2="50" stroke-linecap="round"/>
         </svg>
       </div>
       <h3 class="sh-node-title sh-node-title-a">Constitutional Refusal</h3>
-      <p class="sh-node-sub">Warm Amber (#FF9F68). Gentle non-punitive pulse when an action is blocked due to safety or authority rules.</p>
-    </div>
-
-    <div class="sh-node-card">
-      <div class="sh-node-circle sh-node-blue">
-        <svg width="52" height="52" viewBox="0 0 100 100" fill="none" stroke="#00A3FF" stroke-width="4">
-          <circle cx="50" cy="50" r="42"/>
-          <polygon points="50,25 72,40 72,60 50,75 28,60 28,40" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="38" y1="50" x2="62" y2="50"/>
-        </svg>
-      </div>
-      <h3 class="sh-node-title sh-node-title-b">Privacy / Mute Lock</h3>
-      <p class="sh-node-sub">Azure Blue (#00A3FF). Reassuring glow confirming physical microphone disengagement or private sanctuary mode.</p>
-    </div>
-
-    <div class="sh-node-card">
-      <div class="sh-node-circle sh-node-purple">
-        <svg width="52" height="52" viewBox="0 0 100 100" fill="none" stroke="#A855F7" stroke-width="4">
-          <circle cx="50" cy="50" r="42"/>
-          <polygon points="50,25 72,40 72,60 50,75 28,60 28,40" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="38" y1="50" x2="62" y2="50"/>
-        </svg>
-      </div>
-      <h3 class="sh-node-title sh-node-title-p">Predictive Shift</h3>
-      <p class="sh-node-sub">Obsidian Purple (#A855F7). Subtle 300ms shimmer indicating a learned local habit or 3x pattern execution.</p>
+      <p class="sh-node-sub">Warm Amber (#FF9F68). Gentle, non-punitive 1.0s soft pulse when an action is blocked due to physical safety, permissions, or local data sovereignty rules.</p>
     </div>
 
   </div>
