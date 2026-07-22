@@ -152,7 +152,22 @@ ul{list-style:none}
 .wb-scen-q{font-size:11.5px;color:var(--tm);font-style:italic;line-height:1.5}
 .wb-right{display:flex;flex-direction:column}
 /* ── Spatial Hardware table ── */
-.sh-table-wrap{overflow-x:auto;margin-top:24px;border:1px solid var(--bd);border-radius:12px}
+.sh-nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;margin-bottom:28px}
+@media(max-width:640px){.sh-nodes{grid-template-columns:1fr}}
+.sh-node-card{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.sh-node-circle{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sh-node-idle{background:var(--bg);border:2px solid var(--bd);color:var(--tm)}
+.sh-node-active{background:rgba(0,213,140,.06);border:2px solid var(--ac);box-shadow:0 0 20px rgba(0,213,140,.2)}
+.sh-node-block{background:rgba(255,77,77,.06);border:2px solid var(--red-bd);box-shadow:0 0 16px rgba(255,77,77,.15)}
+.sh-node-title{font-size:14px;font-weight:700;color:var(--th)}
+.sh-node-title-g{color:var(--ac)}
+.sh-node-title-r{color:var(--red)}
+.sh-node-sub{font-size:12.5px;color:var(--tm);line-height:1.55}
+.sh-node-tag{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.1em;border-radius:4px;padding:3px 9px}
+.sh-tag-idle{background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm)}
+.sh-tag-active{background:rgba(0,213,140,.1);border:1px solid rgba(0,213,140,.3);color:var(--ac)}
+.sh-tag-block{background:rgba(255,77,77,.1);border:1px solid var(--red-bd);color:var(--red)}
+.sh-table-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:12px}
 .sh-table{width:100%;border-collapse:collapse;font-size:13.5px;color:var(--tb)}
 .sh-table thead tr{border-bottom:1px solid var(--bd);background:var(--bg-ch)}
 .sh-table th{padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--th);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
@@ -163,6 +178,7 @@ ul{list-style:none}
 .sh-state{font-weight:600;color:var(--th);white-space:nowrap}
 .sh-green{color:var(--ac);font-weight:600}
 .sh-red{color:var(--red);font-weight:600}
+.sh-muted{color:var(--tm)}
 /* ── System Reliability ── */
 .sr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
 @media(max-width:640px){.sr-grid{grid-template-columns:1fr}}
@@ -716,40 +732,79 @@ ul{list-style:none}
   <p class="sec-sub">Language is only half of the user experience. Physical light, acoustic quietness, and spatial presence form the other half. Because Jemm operates without intrusive screens or mobile apps, the ambient hardware array - discreet micro-nodes embedded in ceiling planes or wall surfaces - acts as the primary visual interface between human occupants and local silicon.</p>
   <p class="sec-sub" style="margin-top:16px">In a multi-room property, spatial quietness is preserved by illuminating strictly the single microphone node nearest to the speaker using localized acoustic beamforming. Peripheral nodes in adjacent rooms remain dark. When speech ends, the active node provides a 200ms inward ripple cue, pulses during local processing, and decays back to a dark matte state within 500ms of execution.</p>
 
+  <!-- Node state visual placeholders -->
+  <div class="sh-nodes">
+
+    <div class="sh-node-card">
+      <div class="sh-node-circle sh-node-idle">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>
+        </svg>
+      </div>
+      <h3 class="sh-node-title">Idle State</h3>
+      <p class="sh-node-sub">Dark matte finish. Hardware visually invisible in the room until summoned.</p>
+      <span class="sh-node-tag sh-tag-idle">0% LUMINANCE</span>
+    </div>
+
+    <div class="sh-node-card">
+      <div class="sh-node-circle sh-node-active">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00D58C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>
+        </svg>
+      </div>
+      <h3 class="sh-node-title sh-node-title-g">Active Processing</h3>
+      <p class="sh-node-sub">Illuminates closest node during listening and processing. Decays to dark within 500ms of execution.</p>
+      <span class="sh-node-tag sh-tag-active">#00D58C · 500ms DECAY</span>
+    </div>
+
+    <div class="sh-node-card">
+      <div class="sh-node-circle sh-node-block">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FF4D4D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+        </svg>
+      </div>
+      <h3 class="sh-node-title sh-node-title-r">Constitutional Block</h3>
+      <p class="sh-node-sub">Single 1.0s crimson soft pulse. Returns to dark matte immediately. Spoken constraint explanation follows.</p>
+      <span class="sh-node-tag sh-tag-block">#FF4D4D · 1.0s PULSE</span>
+    </div>
+
+  </div>
+
+  <!-- State reference table -->
   <div class="sh-table-wrap">
     <table class="sh-table">
       <thead>
         <tr>
           <th>System State</th>
-          <th>LED Color</th>
+          <th>Optical Indicator</th>
           <th>Hardware Behavior</th>
-          <th>Acoustic Behavior</th>
+          <th>Acoustic Feedback</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="sh-state">Idle State</td>
-          <td>Dark Matte (#000000)</td>
+          <td class="sh-muted">Dark Matte (#000000)</td>
           <td>0% Luminance. Hardware visually invisible.</td>
           <td>Complete silence.</td>
         </tr>
         <tr>
           <td class="sh-state">Active Listening</td>
-          <td class="sh-green">Neon Emerald (#00D58C)</td>
-          <td>Steady 30% ambient glow on closest node only.</td>
-          <td>Localized listening cue only. No audio chime.</td>
+          <td class="sh-green">Neon Emerald Ring</td>
+          <td>30% ambient glow on closest spatial node only.</td>
+          <td>Localized listening cue. No audio chime.</td>
         </tr>
         <tr>
           <td class="sh-state">Local Processing</td>
-          <td class="sh-green">Neon Emerald (#00D58C)</td>
-          <td>Inward 200ms ripple toward center ring.</td>
-          <td>Zero chimes or audio filler.</td>
+          <td class="sh-green">Emerald Inward Ripple</td>
+          <td>200ms inward optical pulse to central icon.</td>
+          <td>Zero chimes or verbal filler.</td>
         </tr>
         <tr>
           <td class="sh-state">Constitutional Block</td>
-          <td class="sh-red">Muted Crimson (#FF4D4D)</td>
-          <td>Single 1.0s soft pulse; returns to dark.</td>
-          <td>Spoken constraint explanation, then silence.</td>
+          <td class="sh-red">Muted Crimson Pulse</td>
+          <td>1.0s soft crimson pulse; decays to dark.</td>
+          <td>Spoken constraint explanation.</td>
         </tr>
       </tbody>
     </table>
