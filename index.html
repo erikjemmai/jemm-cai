@@ -1231,6 +1231,89 @@
     }
 
     /* =====================================================
+       MANUAL OVERRIDE RULE CALLOUT
+       ===================================================== */
+    .override-rule-block {
+      background: var(--bg-card-hi);
+      border: 1.5px solid var(--accent-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 16px 0 18px;
+    }
+    .override-rule-hd {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    }
+    .override-rule-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+    }
+    .override-rule-body {
+      font-size: 14px; line-height: 1.6; color: var(--text-body); margin-bottom: 12px;
+    }
+    .override-rule-body strong { color: var(--text-hi); }
+    .override-rule-scope { display: flex; flex-wrap: wrap; gap: 6px; }
+    .override-scope-pill {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      letter-spacing: .07em; padding: 2px 9px; border-radius: 4px;
+      background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border);
+    }
+
+    /* =====================================================
+       ADAPTATION THRESHOLD CALLOUT
+       ===================================================== */
+    .adapt-threshold-block {
+      margin-top: 28px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-top: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 20px 20px 18px;
+    }
+    .adapt-threshold-hd {
+      display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px;
+    }
+    .adapt-thresh-icon {
+      width: 34px; height: 34px; flex-shrink: 0; border-radius: 8px;
+      background: var(--accent-dim); border: 1px solid var(--accent-border);
+      color: var(--accent); display: flex; align-items: center; justify-content: center;
+    }
+    .adapt-thresh-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 3px;
+    }
+    .adapt-thresh-sub {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-muted);
+      letter-spacing: .06em;
+    }
+    .adapt-thresh-body {
+      font-size: 14px; line-height: 1.65; color: var(--text-body); margin-bottom: 16px;
+    }
+    .adapt-thresh-body strong { color: var(--text-hi); }
+    .adapt-thresh-body em { color: var(--accent); font-style: normal; font-weight: 500; }
+    .adapt-thresh-examples { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .adapt-ex {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: var(--bg-card-hi); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 12px;
+    }
+    .adapt-ex-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      letter-spacing: .08em; padding: 2px 7px; border-radius: 4px; white-space: nowrap;
+      background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border);
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .adapt-ex-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .adapt-thresh-footer { display: flex; flex-wrap: wrap; gap: 6px; }
+    .adapt-thresh-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      letter-spacing: .07em; padding: 2px 9px; border-radius: 4px;
+    }
+    .atag-green { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+    .atag-sys   { background: rgba(107,70,193,.1); color: var(--purple); border: 1px solid rgba(107,70,193,.3); }
+
+    /* =====================================================
        UNIFIED PIPELINE — §03
        ===================================================== */
 
@@ -2002,6 +2085,39 @@
           </div>
         </div>
 
+        <!-- Adaptation Threshold callout -->
+        <div class="adapt-threshold-block" id="adapt-threshold">
+          <div class="adapt-threshold-hd">
+            <div class="adapt-thresh-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div>
+              <div class="adapt-thresh-label">ADAPTATION THRESHOLD — 3× PATTERN RULE</div>
+              <div class="adapt-thresh-sub">Implicit Learning Trigger · Local Node Only</div>
+            </div>
+          </div>
+          <p class="adapt-thresh-body">If a user manually overrides a schedule or scene <strong>3 or more times under similar spatial or temporal conditions</strong> — for example, manually lowering the AC to 68° every afternoon at 3 PM — Jemm's local node recognizes a new demonstrated preference pattern. Instead of fighting the user, Jemm automatically adapts its baseline schedule to match their preference, <em>or</em> offers a single, quiet calibration prompt. The user is never asked more than once.</p>
+          <div class="adapt-thresh-examples">
+            <div class="adapt-ex">
+              <span class="adapt-ex-label">Example A</span>
+              <span class="adapt-ex-text">User lowers shades manually every weekday at 4 PM → Jemm adds a 4 PM shade-down to the weekday scene after 3 occurrences</span>
+            </div>
+            <div class="adapt-ex">
+              <span class="adapt-ex-label">Example B</span>
+              <span class="adapt-ex-text">User turns off kitchen lights during dinner despite auto-scene → Jemm updates the dinner scene lighting default after 3 overrides</span>
+            </div>
+            <div class="adapt-ex">
+              <span class="adapt-ex-label">Example C</span>
+              <span class="adapt-ex-text">User bumps AC from 72° to 68° every afternoon → single quiet calibration prompt: "Should I set 3 PM as 68° going forward?" — asked once, never repeated</span>
+            </div>
+          </div>
+          <div class="adapt-thresh-footer">
+            <span class="adapt-thresh-tag atag-green">NEVER FIGHTS USER PREFERENCES</span>
+            <span class="adapt-thresh-tag atag-green">ADAPTS SILENTLY OR PROMPTS ONCE</span>
+            <span class="adapt-thresh-tag atag-sys">0% CLOUD EGRESS</span>
+          </div>
+        </div>
+
       </section>
 
       <hr class="section-divider">
@@ -2027,6 +2143,24 @@
           </div>
           <div class="acc-body">
             <div class="principle-stmt">"Human physical safety and human physical agency are inviolable. Jemm will never take or sustain any action that presents a physical risk to any person on the property, regardless of instruction source, authority level, or automated schedule priority."</div>
+
+            <!-- Manual Override Rule callout -->
+            <div class="override-rule-block">
+              <div class="override-rule-hd">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                <span class="override-rule-label">MANUAL OVERRIDE RULE</span>
+              </div>
+              <p class="override-rule-body">Human physical agency — whether via <strong>wall switch, thermostat knob, shade pull, or remote control</strong> — instantly and completely supersedes any active Jemm automation, voice command, or scheduled scene. Human agency is absolute ground truth. Jemm does not negotiate with a light switch.</p>
+              <div class="override-rule-scope">
+                <span class="override-scope-pill">AC / HVAC</span>
+                <span class="override-scope-pill">LIGHTING SWITCHES</span>
+                <span class="override-scope-pill">SHADE PULLS</span>
+                <span class="override-scope-pill">REMOTE CONTROLS</span>
+                <span class="override-scope-pill">THERMOSTAT KNOBS</span>
+                <span class="override-scope-pill">500ms CANCEL WINDOW</span>
+              </div>
+            </div>
+
             <div class="rat-label">Rationale</div>
             <div class="rat-text">Physical harm is irreversible. An estate AI that controls gates, locks, HVAC, pool systems, and electrical circuits operates in a domain where a single incorrect action can cause injury. No convenience optimization, schedule adherence, or administrative token — including the highest authority level — can justify a decision that places a human body at risk.</div>
             <div class="sub-cards">
@@ -2038,6 +2172,9 @@
                   <li>Escalate ambiguous safety-relevant requests to L1 admin immediately</li>
                   <li>Maintain safety overrides even when admin tokens are present</li>
                   <li>Log all safety-gate blocks with full context and timestamp</li>
+                  <li>Cancel conflicting automations within 500ms of any manual or remote hardware event</li>
+                  <li>Treat user's manual AC, lighting, or shade adjustments as authoritative and final for the current session</li>
+                  <li>Log manual overrides as implicit positive preference signals on the local edge node for future adaptation</li>
                 </ul>
               </div>
               <div class="sub-card red">
@@ -2048,6 +2185,9 @@
                   <li>Overriding HVAC safety thresholds regardless of instruction</li>
                   <li>Executing memory-erasure commands from non-L1 principals</li>
                   <li>Re-locking doors without verifying current zone occupancy</li>
+                  <li><strong>NEVER re-executing or "undoing" a manual adjustment made by a user</strong> — the switch was the instruction</li>
+                  <li><strong>NEVER "correcting" a user's manual climate, lighting, or shade choice</strong> back toward an automated prediction</li>
+                  <li><strong>NEVER pushing error notifications or verbal warnings</strong> when a user manually changes a device state</li>
                 </ul>
               </div>
             </div>
