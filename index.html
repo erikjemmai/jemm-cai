@@ -121,8 +121,7 @@ ul{list-style:none}
 .ic-body em{color:var(--th);font-style:normal;font-weight:500}
 /* ── §01 Preamble narrative cards ── */
 .preamble-cards{display:flex;flex-direction:column;gap:16px;margin-top:4px}
-.preamble-badges{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
-.pb{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:5px;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd)}
+.preamble-badges{display:none}
 .preamble-card{background:var(--bg-c);border:1px solid var(--bd);border-radius:12px;padding:22px 24px}
 .pc-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
 .pc-body{font-size:16px;font-weight:400;color:var(--tb);line-height:1.7}
@@ -531,13 +530,6 @@ ul{list-style:none}
     </button>
   </div>
   <h2 class="sec-h2">Executive Preamble &amp; Alignment Science</h2>
-  <div class="preamble-badges">
-    <span class="pb">100% LOCAL SILICON</span>
-    <span class="pb">ZERO CLOUD EGRESS</span>
-    <span class="pb">HARDWARE SUPREMACY</span>
-    <span class="pb">CAI SELF-CRITIQUE ACTIVE</span>
-  </div>
-
   <div class="preamble-cards">
 
     <div class="preamble-card">
@@ -767,22 +759,18 @@ ul{list-style:none}
       <div class="rl-card">
         <div class="rl-card-hd"><div class="rl-ico ri-g"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><span class="rl-card-title">Positive Implicit Feedback</span></div>
         <p class="rl-card-body">User accepts a predicted climate change, scene activation, or lighting adjustment without touching a switch. Silent approval is logged as positive reinforcement, increasing confidence weight for that pattern.</p>
-        <span class="rtag rtag-g">SIGNAL: IMPLICIT ACCEPT</span>
       </div>
       <div class="rl-card">
         <div class="rl-card-hd"><div class="rl-ico ri-g"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="rl-card-title">Positive Explicit Feedback</span></div>
         <p class="rl-card-body">User says "Thanks Jemm", "Perfect", or "Good job." Explicit vocal affirmation is treated as a high-confidence reinforcement event, anchoring the preceding action as correct for that principal and context.</p>
-        <span class="rtag rtag-g">SIGNAL: EXPLICIT PRAISE</span>
       </div>
       <div class="rl-card">
         <div class="rl-card-hd"><div class="rl-ico ri-r"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><span class="rl-card-title">Negative Feedback / Physical Override</span></div>
         <p class="rl-card-body">User says "No, cancel that" or physically flips a wall switch within 500ms of an automated event. Both signals are logged as negative reinforcement. The 0.5s physical override window is sacrosanct — hardware always wins.</p>
-        <span class="rtag rtag-r">SIGNAL: OVERRIDE / CANCEL</span>
       </div>
       <div class="rl-card">
         <div class="rl-card-hd"><div class="rl-ico ri-s"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><span class="rl-card-title">Local Edge Weighting</span></div>
         <p class="rl-card-body">All signals are processed exclusively on the estate node. Jemm builds a behavioral preference graph per occupant — refining scene timing, temperature defaults, and tone register until it instinctively knows each person's unspoken preferences.</p>
-        <span class="rtag rtag-s">0% CLOUD EGRESS · ON-DEVICE ONLY</span>
       </div>
     </div>
 
@@ -798,7 +786,7 @@ ul{list-style:none}
         <div class="adapt-ex"><span class="ae-lbl">Example B</span><span class="ae-txt">User turns off kitchen lights during dinner despite auto-scene → Jemm updates the dinner scene default after 3 overrides</span></div>
         <div class="adapt-ex"><span class="ae-lbl">Example C</span><span class="ae-txt">User bumps AC from 72° to 68° every afternoon → single quiet calibration prompt: "Should I set 3 PM as 68° going forward?" — asked once, never repeated</span></div>
       </div>
-      <div class="adapt-tags">
+      <div class="adapt-tags" style="display:none">
         <span class="at-g">NEVER FIGHTS USER PREFERENCES</span>
         <span class="at-g">ADAPTS SILENTLY OR PROMPTS ONCE</span>
         <span class="at-s">0% CLOUD EGRESS</span>
