@@ -1156,21 +1156,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
           </div><!-- /caiReworkCycle -->
 
-          <!-- NODE 5: L2 evaluation -->
-          <div class="cai-flow-step" id="caiL2">
-            <div class="cai-flow-node">
-              <div class="cai-flow-icon cfn-l2"><img src="avatar-l2.png" alt="L2"></div>
-              <div class="cai-flow-vline" id="vl5"></div>
-            </div>
-            <div class="cai-flow-body">
-              <div class="cai-flow-card">
-                <div class="cai-flow-tag tag-l2"><span id="l2who">L2_FAMILY_AI</span> · <span class="crit-v" id="l2verdict">—</span></div>
-                <div class="crit-t" id="l2text"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- NODE 6: Both approved + winning output -->
+          <!-- NODE 5: Approved + winning output -->
           <div class="cai-flow-step" id="caiWin">
             <div class="cai-flow-node">
               <div class="cai-flow-icon cfn-win">✓</div>
@@ -1178,7 +1164,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
             <div class="cai-flow-body">
               <div class="cai-both-ok">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                Both Evaluators Approved — Ready for Speech
+                <span id="approvedLabel">AI Evaluator Approved — Ready for Speech</span>
               </div>
               <div class="cai-flow-card card-win">
                 <div class="cai-flow-tag tag-win">Winning Output — Accepted into Behavioral Model</div>
@@ -2093,8 +2079,8 @@ function resetPipeline(){
   ['s1hd','s2hd','s3hd'].forEach(id=>{const e=document.getElementById(id);if(e)e.className='pshd';});
   const sk=document.getElementById('caiSkip');if(sk){sk.style.display='none';sk.classList.remove('visible');}
   const ac=document.getElementById('caiActive');if(ac)ac.style.display='none';
-  ['caiDraft','caiL1','caiRevisedDraft','caiL1Reapprove','caiL2','caiWin','caiRevRow'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('visible');});
-  ['vl1','vl2','vl3','vl4','vl5'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('lit');});
+  ['caiDraft','caiL1','caiRevisedDraft','caiL1Reapprove','caiWin','caiRevRow'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('visible');});
+  ['vl1','vl2','vl3','vl4'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('lit');});
   const rrc=document.getElementById('caiReworkCycle');if(rrc)rrc.style.display='none';
   const rs=document.getElementById('caiRevSpin');if(rs)rs.style.display='';
   const rt=document.getElementById('caiRevText');if(rt)rt.textContent='Jemm reworking based on L1 critique…';
@@ -2135,68 +2121,67 @@ function showS2(s){
   revEl('pvconn2').classList.add('lit');
 
   if(!s.cai){
-    /* BLOCKED — skip */
     const sk=revEl('caiSkip');sk.style.display='flex';
     requestAnimationFrame(()=>requestAnimationFrame(()=>sk.classList.add('visible')));
     PT.push(setTimeout(()=>showS3(s),700));return;
   }
 
   const cai=s.cai;
-  const e0=cai.evals[0],e1=cai.evals[1];
-  const needsRevision=(e0.v==='REJECT'||e0.v==='REVISE');
+  /* Pick which evaluator to show — alternate by scenario to show variety */
+  const activeIdx=document.querySelector('.wb-scen-card.active');
+  const scIdx=activeIdx?parseInt(activeIdx.id.replace('wb-sc-',''),10):0;
+  const useE1=(scIdx%2===1); /* odd indices show Profile 2 */
+  const ev=useE1?cai.evals[1]:cai.evals[0];
+  const needsRevision=(ev.v==='REJECT'||ev.v==='REVISE');
+  const profileLabel=useE1?'AI Profile 2 · L2':'AI Profile 1 · L1';
+  const avatarSrc=useE1?'avatar-l2.png':'avatar-l1.png';
+  const nodeClass=useE1?'cfn-l2':'cfn-l1';
+  const tagClass=useE1?'tag-l2':'tag-l1';
 
-  /* Populate all data */
+  /* Populate */
   revEl('caiActive').style.display='flex';
   revEl('caiDraftText').textContent=cai.draft;
   revEl('caiDraftScore').textContent=cai.draftScore;
-  revEl('l1who').textContent=e0.p;
-  revEl('l1verdict').textContent=e0.v;revEl('l1verdict').className='crit-v '+e0.vc;
-  revEl('l1text').textContent=e0.t;
-  revEl('l2who').textContent=e1.p;
-  revEl('l2verdict').textContent=e1.v;revEl('l2verdict').className='crit-v '+e1.vc;
-  revEl('l2text').textContent=e1.t;
   revEl('caiWinText').textContent=cai.winning;
   if(revEl('caiRevDraftText'))revEl('caiRevDraftText').textContent=cai.winning;
 
-  /* ── Animate step by step ── */
+  /* Set evaluator node appearance */
+  const l1icon=document.querySelector('#caiL1 .cai-flow-icon');
+  if(l1icon){l1icon.className='cai-flow-icon '+nodeClass;l1icon.innerHTML='<img src="'+avatarSrc+'" alt="AI">';}
+  const l1tag=document.querySelector('#caiL1 .cai-flow-tag');
+  if(l1tag){l1tag.className='cai-flow-tag '+tagClass;}
+  revEl('l1who').textContent=profileLabel;
+  revEl('l1verdict').textContent=ev.v;revEl('l1verdict').className='crit-v '+ev.vc;
+  revEl('l1text').textContent=ev.t;
+
+  /* Update re-approve node too */
+  const rIcon=document.querySelector('#caiL1Reapprove .cai-flow-icon');
+  if(rIcon){rIcon.className='cai-flow-icon '+nodeClass;rIcon.innerHTML='<img src="'+avatarSrc+'" alt="AI">';}
+  const rTag=document.querySelector('#caiL1Reapprove .cai-flow-tag');
+  if(rTag){rTag.innerHTML=profileLabel+' re-reviews · <span class="crit-v v-ok">PASS</span>';}
+
+  if(revEl('approvedLabel'))revEl('approvedLabel').textContent=profileLabel+' Approved — Ready for Speech';
+
+  /* ── Animate ── */
   let t=200;
   const show=(id,delay)=>{PT.push(setTimeout(()=>{const e=revEl(id);if(e)e.classList.add('visible');},delay));};
   const litVl=(id,delay)=>{PT.push(setTimeout(()=>{const e=revEl(id);if(e)e.classList.add('lit');},delay));};
 
-  /* Step 1: Draft card */
-  litVl('vl1',t); show('caiDraft',t); t+=750;
-
-  /* Step 2: L1 evaluates initial draft */
-  litVl('vl2',t); show('caiL1',t); t+=850;
+  litVl('vl1',t);show('caiDraft',t);t+=750;
+  litVl('vl2',t);show('caiL1',t);t+=850;
 
   if(needsRevision){
-    /* Show rework cycle block */
-    PT.push(setTimeout(()=>{
-      revEl('caiReworkCycle').style.display='block';
-    },t));
-
-    /* Step 3: Revision connector spins */
-    show('caiRevRow',t); t+=700;
-
-    /* Step 4: Revised draft appears */
-    litVl('vl3',t); show('caiRevisedDraft',t); t+=750;
-
-    /* Step 5: L1 re-approves */
-    litVl('vl4',t); show('caiL1Reapprove',t);
-    /* Stop spinner, update badge */
+    PT.push(setTimeout(()=>{revEl('caiReworkCycle').style.display='block';},t));
+    show('caiRevRow',t);t+=650;
+    litVl('vl3',t);show('caiRevisedDraft',t);t+=700;
+    litVl('vl4',t);show('caiL1Reapprove',t);
     PT.push(setTimeout(()=>{
       const rs=revEl('caiRevSpin');if(rs)rs.style.display='none';
-      const rt=revEl('caiRevText');if(rt)rt.textContent='Rework accepted by L1 ✓';
-    },t));
-    t+=800;
+      const rt=revEl('caiRevText');if(rt)rt.textContent='Rework accepted ✓';
+    },t));t+=750;
   }
 
-  /* Step 6: L2 evaluates */
-  litVl('vl5',t); show('caiL2',t); t+=850;
-
-  /* Step 7: Both approved + winning output */
-  show('caiWin',t); t+=600;
-
+  show('caiWin',t);t+=500;
   PT.push(setTimeout(()=>showS3(s),t));
 }
 
