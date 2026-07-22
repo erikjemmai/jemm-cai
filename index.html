@@ -17,13 +17,13 @@
   --ac:#00D58C;--ac-bd:rgba(0,213,140,.35);--ac-dim:rgba(0,213,140,.08);
   --red:#FF4D4D;--red-bd:rgba(255,77,77,.35);--red-dim:rgba(255,77,77,.08);
   --amber:#F5A623;--blue:#60C5FF;--purple:#C9A0FF;
-  --th:#F2F2F2;--tb:#D8E2DC;--tm:#7A9085;
+  --th:#F2F2F2;--tb:#D8E2DC;--tm:#8EA89E;
   --topbar:56px;--drawer:280px;--wrap:960px;
   --bg-nav:#141A17;
 }
 :root[data-theme=light]{
   --bg:#FFFFFF;--bg-c:#F7F5F2;--bg-ch:#EDF0EC;--bd:#D5D9D6;
-  --th:#121212;--tb:#283239;--tm:#5C6E66;--ac-dim:rgba(5,145,97,.07);
+  --th:#121212;--tb:#283239;--tm:#4A5E55;--ac-dim:rgba(5,145,97,.07);
   --bg-nav:#F7F5F2;
 }
 /* ============================================================ BASE */
@@ -383,6 +383,49 @@ ul{list-style:none}
 /* ============================================================ TOAST */
 .copy-toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--ac);color:#0B0F0D;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;padding:8px 16px;border-radius:8px;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
 .copy-toast.v{opacity:1;transform:none}
+/* ============================================================ JEMM RESPONDING AVATAR */
+.jemm-resp-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;transition:all .3s}
+.jemm-resp-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+/* Glisten / shimmer on Jemm's spoken response text */
+@keyframes jemm-glisten{
+  0%  {background-position:-300% center}
+  100%{background-position: 300% center}
+}
+.jemm-glisten{
+  background:linear-gradient(90deg,
+    var(--th) 0%,
+    var(--th) 32%,
+    #00D58C 46%,
+    #afffdf 50%,
+    #00D58C 54%,
+    var(--th) 68%,
+    var(--th) 100%
+  );
+  background-size:300% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:jemm-glisten 2.2s linear infinite;
+}
+/* Light mode glisten: dark ink → emerald sweep */
+:root[data-theme=light] .jemm-glisten{
+  background:linear-gradient(90deg,
+    #121212 0%,
+    #121212 32%,
+    #059161 46%,
+    #00D58C 50%,
+    #059161 54%,
+    #121212 68%,
+    #121212 100%
+  );
+  background-size:300% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+/* Fout avatar row */
+.fout-avatar-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.fout-avatar-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm)}
 </style>
 </head>
 <body>
@@ -653,8 +696,14 @@ ul{list-style:none}
     <!-- Stage 3 -->
     <div class="pshd" id="s3hd"><span class="stage-pill">STAGE 3</span><span class="stage-title">Final Executed Output</span></div>
     <div class="fout" id="finalOut">
-      <div class="fout-lbl" id="foutLbl">JEMM RESPONSE</div>
-      <div class="fout-txt" id="foutTxt"></div>
+      <div class="fout-avatar-row">
+        <img src="jemm-idle.png" id="foutAvatar" class="jemm-resp-avatar" alt="Jemm — idle">
+        <div>
+          <div class="fout-avatar-lbl">JEMM RESPONSE</div>
+          <div class="fout-lbl" id="foutLbl" style="display:none"></div>
+        </div>
+      </div>
+      <div class="fout-txt jemm-glisten" id="foutTxt"></div>
       <div class="fout-badges" id="foutBadges"></div>
     </div>
 
@@ -995,7 +1044,7 @@ ul{list-style:none}
             <div class="jemm-pulse-ring r1"></div>
             <div class="jemm-pulse-ring r2"></div>
             <div class="jemm-avatar-core">
-              <img src="favicon.png" alt="Jemm" class="jemm-avatar-img">
+              <img src="jemm-idle.png" id="toneAvatar" alt="Jemm — listening" class="jemm-avatar-img" style="width:36px;height:36px;border-radius:50%;object-fit:cover;filter:none">
             </div>
           </div>
           <div class="tone-query-wrap">
@@ -1003,7 +1052,7 @@ ul{list-style:none}
             <div class="tone-query-text" id="tpQ">"Jemm, status on all locks."</div>
           </div>
         </div>
-        <div class="tone-response-text" id="tpA">"All 6 locks secured. No anomalies detected."</div>
+        <div class="tone-response-text jemm-glisten" id="tpA">"All 6 locks secured. No anomalies detected."</div>
         <div class="tone-meta-badge" id="tpBadge">REGISTER: CLINICAL &amp; DIRECT · L1 OWNER · OFFICE · WORK HOURS</div>
       </div>
 
@@ -1171,6 +1220,8 @@ function resetPipeline(){
   const ac=document.getElementById('caiActive');if(ac)ac.style.display='none';
   ['caiDraft','caiL1','caiL2','caiWin'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('visible');});
   const fo=document.getElementById('finalOut');if(fo){fo.className='fout';fo.classList.remove('visible');}
+  /* Reset §03 avatar to idle */
+  const av=document.getElementById('foutAvatar');if(av){av.src='jemm-idle.png';av.alt='Jemm — idle';}
 }
 function populateCtx(s){
   const c=s.ctx;
@@ -1210,7 +1261,14 @@ function showS3(s){
   fo.className='fout '+(s.out.blocked?'blkd':'auth');
   document.getElementById('foutTxt').textContent=s.out.text;
   document.getElementById('foutBadges').innerHTML=s.out.badges.map(b=>`<span class="fb ${b.c}">${b.l}</span>`).join('');
-  requestAnimationFrame(()=>requestAnimationFrame(()=>fo.classList.add('visible')));
+  /* Switch avatar to active (responding) */
+  const av=document.getElementById('foutAvatar');
+  if(av){av.src='jemm-active.png';av.alt='Jemm — responding';}
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    fo.classList.add('visible');
+    /* Revert to idle after 3s */
+    PT.push(setTimeout(()=>{if(av){av.src='jemm-idle.png';av.alt='Jemm — idle';}},3000));
+  }));
 }
 function animatePL(s){
   const steps=[s.s1,s.s2,s.s3,s.s4];
@@ -1472,6 +1530,13 @@ function updateSliders(){
     const envTag=tEnv==='corp'?'🏢 CORPORATE':'🏡 ESTATE';
     badgeEl.innerHTML=`${envTag} · ${WHO_LABELS[tCtx.who]||''} · ${WHERE_LABELS[tCtx.where]||''} · ${WHEN_LABELS[tCtx.when]||''} · ${regPlain.toUpperCase()}`;
     badgeEl.className='tone-meta-badge'+(DANGER_WHEN.includes(tCtx.when)?' danger':'');
+  }
+  /* Flash §05 avatar: active → idle */
+  const tav=document.getElementById('toneAvatar');
+  if(tav){
+    tav.src='jemm-active.png';tav.alt='Jemm — responding';
+    clearTimeout(tav._t);
+    tav._t=setTimeout(()=>{tav.src='jemm-idle.png';tav.alt='Jemm — listening';},2000);
   }
 }
 
