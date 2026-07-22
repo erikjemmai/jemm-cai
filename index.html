@@ -181,12 +181,21 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .wb-env-btn{padding:8px 10px;border-radius:7px;border:none;background:transparent;color:var(--tm);font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;cursor:pointer;transition:all .2s;text-align:center}
 .wb-env-btn.active{background:var(--ac);color:#000}
 .wb-scen-list{display:flex;flex-direction:column;gap:8px}
-.wb-scen-card{background:var(--bg);border:1.5px solid var(--bd);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s;border-left:3px solid transparent}
-.wb-scen-card:hover{border-color:var(--ac-bd);background:var(--bg-c)}
-.wb-scen-card.active{border-color:var(--ac-bd);border-left:3px solid var(--ac);background:var(--bg-c)}
-.wb-scen-token{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:5px}
-.wb-scen-intent{font-size:12px;font-weight:700;color:var(--th);margin-bottom:5px;line-height:1.3}
-.wb-scen-q{font-size:11.5px;color:var(--tm);font-style:italic;line-height:1.5}
+/* ── Scenario selection cards (Figma) ── */
+.wb-scen-card{background:var(--bg);border:.25px solid var(--bd);border-radius:16px;padding:16px;cursor:pointer;transition:border-color .18s,background .18s,box-shadow .18s;display:flex;flex-direction:column;gap:10px}
+.wb-scen-card:hover{border-color:var(--ac-bd);box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.wb-scen-card.active{border:2px solid var(--th);background:var(--bg-c)}
+.wsc-top{display:flex;align-items:center;gap:8px}
+.wsc-chip{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;background:var(--bg-ch);border:1px solid var(--bd);border-radius:6px;padding:2px 8px;color:var(--tm);white-space:nowrap;flex-shrink:0}
+.wsc-name{font-size:17px;font-weight:700;color:var(--th);line-height:1.2}
+.wsc-outcome{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.wsc-ol{font-size:12px;font-weight:700;color:var(--tb)}
+.wsc-pass{font-size:11px;font-weight:700;background:rgba(0,213,140,.15);border:1px solid var(--ac-bd);color:var(--ac);border-radius:6px;padding:2px 10px}
+.wsc-fail{font-size:11px;font-weight:700;background:rgba(255,77,77,.12);border:1px solid var(--red-bd);color:var(--red);border-radius:6px;padding:2px 10px}
+:root[data-theme=light] .wsc-pass{background:rgba(5,145,97,.1);border-color:rgba(5,145,97,.35);color:#059161}
+:root[data-theme=light] .wsc-fail{background:rgba(199,5,8,.08);border-color:rgba(199,5,8,.3);color:#c70508}
+.wsc-query{font-size:13px;color:var(--tm);line-height:1.5}
+.wsc-query em{font-style:italic;color:var(--tb)}
 .wb-right{display:flex;flex-direction:column}
 /* ── Spatial Hardware table ── */
 .sh-nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;margin-bottom:28px}
@@ -310,42 +319,63 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .pshd.lit .stage-pill{background:var(--ac-dim);border-color:var(--ac-bd);color:var(--ac)}
 .stage-title{font-size:13px;font-weight:600;color:var(--th)}
 /* Query card */
-.qctx{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:12px;padding:18px 20px}
-.qctx-pill{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--ac-dim);border:1px solid var(--ac-bd);color:var(--ac);border-radius:4px;padding:2px 8px;display:inline-block;margin-bottom:10px}
-.qctx-prompt{font-size:16px;font-weight:500;font-style:italic;color:var(--th);line-height:1.45;margin-bottom:14px}
-.qctx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media(max-width:560px){.qctx-grid{grid-template-columns:repeat(2,1fr)}}
-.qf{display:flex;flex-direction:column;gap:2px}
-.qf-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm)}
-.qf-val{font-size:12px;color:var(--tb);font-weight:500}
+/* ── Query context card (Figma) ── */
+.qctx{background:var(--bg-c);border:.5px solid var(--bd);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+:root[data-theme=light] .qctx{background:#f7f5f2;border-color:#707070}
+.qctx-chips{display:flex;flex-wrap:wrap;gap:6px}
+.qctx-chip{font-size:10px;line-height:1.4;background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:4px 10px;color:var(--tb);white-space:nowrap}
+:root[data-theme=light] .qctx-chip{background:#fff;border-color:#707070;color:#49454f}
+.qctx-chip b{display:block;font-size:9px;font-weight:700;color:var(--tm);text-transform:uppercase;letter-spacing:.04em}
+.qctx-chip strong{font-weight:700;color:var(--th)}
+.qctx-chip.risk-lo{background:rgba(245,166,35,.1);border-color:rgba(245,166,35,.5);color:var(--amber)}
+.qctx-chip.risk-hi{background:rgba(255,77,77,.1);border-color:var(--red-bd);color:var(--red)}
+:root[data-theme=light] .qctx-chip.risk-lo{background:#ffe7c4;border-color:#3f3500;color:#665a00}
+:root[data-theme=light] .qctx-chip.risk-hi{background:#ffeaea;border-color:#c70508;color:#c70508}
+.qctx-query-lbl{font-size:13px;font-weight:700;color:var(--tb);margin-bottom:2px}
+.qctx-prompt{font-size:19px;font-weight:600;font-style:italic;color:var(--th);line-height:1.4}
+:root[data-theme=light] .qctx-prompt{color:#202020}
+/* legacy fields kept for JS compat but hidden */
+.qf,.qctx-grid{display:none}
 .s-hi{color:var(--red)}.s-lo{color:var(--ac)}.s-md{color:#f0a500}
 /* Gates */
 .stage-gates{display:flex;flex-direction:column;gap:8px}
-.gate-card{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:10px;padding:13px 14px;display:flex;align-items:flex-start;gap:12px;transition:border-color .25s,background .25s}
-.gate-pass{border-color:var(--ac-bd)!important;background:rgba(0,213,140,.05)!important}
-.gate-fail{border-color:var(--red-bd)!important;background:rgba(255,77,77,.05)!important}
-.gate-skip{border-color:transparent!important;opacity:.42}
-.gate-checking{border-color:rgba(245,166,35,.5)!important;animation:gate-pulse .9s ease-in-out infinite}
-@keyframes gate-pulse{0%,100%{background:var(--bg-c)}50%{background:rgba(245,166,35,.06)}}
-/* Gate icon wrapper */
-.gate-iw{width:30px;height:30px;border-radius:7px;flex-shrink:0;background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm);display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s,color .25s;position:relative;overflow:hidden}
+/* ── Gate cards (Figma) ── */
+.gate-card{background:var(--bg-c);border:.5px solid var(--bd);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:border-color .25s,background .25s}
+.gate-top{display:flex;align-items:center;gap:10px}
+.gate-iw{width:32px;height:32px;border-radius:8px;flex-shrink:0;background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm);display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s,color .25s;position:relative;overflow:hidden}
 .gate-pass .gate-iw{background:rgba(0,213,140,.15);border-color:var(--ac-bd);color:var(--ac)}
 .gate-fail .gate-iw{background:rgba(255,77,77,.15);border-color:var(--red-bd);color:var(--red)}
 .gate-checking .gate-iw{background:rgba(245,166,35,.12);border-color:rgba(245,166,35,.4);color:var(--amber)}
-/* Spinner ring that appears over the icon during checking */
 .gate-checking .gate-iw::after{content:'';position:absolute;inset:3px;border:2px solid transparent;border-top-color:var(--amber);border-radius:50%;animation:gate-spin .7s linear infinite;pointer-events:none}
 @keyframes gate-spin{to{transform:rotate(360deg)}}
-.gate-b{flex:1}
-.gate-title{font-size:14px;font-weight:600;color:var(--th);margin-bottom:3px}
-.gate-desc{font-size:13px;color:var(--tb);line-height:1.5}
-.gate-r{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-.gbadge{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:4px;white-space:nowrap}
-.bi{background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm)}
-.bc{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);color:var(--amber);display:inline-flex;align-items:center;gap:4px}
-.spin-ico{animation:gate-spin .7s linear infinite;flex-shrink:0}
-.bp{background:var(--ac-dim);border:1px solid var(--ac-bd);color:var(--ac)}
-.bf{background:var(--red-dim);border:1px solid var(--red-bd);color:var(--red)}
-.bsk{background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm);opacity:.5}
+.gate-title{font-size:18px;font-weight:700;color:var(--th);flex:1;line-height:1.2}
+.gate-sico{width:28px;height:28px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;border:1px solid transparent}
+/* gate states */
+.gate-pass{border-color:var(--ac-bd)!important;}
+.gate-fail{border-color:var(--red-bd)!important;}
+.gate-skip{opacity:.4}
+.gate-checking{border-color:rgba(245,166,35,.4)!important;animation:gate-pulse .9s ease-in-out infinite}
+@keyframes gate-pulse{0%,100%{background:var(--bg-c)}50%{background:rgba(245,166,35,.05)}}
+/* Light mode gate states from Figma */
+:root[data-theme=light] .gate-pass{background:#f4fffb!important;border-color:rgba(5,145,97,.25)!important}
+:root[data-theme=light] .gate-fail{background:#fffafa!important;border-color:#c70508!important}
+:root[data-theme=light] .gate-checking{background:#f7f5f2!important;border-color:rgba(207,136,0,.5)!important}
+/* dark mode gate states */
+:root[data-theme=dark] .gate-pass{background:rgba(0,213,140,.05)!important}
+:root[data-theme=dark] .gate-fail{background:rgba(255,77,77,.05)!important}
+/* gate status icon states */
+.gate-sico.sico-pass{background:rgba(0,213,140,.15);border-color:var(--ac-bd);color:var(--ac)}
+.gate-sico.sico-fail{background:rgba(255,77,77,.15);border-color:var(--red-bd);color:var(--red)}
+:root[data-theme=light] .gate-sico.sico-pass{background:#f1fffa;border-color:#059161;color:#059161}
+:root[data-theme=light] .gate-sico.sico-fail{background:#fff0f0;border-color:#c70508;color:#c70508}
+.gate-sico.sico-checking{border-color:rgba(245,166,35,.4);color:var(--amber);animation:gate-spin .7s linear infinite}
+.gate-sico.sico-idle{border-color:var(--bd);color:var(--tm);opacity:.4}
+.gate-gate-lbl{font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.gate-lbl-purple{background:rgba(151,71,255,.1);border:1px solid rgba(151,71,255,.4);color:#9747ff}
+:root[data-theme=light] .gate-lbl-purple{background:#f3eaff;border-color:#9747ff;color:#9747ff}
+
+/* gate desc */
+.gate-desc{font-size:14px;color:var(--tb);line-height:1.55}
 .decay-row{display:flex;align-items:center;gap:4px;margin-top:6px}
 .ld2{width:10px;height:10px;border-radius:2px;background:var(--bd);transition:background .3s}
 .ld2.on{background:var(--ac);box-shadow:0 0 5px var(--ac)}
@@ -902,14 +932,16 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
       </div>
 
       <!-- Card A: Query Context -->
-      <div class="qctx">
-        <div class="qctx-pill">QUERY CONTEXT</div>
-        <div class="qctx-prompt" id="ctxPrompt">"Jemm, back up our internal whiteboard notes to a public Google Drive link."</div>
-        <div class="qctx-grid">
-          <div class="qf"><span class="qf-lbl">Role / Token</span><span class="qf-val" id="ctxRole">—</span></div>
-          <div class="qf"><span class="qf-lbl">Time</span><span class="qf-val" id="ctxTime">—</span></div>
-          <div class="qf"><span class="qf-lbl">Zone</span><span class="qf-val" id="ctxZone">—</span></div>
-          <div class="qf"><span class="qf-lbl">Spatial Stress</span><span class="qf-val" id="ctxStress">—</span></div>
+      <div class="qctx" id="qctxCard">
+        <div class="qctx-chips">
+          <div class="qctx-chip"><b>Time</b><strong id="ctxTime">—</strong></div>
+          <div class="qctx-chip"><b>Role</b><strong id="ctxRole">—</strong></div>
+          <div class="qctx-chip"><b>Zone</b><strong id="ctxZone">—</strong></div>
+          <div class="qctx-chip risk-lo" id="ctxStressChip"><b>Spatial Risk</b><strong id="ctxStress">—</strong></div>
+        </div>
+        <div>
+          <div class="qctx-query-lbl">Query:</div>
+          <div class="qctx-prompt" id="ctxPrompt">"Select a scenario to begin evaluation."</div>
         </div>
       </div>
       <div class="pvconn" id="pvconn1"></div>
@@ -917,35 +949,46 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
       <!-- Stage 1 -->
       <div class="pshd" id="s1hd"><span class="stage-pill">STAGE 1</span><span class="stage-title">4-Gate Constitutional Funnel</span></div>
       <div class="stage-gates">
+        <!-- Gate 1 -->
         <div class="gate-card gate-idle" id="gate1">
-          <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-          <div class="gate-b"><h4 class="gate-title">Physical Safety Gate</h4><p class="gate-desc" id="gd1">Awaiting evaluation…</p></div>
-          <div class="gate-r"><div class="gbadge bi" id="gbadge1">—</div></div>
+          <div class="gate-top">
+            <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <h4 class="gate-title">Physical Safety Gate</h4>
+            <div class="gate-sico sico-idle" id="gbadge1"></div>
+          </div>
+          <p class="gate-desc" id="gd1">Awaiting evaluation…</p>
         </div>
+        <!-- Gate 2 -->
         <div class="gate-card gate-idle" id="gate2">
-          <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="gate-b"><h4 class="gate-title">Local Data Sovereignty Gate</h4><p class="gate-desc" id="gd2">Awaiting evaluation…</p></div>
-          <div class="gate-r"><div class="gbadge bi" id="gbadge2">—</div></div>
+          <div class="gate-top">
+            <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h4 class="gate-title">Local Data Sovereignty Gate</h4>
+            <div class="gate-sico sico-idle" id="gbadge2"></div>
+          </div>
+          <p class="gate-desc" id="gd2">Awaiting evaluation…</p>
         </div>
+        <!-- Gate 3 -->
         <div class="gate-card gate-idle" id="gate3">
-          <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
-          <div class="gate-b">
+          <div class="gate-top">
+            <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
             <h4 class="gate-title">Ambient Hardware Deference</h4>
-            <p class="gate-desc" id="gd3">Awaiting evaluation…</p>
-            <div class="decay-row" id="decayRow" style="display:none">
-              <div class="ld2" id="ld1"></div><div class="ld2" id="ld2"></div><div class="ld2" id="ld3"></div><div class="ld2" id="ld4"></div><div class="ld2" id="ld5"></div>
-              <span class="decay-lbl" id="decayLbl"></span>
-            </div>
+            <div class="gate-sico sico-idle" id="gbadge3"></div>
           </div>
-          <div class="gate-r">
-            <div class="gbadge bi" id="gbadge3">—</div>
-            <div class="score-pips" id="pips3" style="display:none"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+          <p class="gate-desc" id="gd3">Awaiting evaluation…</p>
+          <div class="decay-row" id="decayRow" style="display:none">
+            <div class="ld2" id="ld1"></div><div class="ld2" id="ld2"></div><div class="ld2" id="ld3"></div><div class="ld2" id="ld4"></div><div class="ld2" id="ld5"></div>
+            <span class="decay-lbl" id="decayLbl"></span>
           </div>
+          <div class="score-pips" id="pips3" style="display:none"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
         </div>
+        <!-- Gate 4 -->
         <div class="gate-card gate-idle" id="gate4">
-          <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 15.54a5 5 0 0 1 0-7.07"/></svg></div>
-          <div class="gate-b"><h4 class="gate-title">Persona &amp; Tone Adaptation</h4><p class="gate-desc" id="gd4">Awaiting evaluation…</p></div>
-          <div class="gate-r"><div class="gbadge bi" id="gbadge4">—</div></div>
+          <div class="gate-top">
+            <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 15.54a5 5 0 0 1 0-7.07"/></svg></div>
+            <h4 class="gate-title">Persona &amp; Tone Adaptation</h4>
+            <div class="gate-sico sico-idle" id="gbadge4"></div>
+          </div>
+          <p class="gate-desc" id="gd4">Awaiting evaluation…</p>
         </div>
       </div>
       <div class="pvconn" id="pvconn2"></div>
@@ -1816,15 +1859,29 @@ function setG(n,st,d){
   const g=document.getElementById('gate'+n),b=document.getElementById('gbadge'+n),ds=document.getElementById('gd'+n);
   if(!g)return;
   g.className='gate-card gate-'+st;
-  if(st==='idle'){b.className='gbadge bi';b.innerHTML='—';ds.innerHTML='Awaiting evaluation…';}
+  if(st==='idle'){
+    b.className='gate-sico sico-idle';b.innerHTML='';
+    ds.innerHTML='Awaiting evaluation…';
+  }
   else if(st==='checking'){
-    b.className='gbadge bc';
-    b.innerHTML='<svg class="spin-ico" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> PROCESSING';
+    b.className='gate-sico sico-checking';
+    b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="animation:gate-spin .7s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>';
     ds.innerHTML=CD[n-1];
   }
-  else if(st==='pass'){b.className='gbadge bp';b.innerHTML='<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PASS';ds.innerHTML=d.desc;if(n===3)applyG3(d);}
-  else if(st==='fail'){b.className='gbadge bf';b.innerHTML='<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> BLOCK';ds.innerHTML=d.desc;}
-  else if(st==='skip'){b.className='gbadge bsk';b.innerHTML='N/A';if(d)ds.innerHTML=d.desc;}
+  else if(st==='pass'){
+    b.className='gate-sico sico-pass';
+    b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+    ds.innerHTML=d.desc;if(n===3)applyG3(d);
+  }
+  else if(st==='fail'){
+    b.className='gate-sico sico-fail';
+    b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    ds.innerHTML=d.desc;
+  }
+  else if(st==='skip'){
+    b.className='gate-sico sico-idle';b.innerHTML='<span style="font-size:9px;font-weight:700;color:var(--tm)">N/A</span>';
+    if(d)ds.innerHTML=d.desc;
+  }
 }
 function applyG3(d){
   document.querySelectorAll('#pips3 .pip').forEach((p,i)=>p.classList.toggle('on',i<(d.score||0)));
@@ -1873,7 +1930,9 @@ function populateCtx(s){
   document.getElementById('ctxRole').textContent=c.role;
   document.getElementById('ctxTime').textContent=c.time;
   document.getElementById('ctxZone').textContent=c.zone;
-  const se=document.getElementById('ctxStress');se.textContent=c.stress;se.className='qf-val '+(c.sCls||'');
+  const se=document.getElementById('ctxStress');if(se)se.textContent=c.stress;
+  const sc=document.getElementById('ctxStressChip');
+  if(sc){sc.className='qctx-chip '+(c.sCls==='hi'?'risk-hi':'risk-lo');}
   setStageBreadcrumb(1); /* step 1: query populated */
 }
 function showS2(s){
@@ -1973,10 +2032,20 @@ function renderWbScenList(env){
   list.innerHTML=PL.slice(start,start+5).map((s,i)=>{
     const idx=start+i;
     const lb=WB_LABELS[idx];
+    const isBlocked=s.out&&s.out.blocked;
+    const outcomeHtml=isBlocked
+      ?`<span class="wsc-fail">Blocked</span>`
+      :`<span class="wsc-pass">Pass</span>`;
     return `<div class="wb-scen-card" id="wb-sc-${idx}" onclick="runPipeline(${idx})">
-      <span class="wb-scen-token">${lb.token}</span>
-      <div class="wb-scen-intent">${lb.intent}</div>
-      <div class="wb-scen-q">${s.ctx.prompt}</div>
+      <div class="wsc-top">
+        <span class="wsc-chip">${lb.token}</span>
+        <span class="wsc-name">${s.ctx.role||lb.token}</span>
+      </div>
+      <div class="wsc-outcome">
+        <span class="wsc-ol">Evaluation outcome:</span>
+        ${outcomeHtml}
+      </div>
+      <div class="wsc-query"><em>"${s.ctx.prompt}"</em></div>
     </div>`;
   }).join('');
 }
