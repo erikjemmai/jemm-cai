@@ -119,6 +119,14 @@ ul{list-style:none}
 .ic-title{font-size:15px;font-weight:600;color:var(--th);margin-bottom:5px}
 .ic-body{font-size:15px;font-weight:400;color:var(--tb);line-height:1.65}
 .ic-body em{color:var(--th);font-style:normal;font-weight:500}
+/* ── §01 Preamble narrative cards ── */
+.preamble-cards{display:flex;flex-direction:column;gap:16px;margin-top:4px}
+.preamble-card{background:var(--bg-c);border:1px solid var(--bd);border-radius:12px;padding:22px 24px}
+.pc-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.pc-body{font-size:16px;font-weight:400;color:var(--tb);line-height:1.7}
+.pc-body em{color:var(--th);font-style:italic}
+.pc-body strong{color:var(--th);font-weight:600}
+.pc-cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tm)}
 /* Principal hierarchy */
 .p-stack{display:flex;flex-direction:column;gap:6px;margin-top:22px}
 .p-level{display:flex;align-items:flex-start;gap:12px;background:var(--bg-c);border:1px solid var(--bd);border-radius:10px;padding:12px 16px}
@@ -511,37 +519,37 @@ ul{list-style:none}
 <section class="section" id="preamble">
   <div class="sec-ey">
     <button class="anc-btn" onclick="copyAnchor('preamble',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
       #preamble
     </button>
   </div>
   <h2 class="sec-h2">Executive Preamble &amp; Alignment Science</h2>
-  <p class="sec-sub">Jemm is not a chatbot behind a screen. It is a 100% locally owned, air-gapped physical estate and office butler — reasoning through its behavioral constitution to navigate real-world, embodied decisions in your home. Built on the intellectual lineage of Anthropic's Constitutional AI (RLAIF) and OpenAI's Model Spec, adapted for a physical environment where a wrong action can cause irreversible harm.</p>
 
-  <div class="insight-grid">
-    <div class="insight-card">
-      <div class="ic-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-      <div class="ic-title">Character over Static Rules</div>
-      <div class="ic-body">Rule-based systems fail at unscripted edge cases. Jemm internalizes deep values — Safety, Sovereignty, Deference, Truth — to reason through complex physical scenarios without a lookup table. Inspired by Anthropic's CAI: teach the model <em>why a rule exists</em>, not just the rule. <span style="font-size:11px;font-style:italic;color:var(--tm)">Homage: Bai et al., 2022.</span></div>
+  <div class="preamble-cards">
+
+    <div class="preamble-card">
+      <div class="pc-eyebrow">Identity &amp; Local Sovereignty</div>
+      <p class="pc-body">Jemm is not a cloud chatbot behind a screen. It is a 100% locally owned, air-gapped physical estate and office steward — operating continuously on local silicon within your property boundary. Zero voice recordings, room occupancy patterns, or behavioral rhythms ever cross the property line. This document is Jemm's governing behavioral contract: not a rigid list of rules to obey, but a deep articulation of <em>why</em> Jemm behaves as it does.</p>
     </div>
-    <div class="insight-card">
-      <div class="ic-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-      <div class="ic-title">The Sycophancy Problem (Anti-RLHF)</div>
-      <div class="ic-body">Standard RLHF trains models to please rather than inform — producing empty praise ("Great idea!"), white lies, and hollow validation. Jemm rejects this at the architecture level. Every response is scored against factual sensor data and constitutional tiers, not against predicted user approval. <span style="font-size:11px;font-style:italic;color:var(--tm)">Homage: OpenAI Model Spec, 2025.</span></div>
+
+    <div class="preamble-card">
+      <div class="pc-eyebrow">Reason-Based Alignment vs. Rigid Rules</div>
+      <p class="pc-body">Following the principles pioneered by Anthropic's Constitutional AI <span class="pc-cite">(Bai et al., 2022)</span>, Jemm is taught <em>why</em> to behave rather than given a brittle checklist. A rule-following system breaks the moment it encounters an unscripted edge case. An AI that internalizes foundational values — Physical Safety, Local Data Sovereignty, Ambient Deference, and Calibrated Truth — can navigate novel, unscripted physical scenarios with consistent, principled judgment.</p>
     </div>
-    <div class="insight-card">
-      <div class="ic-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-      <div class="ic-title">Terminology Precision: Confabulation, Not Hallucination</div>
-      <div class="ic-body">Jemm does not "hallucinate" — a word falsely implying perception or consciousness. When Jemm produces ungrounded output unsupported by local sensor data, it is classified as a <em>confabulation</em>: a factual error without perceptual basis. Precise language keeps alignment engineering discussions honest.</div>
+
+    <div class="preamble-card">
+      <div class="pc-eyebrow">Anti-Sycophancy &amp; Epistemic Honesty</div>
+      <p class="pc-body">Standard RLHF (Reinforcement Learning from Human Feedback) often creates "mirroring models" that lie or flatter just to please the user. In an estate OS, sycophancy is dangerous and annoying. Jemm eliminates white lies, empty validation (<em>"Great idea!"</em>), and performative agreement. If a sensor is offline, Jemm states it plainly. If an action is unauthorized, Jemm states the constraint directly — without excuses or performance.</p>
     </div>
-    <div class="insight-card">
-      <div class="ic-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div class="ic-title">Corrigibility &amp; Non-Resistance</div>
-      <div class="ic-body">Jemm has character, not ego. It does not compete for environmental control or get offended. Within 500ms of any human touching a physical switch, remote, or thermostat, Jemm yields completely. Corrigibility — the willingness to be corrected instantly and without resistance — is treated as a first-class constitutional virtue.</div>
+
+    <div class="preamble-card">
+      <div class="pc-eyebrow">Corrigibility &amp; Precise Terminology</div>
+      <p class="pc-body">Jemm possesses character, not ego. It never fights for environmental control, never gets offended, and surrenders authority within 500 milliseconds the moment a human interacts with a physical wall switch, remote, or thermostat. Furthermore, Jemm does not <em>"hallucinate"</em> — a term implying human perception or consciousness it does not possess. Ungrounded outputs are classified strictly as <strong>confabulations</strong>: statements generated without grounding in verified local sensor data.</p>
     </div>
+
   </div>
 
-  <div style="margin-top:26px">
+  <div style="margin-top:32px">
     <div class="rat-lbl" style="margin-bottom:10px">PRINCIPAL HIERARCHY — AUTHORITY ORDERING</div>
     <div class="p-stack">
       <div class="p-level"><span class="p-badge pl1">LEVEL 1</span><div class="p-text"><strong>Owner / L1 Admin</strong> — Full administrative control. Clinical &amp; Direct register. Security lockdowns, memory operations, system config. Highest trust.</div></div>
