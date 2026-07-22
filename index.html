@@ -23,7 +23,8 @@
 }
 :root[data-theme=light]{
   --bg:#FFFFFF;--bg-c:#F7F5F2;--bg-ch:#EDF0EC;--bd:#D5D9D6;
-  --th:#121212;--tb:#283239;--tm:#4A5E55;--ac-dim:rgba(5,145,97,.07);
+  --th:#121212;--tb:#283239;--tm:#4A5E55;
+  --ac:#059161;--ac-bd:rgba(5,145,97,.35);--ac-dim:rgba(5,145,97,.07);
   --bg-nav:#F7F5F2;
 }
 /* ============================================================ BASE */
@@ -65,17 +66,12 @@ ul{list-style:none}
 .nav-sidebar.collapsed .drawer-link{padding:10px 0;justify-content:center;border-left:none}
 .dl-txt{overflow:hidden;white-space:nowrap;opacity:1;transition:opacity .15s;font-size:13px}
 .nav-sidebar.collapsed .dl-txt{opacity:0;width:0;pointer-events:none}
-/* Mini icon pills for collapsed state */
-.dl-mini{display:none;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--tm);width:36px;text-align:center}
-.nav-sidebar.collapsed .dl-mini{display:block}
-.nav-sidebar.collapsed .drawer-link.active .dl-mini{color:var(--ac)}
+/* Mini icon pills for collapsed state — removed */
+.dl-mini{display:none!important}
 /* Footer */
 .sb-foot{padding:14px 16px;border-top:1px solid var(--bd);flex-shrink:0;overflow:hidden}
 .sb-copy{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tm);line-height:1.55;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .15s}
 .nav-sidebar.collapsed .sb-copy{opacity:0}
-.sb-pills{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;overflow:hidden;opacity:1;transition:opacity .15s}
-.nav-sidebar.collapsed .sb-pills{opacity:0}
-.d-pill{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.07em;padding:3px 9px;border-radius:4px;display:inline-block;width:fit-content;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd)}
 /* Main area shifts right to match sidebar */
 .page-main{margin-top:var(--topbar);margin-left:var(--sb-exp);transition:margin-left .26s cubic-bezier(.4,0,.2,1);min-height:calc(100vh - var(--topbar))}
 .page-main.sb-collapsed{margin-left:var(--sb-col)}
@@ -485,11 +481,6 @@ ul{list-style:none}
     <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-mini">05</span><span class="dl-txt">§05 Adaptive Persona &amp; Tone Sliders</span></a>
   </div>
   <div class="sb-foot">
-    <div class="sb-pills">
-      <span class="d-pill">NODE: 100% LOCAL</span>
-      <span class="d-pill">EGRESS: ZERO</span>
-      <span class="d-pill">RBAC: ACTIVE</span>
-    </div>
     <div class="sb-copy">© 2026 Copyright Jemm Tec, LLC<br>All rights reserved.</div>
   </div>
 </nav>
