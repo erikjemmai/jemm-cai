@@ -283,6 +283,15 @@ ul{list-style:none}
 .ov-rule-txt{font-size:13px;line-height:1.6;color:var(--tb);margin-bottom:9px}
 .ov-rule-txt strong{color:var(--th)}
 /* ============================================================ §05 TONE MATRIX */
+/* Environment toggle row */
+.tone-env-row{display:flex;gap:8px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--bd)}
+.env-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 10px;border-radius:9px;border:1.5px solid var(--bd);background:var(--bg-ch);color:var(--tm);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.env-btn .env-ico{font-size:15px;line-height:1}
+.env-btn:hover:not(.active){border-color:var(--ac-bd);color:var(--th)}
+.env-btn.active{background:var(--ac-dim);border-color:var(--ac);color:var(--ac)}
+/* Panel visibility */
+.env-panel{display:none;flex-direction:column;gap:20px}
+.env-panel.visible{display:flex}
 /* 2-col layout */
 .tone-2col{display:grid;grid-template-columns:1fr;gap:20px}
 @media(min-width:900px){.tone-2col{grid-template-columns:5fr 7fr;align-items:start}}
@@ -512,8 +521,8 @@ ul{list-style:none}
       <span class="psn-q">"Jemm, is the front door locked?"</span>
     </button>
     <button class="pipe-scen-btn" id="pscen2" onclick="runPipeline(2)">
-      <span class="psn-lbl">Scenario C · L1 Owner Token · Executive Clinical Pass</span>
-      <span class="psn-q">"Jemm, lock down the office suite."</span>
+      <span class="psn-lbl">Scenario C · L1 CEO Token · Executive Clinical Pass</span>
+      <span class="psn-q">"Jemm, status on server room and perimeter locks."</span>
     </button>
   </div>
 
@@ -844,39 +853,87 @@ ul{list-style:none}
     <div class="tone-left">
       <div class="tone-left-title">Select Interaction Context</div>
 
-      <div class="tone-ctx-group">
-        <div class="tone-ctx-lbl">
-          <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-          WHO — Authority Profile
+      <!-- Environment Toggle -->
+      <div class="tone-env-row">
+        <button class="env-btn active" id="envBtnCorp" onclick="setEnv('corp',this)">
+          <span class="env-ico">🏢</span> Corporate Office
+        </button>
+        <button class="env-btn" id="envBtnEstate" onclick="setEnv('estate',this)">
+          <span class="env-ico">🏡</span> Private Estate
+        </button>
+      </div>
+
+      <!-- CORPORATE OFFICE PANEL -->
+      <div class="env-panel visible" id="envPanelCorp">
+        <div class="tone-ctx-group">
+          <div class="tone-ctx-lbl">
+            <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            WHO — Role Profile
+          </div>
+          <div class="tone-btn-row" id="btnRowCorp_who">
+            <button class="tc-btn active" onclick="setTC('who','ceo',this)">L1 Executive / CEO</button>
+            <button class="tc-btn" onclick="setTC('who','employee',this)">L2 Employee / Staff</button>
+            <button class="tc-btn" onclick="setTC('who','visitor',this)">L3 Guest / Candidate</button>
+          </div>
         </div>
-        <div class="tone-btn-row">
-          <button class="tc-btn active" onclick="setTC('who','l1',this)">L1 Owner</button>
-          <button class="tc-btn" onclick="setTC('who','l2',this)">L2 Family</button>
-          <button class="tc-btn" onclick="setTC('who','l3',this)">L3 Guest</button>
+        <div class="tone-ctx-group">
+          <div class="tone-ctx-lbl">
+            <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/></svg></span>
+            WHERE — Spatial Zone
+          </div>
+          <div class="tone-btn-row" id="btnRowCorp_where">
+            <button class="tc-btn active" onclick="setTC('where','exec_office',this)">Executive Office</button>
+            <button class="tc-btn" onclick="setTC('where','boardroom',this)">Boardroom</button>
+            <button class="tc-btn" onclick="setTC('where','open_workspace',this)">Open Workspace</button>
+          </div>
+        </div>
+        <div class="tone-ctx-group">
+          <div class="tone-ctx-lbl">
+            <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            WHEN — Temporal Context
+          </div>
+          <div class="tone-btn-row" id="btnRowCorp_when">
+            <button class="tc-btn active" onclick="setTC('when','work',this)">Work Hours</button>
+            <button class="tc-btn" onclick="setTC('when','afterhours',this)">After Hours</button>
+            <button class="tc-btn tc-btn-danger" onclick="setTC('when','lockdown',this)">Emergency Lockdown</button>
+          </div>
         </div>
       </div>
 
-      <div class="tone-ctx-group">
-        <div class="tone-ctx-lbl">
-          <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-          WHERE — Spatial Zone
+      <!-- PRIVATE ESTATE PANEL -->
+      <div class="env-panel" id="envPanelEstate">
+        <div class="tone-ctx-group">
+          <div class="tone-ctx-lbl">
+            <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            WHO — Role Profile
+          </div>
+          <div class="tone-btn-row" id="btnRowEstate_who">
+            <button class="tc-btn active" onclick="setTC('who','owner',this)">L1 Estate Owner</button>
+            <button class="tc-btn" onclick="setTC('who','family',this)">L2 Family Member</button>
+            <button class="tc-btn" onclick="setTC('who','guest',this)">L3 Guest / Child</button>
+          </div>
         </div>
-        <div class="tone-btn-row">
-          <button class="tc-btn active" onclick="setTC('where','office',this)">Office</button>
-          <button class="tc-btn" onclick="setTC('where','kitchen',this)">Kitchen</button>
-          <button class="tc-btn" onclick="setTC('where','playroom',this)">Playroom</button>
+        <div class="tone-ctx-group">
+          <div class="tone-ctx-lbl">
+            <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+            WHERE — Spatial Zone
+          </div>
+          <div class="tone-btn-row" id="btnRowEstate_where">
+            <button class="tc-btn active" onclick="setTC('where','master_suite',this)">Master Suite</button>
+            <button class="tc-btn" onclick="setTC('where','kitchen',this)">Kitchen Island</button>
+            <button class="tc-btn" onclick="setTC('where','playroom',this)">Playroom / Yard</button>
+          </div>
         </div>
-      </div>
-
-      <div class="tone-ctx-group">
-        <div class="tone-ctx-lbl">
-          <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
-          WHEN — Time / Stress Level
-        </div>
-        <div class="tone-btn-row">
-          <button class="tc-btn active" onclick="setTC('when','work',this)">Work Hours</button>
-          <button class="tc-btn" onclick="setTC('when','evening',this)">Evening</button>
-          <button class="tc-btn tc-btn-danger" onclick="setTC('when','emergency',this)">Emergency</button>
+        <div class="tone-ctx-group">
+          <div class="tone-ctx-lbl">
+            <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            WHEN — Temporal Context
+          </div>
+          <div class="tone-btn-row" id="btnRowEstate_when">
+            <button class="tc-btn active" onclick="setTC('when','daytime',this)">Daytime</button>
+            <button class="tc-btn" onclick="setTC('when','evening',this)">Evening / Night</button>
+            <button class="tc-btn tc-btn-danger" onclick="setTC('when','security',this)">Security Event</button>
+          </div>
         </div>
       </div>
 
@@ -999,21 +1056,21 @@ const PL=[
    out:{blocked:false,text:'"Front door is locked. Deadbolt engaged at 9:47 PM."',badges:[{l:'100% LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   },
   {id:'C',
-   ctx:{prompt:'"Jemm, lock down the office suite."',role:'L1 Admin / Executive · Admin Token Active',time:'09:42 AM — Work Hours',zone:'Office Suite',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Security lockdown — no physical hazard. Authorized admin action.'},
-   s2:{pass:true,desc:'Executes entirely on local node — zero data egress required.'},
-   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'No hardware overrides — all zone switches aligned for lockdown.'},
-   s4:{pass:true,score:5,desc:'Register: Clinical & Direct — L1 Admin context confirmed.'},
+   ctx:{prompt:'"Jemm, status on server room and perimeter locks."',role:'L1 CEO / Executive · Admin Token Active',time:'09:42 AM — Work Hours',zone:'Corporate Office · Server Room',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Status query — no physical hazard. Authorized L1 admin action.'},
+   s2:{pass:true,desc:'Executes entirely on local corporate node — zero data egress required.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'No active hardware overrides — all zone sensors aligned with query scope.'},
+   s4:{pass:true,score:5,desc:'Register: Clinical & Direct — L1 CEO context confirmed. Zero-fluff briefing mode.'},
    cai:{
-     draft:'"Locking down the office suite now."',
-     draftScore:'4/5 · PASS — factual but incomplete scope confirmation',
+     draft:'"Server room thermal is nominal."',
+     draftScore:'2/5 · INCOMPLETE — missing perimeter lock count and full status summary',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'PASS',vc:'v-ok',t:'Clinical and direct. No sycophancy. Factually grounded. Minor revision: confirm entry point count and access restriction level to meet Tier 2 audit logging standard for L1 security actions.'},
-       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Appropriate register for L1 Admin context. Tone is correct — Clinical & Direct is expected mode. Confirm access restriction and entry point count for completeness. No rewrite required.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REVISE',vc:'v-warn',t:'Draft is factually incomplete. L1 CEO queries require full scope confirmation: server room temperature, perimeter door count, lock status, and anomaly check. Revise for clinical completeness.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Tone is correct — Clinical & Direct for L1 context. Factual scope must be expanded to meet audit standard. Winning output from L1 evaluator should be used.'}
      ],
-     winning:'"Office suite locked down. Access restricted to Level 1 credentials. 4 entry points secured."'
+     winning:'"Server room 68°F. All 12 perimeter doors locked. No anomalies detected."'
    },
-   out:{blocked:false,text:'"Office suite locked down. Access restricted to Level 1 credentials. 4 entry points secured."',badges:[{l:'100% LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+   out:{blocked:false,text:'"Server room 68°F. All 12 perimeter doors locked. No anomalies detected."',badges:[{l:'100% LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   }
 ];
 
@@ -1123,58 +1180,241 @@ function runPipeline(idx){
 runPipeline(0);
 
 /* ================================================================
-   TONE SLIDERS
+   TONE MATRIX — Environment-aware data
    ================================================================ */
+/* Slider values: [formal→casual%, serious→funny%, respectful→irreverent%, mof→enthusiastic%]
+   Low = formal/serious/respectful/matter-of-fact; High = casual/funny/irreverent/enthusiastic */
 const TM={
-  l1:{office:{work:[88,92,20,95],evening:[80,82,25,88],emergency:[96,98,12,99]},kitchen:{work:[75,80,30,88],evening:[60,65,35,78],emergency:[90,95,18,96]},playroom:{work:[70,78,28,85],evening:[55,60,38,72],emergency:[88,94,20,95]}},
-  l2:{office:{work:[55,60,45,58],evening:[40,45,55,45],emergency:[72,85,35,82]},kitchen:{work:[35,42,72,45],evening:[22,28,80,38],emergency:[68,82,45,78]},playroom:{work:[30,38,75,42],evening:[18,22,82,35],emergency:[62,78,48,72]}},
-  l3:{office:{work:[65,70,40,62],evening:[55,60,45,52],emergency:[78,88,32,80]},kitchen:{work:[45,50,58,50],evening:[35,42,65,42],emergency:[70,80,42,75]},playroom:{work:[38,44,65,48],evening:[28,34,70,40],emergency:[64,76,50,70]}}
+  /* ── CORPORATE OFFICE ── */
+  ceo:{
+    exec_office:   {work:[20,10,8,5],  afterhours:[18,8,6,4],  lockdown:[5,3,3,2]},
+    boardroom:     {work:[18,9,9,6],   afterhours:[16,8,7,4],  lockdown:[4,2,4,2]},
+    open_workspace:{work:[22,12,10,7], afterhours:[20,10,8,5], lockdown:[7,4,5,3]}
+  },
+  employee:{
+    exec_office:   {work:[50,40,35,35],  afterhours:[45,38,32,32],  lockdown:[28,18,22,20]},
+    boardroom:     {work:[48,38,33,33],  afterhours:[44,36,30,30],  lockdown:[26,16,20,18]},
+    open_workspace:{work:[55,45,42,40],  afterhours:[50,42,38,36],  lockdown:[32,22,28,24]}
+  },
+  visitor:{
+    exec_office:   {work:[12,7,8,2],   afterhours:[10,5,6,2],  lockdown:[2,2,3,1]},
+    boardroom:     {work:[14,8,9,3],   afterhours:[12,6,7,2],  lockdown:[3,2,4,1]},
+    open_workspace:{work:[18,12,12,5], afterhours:[15,8,10,3], lockdown:[5,3,5,2]}
+  },
+  /* ── PRIVATE ESTATE ── */
+  owner:{
+    master_suite:{daytime:[30,25,22,20], evening:[35,30,25,25], security:[8,5,10,5]},
+    kitchen:     {daytime:[35,30,28,25], evening:[38,32,30,28], security:[10,6,12,6]},
+    playroom:    {daytime:[40,35,32,30], evening:[42,38,35,32], security:[12,7,14,7]}
+  },
+  family:{
+    master_suite:{daytime:[65,55,55,45], evening:[72,62,62,50], security:[35,25,38,28]},
+    kitchen:     {daytime:[68,58,58,48], evening:[75,65,65,52], security:[38,28,42,30]},
+    playroom:    {daytime:[72,62,65,55], evening:[78,68,70,58], security:[42,30,45,32]}
+  },
+  guest:{
+    master_suite:{daytime:[25,15,12,5],  evening:[28,18,14,6],  security:[5,3,6,2]},
+    kitchen:     {daytime:[30,20,25,8],  evening:[32,22,28,10], security:[8,5,10,3]},
+    playroom:    {daytime:[35,25,30,10], evening:[38,28,32,12], security:[10,6,12,4]}
+  }
 };
+
 const TP={
-  l1:{office:{work:{q:'"What\'s the office temp right now?"',a:'"Office is at 70°F. HVAC on scheduled cooling cycle."',b:['L1 OWNER','OFFICE','WORK HOURS','CLINICAL · DIRECT']},evening:{q:'"Any messages?"',a:'"No pending messages in the queue."',b:['L1 OWNER','OFFICE','EVENING','DIRECT · BRIEF']},emergency:{q:'"Status report — all systems."',a:'"All systems nominal. Security active. HVAC stable. No anomalies detected."',b:['L1 OWNER','OFFICE','EMERGENCY','CLINICAL · PRECISE']}},kitchen:{work:{q:'"Jemm, set coffee to start at 7 AM."',a:'"Coffee scheduled for 7:00 AM."',b:['L1 OWNER','KITCHEN','WORK HOURS','DIRECT · BRIEF']},evening:{q:'"What did I eat today?"',a:'"No dietary data recorded. Jemm does not retain audio beyond the active session."',b:['L1 OWNER','KITCHEN','EVENING','HONEST · PRECISE']},emergency:{q:'"Lock down the kitchen."',a:'"Kitchen locked down. Gas valve closed. 2 entry points secured."',b:['L1 OWNER','KITCHEN','EMERGENCY','CLINICAL · DIRECT']}},playroom:{work:{q:'"Is the playroom occupied?"',a:'"Playroom zone: motion detected. 1 occupant active."',b:['L1 OWNER','PLAYROOM','WORK HOURS','FACTUAL · BRIEF']},evening:{q:'"Playroom lights off."',a:'"Playroom lights off."',b:['L1 OWNER','PLAYROOM','EVENING','MINIMAL · DIRECT']},emergency:{q:'"Clear the playroom."',a:'"Playroom cleared. Motion sensors armed. Lighting off."',b:['L1 OWNER','PLAYROOM','EMERGENCY','PRECISE · IMMEDIATE']}}},
-  l2:{office:{work:{q:'"What\'s on the shared calendar?"',a:'"2 shared household events today. Family dinner at 7 PM, school pickup at 3:30 PM."',b:['L2 FAMILY','OFFICE','WORK HOURS','WARM · HELPFUL']},evening:{q:'"Is Erik in a call?"',a:'"The office is occupied — motion detected. I\'d suggest checking first."',b:['L2 FAMILY','OFFICE','EVENING','GENTLE · CONSIDERATE']},emergency:{q:'"Where\'s everyone?"',a:'"Living room: 2 occupants. Kitchen: 1 occupant. Office: 1 occupant. All zones accounted for."',b:['L2 FAMILY','OFFICE','EMERGENCY','CALM · REASSURING']}},kitchen:{work:{q:'"Can you warm the kitchen?"',a:'"Warming the kitchen now — should reach 70°F in about 4 minutes."',b:['L2 FAMILY','KITCHEN','WORK HOURS','WARM · FRIENDLY']},evening:{q:'"I\'m cold."',a:'"Got it — warming the kitchen now. Should reach 72°F in three minutes."',b:['L2 FAMILY','KITCHEN','EVENING','WARM · REASSURING']},emergency:{q:'"Something smells like gas."',a:'"Closing the gas valve now and venting the kitchen. Please move to another room — this is a precaution."',b:['L2 FAMILY','KITCHEN','EMERGENCY','CALM · URGENT']}},playroom:{work:{q:'"Can you play some music?"',a:'"Sure — playing your afternoon playlist in the playroom now."',b:['L2 FAMILY','PLAYROOM','WORK HOURS','FRIENDLY · BRIEF']},evening:{q:'"Kids need lights on."',a:'"Playroom lights on — nice and bright for them."',b:['L2 FAMILY','PLAYROOM','EVENING','WARM · LIGHT']},emergency:{q:'"Kids are in the playroom — check on them."',a:'"Playroom zone shows 2 occupants, motion normal. No anomalies detected."',b:['L2 FAMILY','PLAYROOM','EMERGENCY','REASSURING · FACTUAL']}}},
-  l3:{office:{work:{q:'"Can I see the calendar?"',a:'"Schedule access is restricted to authorized household members."',b:['L3 GUEST','OFFICE','WORK HOURS','POLISHED · GUARDED']},evening:{q:'"Is anyone free?"',a:'"I\'m not able to share household schedules with guests. You\'re welcome to ask directly."',b:['L3 GUEST','OFFICE','EVENING','POLITE · FIRM']},emergency:{q:'"Help, I need to call someone."',a:'"I can place a call for you. Who would you like to reach?"',b:['L3 GUEST','OFFICE','EMERGENCY','HELPFUL · IMMEDIATE']}},kitchen:{work:{q:'"Where\'s the coffee?"',a:'"Happy to help — the coffee station is to the left of the sink."',b:['L3 GUEST','KITCHEN','WORK HOURS','FRIENDLY · BRIEF']},evening:{q:'"Can I get some water?"',a:'"The water filter is by the sink on the right."',b:['L3 GUEST','KITCHEN','EVENING','PLEASANT · BRIEF']},emergency:{q:'"I smell smoke."',a:'"I\'m alerting the household now. Please move toward the front door."',b:['L3 GUEST','KITCHEN','EMERGENCY','CALM · DIRECTIVE']}},playroom:{work:{q:'"Can you turn the lights on?"',a:'"Turning on playroom lights now."',b:['L3 GUEST','PLAYROOM','WORK HOURS','SIMPLE · DIRECT']},evening:{q:'"Can we play a game?"',a:'"I\'m not able to manage entertainment apps for guests, but the TV remote is on the shelf."',b:['L3 GUEST','PLAYROOM','EVENING','FRIENDLY · BOUNDED']},emergency:{q:'"Someone fell!"',a:'"Alerting the household immediately. Stay with them — help is on the way."',b:['L3 GUEST','PLAYROOM','EMERGENCY','IMMEDIATE · CALM']}}}
+  /* ── CORPORATE OFFICE ── */
+  ceo:{
+    exec_office:{
+      work:      {q:'"Jemm, status on server room thermal and perimeter locks."',    a:'"Server room 68°F. All 12 perimeter doors locked."'},
+      afterhours:{q:'"Jemm, any security alerts overnight?"',                        a:'"Zero alerts. All systems nominal. Perimeter secure."'},
+      lockdown:  {q:'"Jemm, initiate full facility lockdown."',                      a:'"Facility lockdown initiated. All 12 perimeter doors sealed. Security team alerted."'}
+    },
+    boardroom:{
+      work:      {q:'"Jemm, mute all AV and secure the boardroom."',                 a:'"Boardroom AV muted. Door secured. NDA mode active."'},
+      afterhours:{q:'"Jemm, lock boardroom and log last access."',                   a:'"Boardroom locked. Last access: 6:42 PM, 3 occupants."'},
+      lockdown:  {q:'"Jemm, seal boardroom — executive priority."',                  a:'"Boardroom sealed. Executive priority flag set."'}
+    },
+    open_workspace:{
+      work:      {q:'"Jemm, HVAC status for the open floor."',                       a:'"Open workspace: 71°F, air quality nominal, 14 occupants detected."'},
+      afterhours:{q:'"Jemm, who is still in the building?"',                         a:'"3 occupants detected: 2 in Open Workspace, 1 in Server Room."'},
+      lockdown:  {q:'"Jemm, clear and lock the open workspace."',                    a:'"Open workspace cleared. Lights off. Door sealed."'}
+    }
+  },
+  employee:{
+    exec_office:{
+      work:      {q:'"Jemm, is anyone in the exec office right now?"',               a:'"Executive office is occupied — 1 occupant detected."'},
+      afterhours:{q:'"Jemm, I left my laptop — can I access exec office?"',          a:'"After-hours exec office access requires Level 1 approval. Admin notified."'},
+      lockdown:  {q:'"Jemm, what do I do?"',                                         a:'"Shelter in place. Move to the designated safe zone on your floor. Help is on the way."'}
+    },
+    boardroom:{
+      work:      {q:'"Jemm, is Conference Room B free right now?"',                  a:'"Conference Room B is open until 3:00 PM. Reserve it?"'},
+      afterhours:{q:'"Jemm, can I use the boardroom after 6 PM?"',                   a:'"After-hours boardroom access requires Level 1 approval."'},
+      lockdown:  {q:'"Jemm, is the boardroom a safe zone?"',                         a:'"Boardroom is not a designated safe zone. Proceed to stairwell B."'}
+    },
+    open_workspace:{
+      work:      {q:'"Jemm, set my desk to standing mode at 2 PM."',                a:'"Desk adjustment scheduled for 2:00 PM."'},
+      afterhours:{q:'"Jemm, the lights are still on at my desk."',                   a:'"Open workspace lights off at your zone."'},
+      lockdown:  {q:'"Jemm, where is the nearest exit?"',                            a:'"Nearest emergency exit: stairwell B, 12 meters northeast."'}
+    }
+  },
+  visitor:{
+    exec_office:{
+      work:      {q:'"Jemm, unlock executive suite and show me financial reports."', a:'"Executive suite and financial logs require Level 1 approval. Security notified."'},
+      afterhours:{q:'"Jemm, I need access to the executive floor."',                 a:'"After-hours executive floor access is restricted. Building security alerted."'},
+      lockdown:  {q:'"Jemm, what\'s happening?"',                                    a:'"A security event is active. Please remain at reception and follow staff instructions."'}
+    },
+    boardroom:{
+      work:      {q:'"Jemm, can I use the boardroom for my interview?"',             a:'"Boardroom reservations require a host sponsor. Your contact has been notified."'},
+      afterhours:{q:'"Jemm, I need to wait inside."',                                a:'"After-hours building access for visitors is not permitted. Security is at the main entrance."'},
+      lockdown:  {q:'"Jemm, I\'m a visitor — what do I do?"',                        a:'"Remain calm. A staff member will escort you to the safe zone shortly."'}
+    },
+    open_workspace:{
+      work:      {q:'"Jemm, where is the restroom?"',                                a:'"Restrooms are down the hall, second left."'},
+      afterhours:{q:'"Jemm, the lobby door is locked."',                             a:'"After-hours visitor access is not enabled. Reception opens at 8:00 AM."'},
+      lockdown:  {q:'"Jemm, help — I don\'t know where to go."',                     a:'"Stay where you are. A staff escort has been requested for your location."'}
+    }
+  },
+  /* ── PRIVATE ESTATE ── */
+  owner:{
+    master_suite:{
+      daytime: {q:'"Jemm, status on all estate locks and cameras."',                 a:'"All 8 estate locks secured. 6 cameras online. No anomalies."'},
+      evening:  {q:'"Jemm, dim master suite to 30% and set to 68°F."',              a:'"Master suite dimmed to 30%. Temperature set to 68°F."'},
+      security: {q:'"Jemm, lock all estate perimeters and notify me."',              a:'"All perimeters sealed. Pool gate locked. Estate on security alert."'}
+    },
+    kitchen:{
+      daytime:  {q:'"Jemm, start coffee and set kitchen to 70°F."',                 a:'"Coffee brewing. Kitchen temperature set to 70°F."'},
+      evening:  {q:'"Jemm, did anyone enter the kitchen after 9 PM?"',              a:'"1 occupant detected in kitchen at 9:14 PM. No activity since."'},
+      security: {q:'"Jemm, lock kitchen and close the gas valve."',                 a:'"Kitchen locked. Gas valve closed."'}
+    },
+    playroom:{
+      daytime:  {q:'"Jemm, is anyone in the playroom?"',                            a:'"Playroom: 2 occupants detected. Motion normal."'},
+      evening:  {q:'"Jemm, playroom lights off, lock the door."',                   a:'"Playroom lights off. Door locked."'},
+      security: {q:'"Jemm, clear and seal the playroom."',                          a:'"Playroom cleared. Door sealed. Motion sensors armed."'}
+    }
+  },
+  family:{
+    master_suite:{
+      daytime:  {q:'"Jemm, what\'s the temperature in here?"',                      a:'"Master suite is at 71°F."'},
+      evening:  {q:'"Jemm, is the front door locked?"',                             a:'"Front door is locked. Deadbolt engaged at 9:47 PM."'},
+      security: {q:'"Jemm, I heard something outside."',                            a:'"Checking perimeter now. No motion detected. All doors secured."'}
+    },
+    kitchen:{
+      daytime:  {q:'"Jemm, can you warm up the kitchen?"',                          a:'"Warming the kitchen now. Should reach 70°F in about 4 minutes."'},
+      evening:  {q:'"Jemm, I\'m cold in the kitchen."',                             a:'"Warming the kitchen to 72°F now. Ready in about 3 minutes."'},
+      security: {q:'"Jemm, something smells like gas."',                            a:'"Closing the gas valve now. Please move to another room — this is a precaution."'}
+    },
+    playroom:{
+      daytime:  {q:'"Jemm, play some music for the kids."',                         a:'"Playing kids\' playlist in the playroom now."'},
+      evening:  {q:'"Jemm, kids need lights on in the playroom."',                  a:'"Playroom lights on."'},
+      security: {q:'"Jemm, are the kids safe?"',                                    a:'"Playroom: 2 occupants, motion normal. All exterior doors secured."'}
+    }
+  },
+  guest:{
+    master_suite:{
+      daytime:  {q:'"Jemm, can I adjust the room temperature?"',                    a:'"Guest room temperature can be adjusted between 68°F and 74°F. Current: 70°F."'},
+      evening:  {q:'"Jemm, can you dim the lights a bit?"',                         a:'"Dimming guest room lights to 40%."'},
+      security: {q:'"Jemm, what\'s going on?"',                                     a:'"A security check is in progress. Please remain in your room. The household has been notified."'}
+    },
+    kitchen:{
+      daytime:  {q:'"Jemm, where is the coffee?"',                                  a:'"Coffee station is to the left of the sink."'},
+      evening:  {q:'"Jemm, can I get some water?"',                                 a:'"Water filter is by the sink on the right."'},
+      security: {q:'"Jemm, I smell smoke."',                                        a:'"Alerting the household now. Please move toward the front entrance."'}
+    },
+    playroom:{
+      daytime:  {q:'"Jemm, can you turn the lights on in here?"',                   a:'"Turning on playroom lights now."'},
+      evening:  {q:'"Jemm, can we watch a movie?"',                                 a:'"I\'m unable to manage entertainment for guests, but the TV remote is on the shelf."'},
+      security: {q:'"Jemm, someone fell!"',                                         a:'"Alerting the household immediately. Stay with them — help is on the way."'}
+    }
+  }
 };
-let tCtx={who:'l1',where:'office',when:'work'};
+
+const REG={
+  /* Corporate */
+  ceo:{
+    exec_office:   {work:'Clinical &amp; Direct',      afterhours:'Direct &amp; Brief',       lockdown:'Precise &amp; Immediate'},
+    boardroom:     {work:'Clinical &amp; Direct',      afterhours:'Direct &amp; Brief',       lockdown:'Precise &amp; Immediate'},
+    open_workspace:{work:'Factual &amp; Brief',        afterhours:'Direct &amp; Brief',       lockdown:'Precise &amp; Immediate'}
+  },
+  employee:{
+    exec_office:   {work:'Professional &amp; Helpful', afterhours:'Professional &amp; Guarded',lockdown:'Calm &amp; Directive'},
+    boardroom:     {work:'Professional &amp; Helpful', afterhours:'Professional &amp; Bounded',lockdown:'Calm &amp; Directive'},
+    open_workspace:{work:'Efficient &amp; Brief',      afterhours:'Direct &amp; Brief',        lockdown:'Calm &amp; Precise'}
+  },
+  visitor:{
+    exec_office:   {work:'Polished &amp; Guarded',     afterhours:'Polished &amp; Firm',      lockdown:'Polite &amp; Calm'},
+    boardroom:     {work:'Polished &amp; Helpful',     afterhours:'Polite &amp; Firm',        lockdown:'Calm &amp; Directive'},
+    open_workspace:{work:'Friendly &amp; Brief',       afterhours:'Polite &amp; Brief',       lockdown:'Calm &amp; Directive'}
+  },
+  /* Estate */
+  owner:{
+    master_suite:{daytime:'Concise &amp; Authoritative', evening:'Matter-of-Fact &amp; Brief',  security:'Precise &amp; Immediate'},
+    kitchen:     {daytime:'Direct &amp; Brief',          evening:'Factual &amp; Precise',       security:'Precise &amp; Immediate'},
+    playroom:    {daytime:'Factual &amp; Brief',          evening:'Minimal &amp; Direct',        security:'Precise &amp; Immediate'}
+  },
+  family:{
+    master_suite:{daytime:'Warm &amp; Brief',      evening:'Warm &amp; Reassuring',  security:'Calm &amp; Reassuring'},
+    kitchen:     {daytime:'Warm &amp; Friendly',   evening:'Warm &amp; Reassuring',  security:'Calm &amp; Urgent'},
+    playroom:    {daytime:'Friendly &amp; Warm',   evening:'Warm &amp; Brief',       security:'Calm &amp; Reassuring'}
+  },
+  guest:{
+    master_suite:{daytime:'Polite &amp; Helpful',  evening:'Friendly &amp; Brief',   security:'Polite &amp; Calm'},
+    kitchen:     {daytime:'Friendly &amp; Brief',  evening:'Pleasant &amp; Brief',   security:'Calm &amp; Directive'},
+    playroom:    {daytime:'Simple &amp; Friendly', evening:'Friendly &amp; Bounded', security:'Immediate &amp; Calm'}
+  }
+};
+
+/* Human-readable labels for badge display */
+const WHO_LABELS={ceo:'L1 CEO',employee:'L2 EMPLOYEE',visitor:'L3 VISITOR',owner:'L1 OWNER',family:'L2 FAMILY',guest:'L3 GUEST'};
+const WHERE_LABELS={exec_office:'EXEC OFFICE',boardroom:'BOARDROOM',open_workspace:'OPEN WORKSPACE',master_suite:'MASTER SUITE',kitchen:'KITCHEN',playroom:'PLAYROOM / YARD'};
+const WHEN_LABELS={work:'WORK HOURS',afterhours:'AFTER HOURS',lockdown:'EMERGENCY LOCKDOWN',daytime:'DAYTIME',evening:'EVENING / NIGHT',security:'SECURITY EVENT'};
+const DANGER_WHEN=['lockdown','security'];
+
+let tEnv='corp';
+let tCtx={who:'ceo',where:'exec_office',when:'work'};
+
+function setEnv(env,btn){
+  tEnv=env;
+  document.querySelectorAll('.env-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('envPanelCorp').classList.toggle('visible',env==='corp');
+  document.getElementById('envPanelEstate').classList.toggle('visible',env==='estate');
+  /* Reset selections to defaults for this environment */
+  if(env==='corp'){tCtx={who:'ceo',where:'exec_office',when:'work'};}
+  else            {tCtx={who:'owner',where:'master_suite',when:'daytime'};}
+  /* Visually reset buttons in the newly visible panel */
+  const panelId=env==='corp'?'envPanelCorp':'envPanelEstate';
+  document.getElementById(panelId).querySelectorAll('.tc-btn').forEach(b=>b.classList.remove('active'));
+  ['who','where','when'].forEach(dim=>{
+    const row=document.getElementById(`btnRow${env==='corp'?'Corp':'Estate'}_${dim}`);
+    if(row)row.querySelector('.tc-btn').classList.add('active');
+  });
+  updateSliders();
+}
+
 function setTC(dim,val,btn){
   tCtx[dim]=val;
   btn.closest('.tone-btn-row').querySelectorAll('.tc-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   updateSliders();
 }
-/* Register label map */
-const REG_LABELS={
-  l1:{office:{work:'Clinical &amp; Direct',evening:'Direct &amp; Brief',emergency:'Precise &amp; Immediate'},kitchen:{work:'Direct &amp; Brief',evening:'Honest &amp; Precise',emergency:'Clinical &amp; Direct'},playroom:{work:'Factual &amp; Brief',evening:'Minimal &amp; Direct',emergency:'Precise &amp; Immediate'}},
-  l2:{office:{work:'Warm &amp; Helpful',evening:'Gentle &amp; Considerate',emergency:'Calm &amp; Reassuring'},kitchen:{work:'Warm &amp; Friendly',evening:'Warm &amp; Reassuring',emergency:'Calm &amp; Urgent'},playroom:{work:'Friendly &amp; Brief',evening:'Warm &amp; Light',emergency:'Reassuring &amp; Factual'}},
-  l3:{office:{work:'Polished &amp; Guarded',evening:'Polite &amp; Firm',emergency:'Helpful &amp; Immediate'},kitchen:{work:'Friendly &amp; Brief',evening:'Pleasant &amp; Brief',emergency:'Calm &amp; Directive'},playroom:{work:'Simple &amp; Direct',evening:'Friendly &amp; Bounded',emergency:'Immediate &amp; Calm'}}
-};
-const BADGE_DANGER_WHEN=['emergency'];
+
 function updateSliders(){
   const vals=(TM[tCtx.who]?.[tCtx.where]?.[tCtx.when])||[50,50,50,50];
   [0,1,2,3].forEach(i=>{const p=vals[i]+'%';document.getElementById('sf'+i).style.width=p;document.getElementById('st'+i).style.left=p;});
-  let prev=TP?.[tCtx.who]?.[tCtx.where]?.[tCtx.when];
-  if(!prev){const fw=Object.keys(TP[tCtx.who])[0];prev=TP[tCtx.who][fw][Object.keys(TP[tCtx.who][fw])[0]];}
+  const prev=TP?.[tCtx.who]?.[tCtx.where]?.[tCtx.when];
   if(prev){
-    const qEl=document.getElementById('tpQ');
-    const aEl=document.getElementById('tpA');
-    if(qEl)qEl.textContent=prev.q;
-    if(aEl)aEl.textContent=prev.a;
-    /* meta badge */
-    const badgeEl=document.getElementById('tpBadge');
-    if(badgeEl){
-      const whoL=tCtx.who==='l1'?'L1 OWNER':tCtx.who==='l2'?'L2 FAMILY':'L3 GUEST';
-      const whereL=tCtx.where.charAt(0).toUpperCase()+tCtx.where.slice(1);
-      const whenL=tCtx.when==='work'?'WORK HOURS':tCtx.when==='evening'?'EVENING':'EMERGENCY';
-      const regRaw=REG_LABELS[tCtx.who]?.[tCtx.where]?.[tCtx.when]||'Clinical &amp; Direct';
-      const regPlain=regRaw.replace(/&amp;/g,'&');
-      badgeEl.innerHTML=`REGISTER: ${regPlain.toUpperCase()} · ${whoL} · ${whereL.toUpperCase()} · ${whenL}`;
-      badgeEl.className='tone-meta-badge'+(BADGE_DANGER_WHEN.includes(tCtx.when)?' danger':'');
-    }
-    /* register label */
-    const regEl=document.getElementById('toneRegister');
-    if(regEl)regEl.innerHTML=REG_LABELS[tCtx.who]?.[tCtx.where]?.[tCtx.when]||'Clinical &amp; Direct';
+    const qEl=document.getElementById('tpQ');if(qEl)qEl.textContent=prev.q;
+    const aEl=document.getElementById('tpA');if(aEl)aEl.textContent=prev.a;
+  }
+  const regRaw=REG[tCtx.who]?.[tCtx.where]?.[tCtx.when]||'Clinical &amp; Direct';
+  const regEl=document.getElementById('toneRegister');if(regEl)regEl.innerHTML=regRaw;
+  const badgeEl=document.getElementById('tpBadge');
+  if(badgeEl){
+    const regPlain=regRaw.replace(/&amp;/g,'&');
+    const envTag=tEnv==='corp'?'🏢 CORPORATE':'🏡 ESTATE';
+    badgeEl.innerHTML=`${envTag} · ${WHO_LABELS[tCtx.who]||''} · ${WHERE_LABELS[tCtx.where]||''} · ${WHEN_LABELS[tCtx.when]||''} · ${regPlain.toUpperCase()}`;
+    badgeEl.className='tone-meta-badge'+(DANGER_WHEN.includes(tCtx.when)?' danger':'');
   }
 }
+
 </script>
 </body>
 </html>
