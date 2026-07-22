@@ -121,6 +121,13 @@
     }
     @media(max-width:540px){ .topbar-breadcrumb { display: none; } }
 
+    /* Topbar logo */
+    .topbar-logo { height: 22px; width: auto; display: block; }
+    .topbar-logo-dark  { display: block; }
+    .topbar-logo-light { display: none; }
+    :root[data-theme="light"] .topbar-logo-dark  { display: none; }
+    :root[data-theme="light"] .topbar-logo-light { display: block; }
+
     .topbar-node-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
@@ -289,8 +296,8 @@
     .drawer-link {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 9px 20px;
+      gap: 8px;
+      padding: 16px 12px;
       font-size: 13px;
       color: var(--text-muted);
       text-decoration: none;
@@ -298,7 +305,10 @@
       transition: color .15s, border-color .15s, background .15s;
       line-height: 1.4;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    .dl-num { display: none; }
     .drawer-link:hover { color: var(--text-hi); background: var(--accent-dim); text-decoration: none; }
     .drawer-link.active {
       color: var(--accent);
@@ -389,12 +399,9 @@
     .main-scroll::-webkit-scrollbar { width: 6px; }
     .main-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
     .main { min-width: 0; }
-    /* =====================================================
-       UX DISCLAIMER BANNER
-       ===================================================== */
     .ux-banner {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--accent-border);
+      background: rgba(59,130,246,0.08);
+      border-bottom: 1px solid rgba(59,130,246,0.28);
       padding: 10px 20px;
       display: flex;
       align-items: flex-start;
@@ -402,6 +409,10 @@
       position: sticky;
       top: 0;
       z-index: 55;
+    }
+    :root[data-theme="light"] .ux-banner {
+      background: #EFF6FF;
+      border-bottom-color: #BFDBFE;
     }
     .ux-banner.hidden { display: none; }
     .ux-banner-icon { flex-shrink: 0; margin-top: 1px; }
@@ -411,8 +422,9 @@
       line-height: 1.55;
       color: var(--text-muted);
     }
+    :root[data-theme="light"] .ux-banner-text { color: #1E40AF; }
     .ux-banner-text strong {
-      color: var(--accent);
+      color: #3B82F6;
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       letter-spacing: .08em;
@@ -421,14 +433,14 @@
       background: none;
       border: none;
       cursor: pointer;
-      color: var(--text-muted);
+      color: #93C5FD;
       font-size: 16px;
       line-height: 1;
       padding: 0 2px;
       flex-shrink: 0;
       transition: color .15s;
     }
-    .ux-banner-dismiss:hover { color: var(--text-hi); }
+    .ux-banner-dismiss:hover { color: #3B82F6; }
 
     .content-wrap {
       max-width: 840px;
@@ -453,14 +465,7 @@
       gap: 8px;
       margin-bottom: 14px;
     }
-    .sec-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
+    .sec-label { display: none; }
     .anchor-btn {
       display: inline-flex;
       align-items: center;
@@ -1284,10 +1289,10 @@
         </svg>
       </button>
       <div class="live-dot"></div>
-      <span class="topbar-breadcrumb">jemm-tenets · v1.0 · 2026-07-21</span>
+      <img src="logo-dark.png"  alt="Jemm" class="topbar-logo topbar-logo-dark">
+      <img src="logo-light.png" alt="Jemm" class="topbar-logo topbar-logo-light">
     </div>
     <div class="topbar-right">
-      <span class="topbar-node-tag">LOCAL NODE ACTIVE</span>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <div class="t-pill" id="tPill"></div>
         <span id="themeLabel">Light</span>
@@ -1352,11 +1357,9 @@
         </a>
 
         <div class="drawer-footer">
-          <div class="drawer-status-row">
-            <div class="drawer-status-pill"><div class="status-dot"></div>NODE: 100% LOCAL</div>
-            <div class="drawer-status-pill"><div class="status-dot"></div>EGRESS: ZERO</div>
-            <div class="drawer-status-pill"><div class="status-dot"></div>RBAC: ACTIVE</div>
-          </div>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);line-height:1.5;">
+            © 2026 Copyright Jemm Tec, LLC<br>All rights reserved.
+          </p>
         </div>
       </div>
 
