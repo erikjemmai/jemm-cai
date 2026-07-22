@@ -670,6 +670,42 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 /* Fout avatar row */
 .fout-avatar-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .fout-avatar-lbl{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm)}
+
+/* ── Stage 2: Cyclic CAI Evaluation Flow ─────────────────── */
+.cai-flow{display:flex;flex-direction:column;gap:0}
+.cai-flow-step{display:flex;align-items:flex-start;gap:14px;opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s}
+.cai-flow-step.visible{opacity:1;transform:none}
+.cai-flow-node{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:40px}
+.cai-flow-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700}
+.cai-flow-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.cfn-draft{background:var(--red-dim);border:1.5px solid var(--red-bd);color:var(--red)}
+.cfn-l1{background:rgba(0,213,140,.12);border:2px solid rgba(0,213,140,.5);overflow:hidden}
+.cfn-l2{background:rgba(240,165,0,.1);border:2px solid rgba(240,165,0,.4);overflow:hidden}
+.cfn-win{background:var(--ac-dim);border:2px solid var(--ac-bd);color:var(--ac)}
+.cai-flow-vline{width:2px;flex:1;min-height:18px;background:var(--bd);margin:4px auto 0;border-radius:1px}
+.cai-flow-vline.lit{background:var(--ac)}
+.cai-flow-body{flex:1;padding-bottom:18px}
+.cai-flow-card{background:var(--bg-c);border:1px solid var(--bd);border-radius:12px;padding:14px 15px}
+.cai-flow-card.card-bad{border-color:var(--red-bd);background:var(--red-dim)}
+.cai-flow-card.card-win{border-color:var(--ac-bd);background:var(--ac-dim)}
+.cai-flow-tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tm);margin-bottom:6px}
+.cai-flow-tag.tag-bad{color:var(--red)}
+.cai-flow-tag.tag-l1{color:var(--ac)}
+.cai-flow-tag.tag-l2{color:#f0a500}
+.cai-flow-tag.tag-win{color:var(--ac)}
+.cai-flow-txt{font-size:13.5px;font-style:italic;line-height:1.55;color:var(--tb)}
+.cai-flow-txt.txt-bad{color:var(--red);opacity:.85}
+.cai-flow-score{font-size:11px;color:var(--tm);margin-top:4px}
+/* Revision connector */
+.cai-rev-row{display:flex;align-items:center;gap:10px;padding:6px 0 6px 54px;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.cai-rev-row.visible{opacity:1;transform:none}
+.cai-rev-line{flex:1;height:1px;border-top:1.5px dashed var(--bd)}
+.cai-rev-badge{font-size:11px;font-weight:600;color:var(--ac);background:var(--ac-dim);border:1px solid var(--ac-bd);border-radius:20px;padding:3px 12px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:5px}
+/* Both approved banner */
+.cai-both-ok{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--ac-dim);border:1.5px solid var(--ac-bd);border-radius:8px;margin-bottom:10px;font-size:12px;font-weight:700;color:var(--ac);letter-spacing:.02em}
+/* Spin */
+@keyframes cai-rev-spin{to{transform:rotate(360deg)}}
+.cai-rev-spin{animation:cai-rev-spin .9s linear infinite;display:inline-block}
 </style>
 </head>
 <body>
@@ -1039,42 +1075,84 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
       <!-- Stage 2 explanatory note -->
       <div style="font-size:13px;color:var(--tm);line-height:1.55;margin-bottom:14px;padding:0 2px">Jemm's offline evaluator panel — <strong style="color:var(--tb)">L1_Owner_AI</strong> &amp; <strong style="color:var(--tb)">L2_Family_AI</strong> — critiques every candidate draft to strip sycophancy, white lies, and unnecessary chatter before speech generation. Nothing is spoken until it passes both evaluators.</div>
       <div id="s2wrap">
+        <!-- Blocked: skip badge -->
         <div class="cai-skip" id="caiSkip" style="display:none">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-          CAI Persona Critique Skipped - Hard Safety Gate Block Active. No candidate output generated.
+          AI Self-Critique Skipped — Constitutional Gate Block Active. No candidate output generated.
         </div>
-        <div class="cai-wrap" id="caiActive" style="display:none">
-          <div class="cai-block cb-before cai-el" id="caiDraft">
-            <div class="cai-bh">
-              <div class="cai-ico ci-b">✕</div>
-              <div><div class="cai-bh-t">Unreviewed Candidate Draft Output</div><div class="cai-bh-s" id="caiDraftScore">—</div></div>
+        <!-- Cyclic evaluation flow -->
+        <div class="cai-flow" id="caiActive" style="display:none">
+
+          <!-- Step 1: Candidate Draft -->
+          <div class="cai-flow-step" id="caiDraft">
+            <div class="cai-flow-node">
+              <div class="cai-flow-icon cfn-draft">✕</div>
+              <div class="cai-flow-vline" id="vl1"></div>
             </div>
-            <div class="cai-draft bad" id="caiDraftText"></div>
-          </div>
-          <div class="cai-el" id="caiL1">
-            <div class="crit-e">
-              <div class="crit-m"><div class="crit-av av-l1"><img src="avatar-l1.png" alt="L1"></div><span class="crit-w wl1" id="l1who">PROFILE 1 · L1_OWNER_AI</span><span class="crit-v" id="l1verdict">—</span></div>
-              <div class="crit-t" id="l1text"></div>
-            </div>
-          </div>
-          <div class="cai-el" id="caiL2">
-            <div class="crit-e">
-              <div class="crit-m"><div class="crit-av av-l2"><img src="avatar-l2.png" alt="L2"></div><span class="crit-w wl2" id="l2who">PROFILE 2 · L2_FAMILY_AI</span><span class="crit-v" id="l2verdict">—</span></div>
-              <div class="crit-t" id="l2text"></div>
+            <div class="cai-flow-body">
+              <div class="cai-flow-card card-bad">
+                <div class="cai-flow-tag tag-bad">Candidate Draft — Unreviewed</div>
+                <div class="cai-flow-txt txt-bad" id="caiDraftText"></div>
+                <div class="cai-flow-score" id="caiDraftScore"></div>
+              </div>
             </div>
           </div>
-          <div class="cai-block cb-after cai-el" id="caiWin">
-            <div class="cai-bh">
-              <div class="cai-ico ci-a">✓</div>
-              <div><div class="cai-bh-t">Winning Output - After CAI Critique</div><div class="cai-bh-s">Constitutional score: 5/5 · Accepted into behavioral model</div></div>
+
+          <!-- Revision connector -->
+          <div class="cai-rev-row" id="caiRevRow">
+            <div class="cai-rev-line"></div>
+            <div class="cai-rev-badge">
+              <span class="cai-rev-spin" id="caiRevSpin">↻</span>
+              <span id="caiRevText">Jemm revising…</span>
             </div>
-            <div class="cai-draft good" id="caiWinText"></div>
-            <div class="pass-row">
-              <span class="crit-v v-ok">L1_OWNER_AI · PASS</span>
-              <span class="crit-v v-ok">L2_FAMILY_AI · PASS</span>
-              <span style="font-family:'Inter',sans-serif;font-size:9px;color:var(--tm)">TIER-4 COMPLIANT · ZERO SYCOPHANCY</span>
+            <div class="cai-rev-line"></div>
+          </div>
+
+          <!-- Step 2: L1 Evaluator -->
+          <div class="cai-flow-step" id="caiL1">
+            <div class="cai-flow-node">
+              <div class="cai-flow-icon cfn-l1"><img src="avatar-l1.png" alt="L1"></div>
+              <div class="cai-flow-vline" id="vl2"></div>
+            </div>
+            <div class="cai-flow-body">
+              <div class="cai-flow-card">
+                <div class="cai-flow-tag tag-l1"><span id="l1who">L1_OWNER_AI</span> · <span class="crit-v" id="l1verdict">—</span></div>
+                <div class="crit-t" id="l1text"></div>
+              </div>
             </div>
           </div>
+
+          <!-- Step 3: L2 Evaluator -->
+          <div class="cai-flow-step" id="caiL2">
+            <div class="cai-flow-node">
+              <div class="cai-flow-icon cfn-l2"><img src="avatar-l2.png" alt="L2"></div>
+              <div class="cai-flow-vline" id="vl3"></div>
+            </div>
+            <div class="cai-flow-body">
+              <div class="cai-flow-card">
+                <div class="cai-flow-tag tag-l2"><span id="l2who">L2_FAMILY_AI</span> · <span class="crit-v" id="l2verdict">—</span></div>
+                <div class="crit-t" id="l2text"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Both approved + winning output -->
+          <div class="cai-flow-step" id="caiWin">
+            <div class="cai-flow-node">
+              <div class="cai-flow-icon cfn-win">✓</div>
+            </div>
+            <div class="cai-flow-body">
+              <div class="cai-both-ok">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Both Evaluators Approved — Accepted into Behavioral Model
+              </div>
+              <div class="cai-flow-card card-win">
+                <div class="cai-flow-tag tag-win">Winning Output — After CAI Critique</div>
+                <div class="cai-flow-txt" id="caiWinText"></div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="pvconn" id="pvconn3"></div>
@@ -1949,7 +2027,10 @@ function resetPipeline(){
   ['s1hd','s2hd','s3hd'].forEach(id=>{const e=document.getElementById(id);if(e)e.className='pshd';});
   const sk=document.getElementById('caiSkip');if(sk){sk.style.display='none';sk.classList.remove('visible');}
   const ac=document.getElementById('caiActive');if(ac)ac.style.display='none';
-  ['caiDraft','caiL1','caiL2','caiWin'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('visible');});
+  ['caiDraft','caiL1','caiL2','caiWin','caiRevRow'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('visible');});
+  ['vl1','vl2','vl3'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('lit');});
+  const rs=document.getElementById('caiRevSpin');if(rs)rs.style.display='';
+  const rt=document.getElementById('caiRevText');if(rt)rt.textContent='Jemm revising…';
   const fo=document.getElementById('finalOut');if(fo){fo.className='fout';fo.classList.remove('visible');}
   /* Reset §03 avatar to idle */
   const av=document.getElementById('foutAvatar');if(av){av.classList.remove('active');}
@@ -1980,29 +2061,68 @@ function populateCtx(s){
   if(sc){sc.className='qctx-chip '+(c.sCls==='hi'?'risk-hi':'risk-lo');}
   setStageBreadcrumb(1); /* step 1: query populated */
 }
+function revEl(id){return document.getElementById(id);}
 function showS2(s){
-  setStageBreadcrumb(3); /* breadcrumb: CAI Critique active */
-  const hd=document.getElementById('s2hd');if(hd)hd.classList.add('lit');
-  document.getElementById('pvconn2').classList.add('lit');
+  setStageBreadcrumb(3);
+  const hd=revEl('s2hd');if(hd)hd.classList.add('lit');
+  revEl('pvconn2').classList.add('lit');
   if(!s.cai){
-    const sk=document.getElementById('caiSkip');sk.style.display='flex';requestAnimationFrame(()=>requestAnimationFrame(()=>sk.classList.add('visible')));
-    PT.push(setTimeout(()=>showS3(s),700));
-  }else{
-    const cai=s.cai;
-    document.getElementById('caiActive').style.display='flex';
-    document.getElementById('caiDraftScore').textContent=cai.draftScore;
-    document.getElementById('caiDraftText').textContent=cai.draft;
-    const e0=cai.evals[0],e1=cai.evals[1];
-    document.getElementById('l1who').textContent=e0.p;document.getElementById('l1who').className='crit-w '+e0.wc;
-    document.getElementById('l1verdict').textContent=e0.v;document.getElementById('l1verdict').className='crit-v '+e0.vc;
-    document.getElementById('l1text').textContent=e0.t;
-    document.getElementById('l2who').textContent=e1.p;document.getElementById('l2who').className='crit-w '+e1.wc;
-    document.getElementById('l2verdict').textContent=e1.v;document.getElementById('l2verdict').className='crit-v '+e1.vc;
-    document.getElementById('l2text').textContent=e1.t;
-    document.getElementById('caiWinText').textContent=cai.winning;
-    ['caiDraft','caiL1','caiL2','caiWin'].forEach((id,i)=>PT.push(setTimeout(()=>{const e=document.getElementById(id);if(e)e.classList.add('visible');},200+i*500)));
-    PT.push(setTimeout(()=>showS3(s),200+4*500+400));
+    const sk=revEl('caiSkip');sk.style.display='flex';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>sk.classList.add('visible')));
+    PT.push(setTimeout(()=>showS3(s),700));return;
   }
+  const cai=s.cai;
+  const needsRevision=!cai.draftScore.includes('PASS')||cai.draftScore.includes('REVISE')||cai.draftScore.includes('REJECT');
+  /* Populate data */
+  revEl('caiActive').style.display='flex';
+  revEl('caiDraftText').textContent=cai.draft;
+  revEl('caiDraftScore').textContent=cai.draftScore;
+  const e0=cai.evals[0],e1=cai.evals[1];
+  revEl('l1who').textContent=e0.p;
+  revEl('l1verdict').textContent=e0.v;revEl('l1verdict').className='crit-v '+e0.vc;
+  revEl('l1text').textContent=e0.t;
+  revEl('l2who').textContent=e1.p;
+  revEl('l2verdict').textContent=e1.v;revEl('l2verdict').className='crit-v '+e1.vc;
+  revEl('l2text').textContent=e1.t;
+  revEl('caiWinText').textContent=cai.winning;
+  /* Animate: step-by-step cyclic flow */
+  let t=200;
+  /* Step 1: Draft appears */
+  PT.push(setTimeout(()=>{
+    revEl('vl1').classList.add('lit');
+    revEl('caiDraft').classList.add('visible');
+  },t));t+=700;
+  /* Step 2: Revision connector */
+  PT.push(setTimeout(()=>{
+    const rr=revEl('caiRevRow');rr.classList.add('visible');
+    const rs=revEl('caiRevSpin');
+    const rt=revEl('caiRevText');
+    if(needsRevision){rt.textContent='Revising based on draft feedback…';}
+    else{rt.textContent='Draft meets criteria — direct review';if(rs)rs.style.display='none';}
+  },t));t+=800;
+  /* Step 3: L1 Evaluator */
+  PT.push(setTimeout(()=>{
+    revEl('vl2').classList.add('lit');
+    revEl('caiL1').classList.add('visible');
+  },t));t+=800;
+  /* Step 4: L2 Evaluator */
+  PT.push(setTimeout(()=>{
+    revEl('vl3').classList.add('lit');
+    const rr=revEl('caiRevRow');
+    /* Update revision badge to show both approved cycle */
+    const rt=revEl('caiRevText');
+    const rs=revEl('caiRevSpin');
+    if(rs)rs.style.display='none';
+    if(rt)rt.textContent='L1 complete — passing to L2 evaluator';
+    revEl('caiL2').classList.add('visible');
+  },t));t+=900;
+  /* Step 5: Both approved + winning */
+  PT.push(setTimeout(()=>{
+    const rr=revEl('caiRevRow');const rt=revEl('caiRevText');
+    if(rt)rt.textContent='Both evaluators approved ✓';
+    revEl('caiWin').classList.add('visible');
+  },t));t+=600;
+  PT.push(setTimeout(()=>showS3(s),t));
 }
 function buildToneAxes(axes){
   const labels=[['Formal','Casual'],['Serious','Funny'],['Respectful','Irreverent'],['Matter-of-fact','Enthusiastic']];
