@@ -167,8 +167,9 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .wsb-step{display:flex;align-items:center;gap:6px;opacity:.4;transition:opacity .25s,color .25s}
 .wsb-step.wsb-active{opacity:1}
 .wsb-step.wsb-done{opacity:.7}
-.wsb-num{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;flex-shrink:0;transition:background .25s,color .25s}
-.wsb-step.wsb-active .wsb-num{background:var(--ac);border-color:var(--ac);color:#000}
+.wsb-num{width:28px;height:28px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .25s,color .25s,border-color .25s}
+.wsb-step.wsb-active .wsb-num{background:var(--ac);border-color:var(--ac);color:#000;animation:wsb-bounce .5s ease}
+@keyframes wsb-bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 .wsb-step.wsb-done .wsb-num{background:var(--ac-dim);border-color:var(--ac-bd);color:var(--ac)}
 .wsb-lbl{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;white-space:nowrap}
 .wsb-step.wsb-active .wsb-lbl{color:var(--ac)}
@@ -321,17 +322,24 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .gate-pass{border-color:var(--ac-bd)!important;background:rgba(0,213,140,.05)!important}
 .gate-fail{border-color:var(--red-bd)!important;background:rgba(255,77,77,.05)!important}
 .gate-skip{border-color:transparent!important;opacity:.42}
-.gate-checking{border-color:rgba(245,166,35,.4)!important}
-.gate-iw{width:30px;height:30px;border-radius:7px;flex-shrink:0;background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm);display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s,color .25s}
+.gate-checking{border-color:rgba(245,166,35,.5)!important;animation:gate-pulse .9s ease-in-out infinite}
+@keyframes gate-pulse{0%,100%{background:var(--bg-c)}50%{background:rgba(245,166,35,.06)}}
+/* Gate icon wrapper */
+.gate-iw{width:30px;height:30px;border-radius:7px;flex-shrink:0;background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm);display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s,color .25s;position:relative;overflow:hidden}
 .gate-pass .gate-iw{background:rgba(0,213,140,.15);border-color:var(--ac-bd);color:var(--ac)}
 .gate-fail .gate-iw{background:rgba(255,77,77,.15);border-color:var(--red-bd);color:var(--red)}
+.gate-checking .gate-iw{background:rgba(245,166,35,.12);border-color:rgba(245,166,35,.4);color:var(--amber)}
+/* Spinner ring that appears over the icon during checking */
+.gate-checking .gate-iw::after{content:'';position:absolute;inset:3px;border:2px solid transparent;border-top-color:var(--amber);border-radius:50%;animation:gate-spin .7s linear infinite;pointer-events:none}
+@keyframes gate-spin{to{transform:rotate(360deg)}}
 .gate-b{flex:1}
 .gate-title{font-size:14px;font-weight:600;color:var(--th);margin-bottom:3px}
 .gate-desc{font-size:13px;color:var(--tb);line-height:1.5}
 .gate-r{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
 .gbadge{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:4px;white-space:nowrap}
 .bi{background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm)}
-.bc{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);color:var(--amber)}
+.bc{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);color:var(--amber);display:inline-flex;align-items:center;gap:4px}
+.spin-ico{animation:gate-spin .7s linear infinite;flex-shrink:0}
 .bp{background:var(--ac-dim);border:1px solid var(--ac-bd);color:var(--ac)}
 .bf{background:var(--red-dim);border:1px solid var(--red-bd);color:var(--red)}
 .bsk{background:var(--bg-ch);border:1px solid var(--bd);color:var(--tm);opacity:.5}
@@ -887,23 +895,31 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
       <!-- Stage Progress Breadcrumb -->
       <div class="wb-stage-bar" id="wbStageBar">
         <div class="wsb-step wsb-idle" id="wsb1">
-          <div class="wsb-num">1</div>
-          <span class="wsb-lbl">Query Context</span>
+          <div class="wsb-num">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <span class="wsb-lbl">Query</span>
         </div>
         <div class="wsb-arrow">›</div>
         <div class="wsb-step wsb-idle" id="wsb2">
-          <div class="wsb-num">2</div>
-          <span class="wsb-lbl">4-Gate Funnel</span>
+          <div class="wsb-num">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span class="wsb-lbl">4 Gates</span>
         </div>
         <div class="wsb-arrow">›</div>
         <div class="wsb-step wsb-idle" id="wsb3">
-          <div class="wsb-num">3</div>
+          <div class="wsb-num">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
           <span class="wsb-lbl">CAI Critique</span>
         </div>
         <div class="wsb-arrow">›</div>
         <div class="wsb-step wsb-idle" id="wsb4">
-          <div class="wsb-num">4</div>
-          <span class="wsb-lbl">Final Output</span>
+          <div class="wsb-num">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <span class="wsb-lbl">Output</span>
         </div>
       </div>
 
@@ -1853,7 +1869,11 @@ function setG(n,st,d){
   if(!g)return;
   g.className='gate-card gate-'+st;
   if(st==='idle'){b.className='gbadge bi';b.innerHTML='—';ds.innerHTML='Awaiting evaluation…';}
-  else if(st==='checking'){b.className='gbadge bc';b.innerHTML='⟳ CHECKING';ds.innerHTML=CD[n-1];}
+  else if(st==='checking'){
+    b.className='gbadge bc';
+    b.innerHTML='<svg class="spin-ico" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> PROCESSING';
+    ds.innerHTML=CD[n-1];
+  }
   else if(st==='pass'){b.className='gbadge bp';b.innerHTML='<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PASS';ds.innerHTML=d.desc;if(n===3)applyG3(d);}
   else if(st==='fail'){b.className='gbadge bf';b.innerHTML='<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> BLOCK';ds.innerHTML=d.desc;}
   else if(st==='skip'){b.className='gbadge bsk';b.innerHTML='N/A';if(d)ds.innerHTML=d.desc;}
