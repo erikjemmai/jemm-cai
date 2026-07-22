@@ -19,10 +19,12 @@
   --amber:#F5A623;--blue:#60C5FF;--purple:#C9A0FF;
   --th:#F0F5F2;--tb:#A8B5AD;--tm:#5A7065;
   --topbar:56px;--drawer:280px;--wrap:960px;
+  --bg-nav:#141A17;
 }
 :root[data-theme=light]{
   --bg:#FFFFFF;--bg-c:#F7F5F2;--bg-ch:#EDF0EC;--bd:#D5D9D6;
   --th:#0F1910;--tb:#3D4D42;--tm:#7A8F80;--ac-dim:rgba(5,145,97,.07);
+  --bg-nav:#F7F5F2;
 }
 /* ============================================================ BASE */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -42,25 +44,50 @@ ul{list-style:none}
 .theme-pill{height:30px;border-radius:15px;padding:0 12px;background:var(--bg-ch);border:1px solid var(--bd);display:flex;align-items:center;gap:7px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--tm);transition:border-color .2s,color .2s;white-space:nowrap}
 .theme-pill:hover{border-color:var(--ac-bd);color:var(--ac)}
 .tp-pip{width:8px;height:8px;border-radius:50%;background:var(--ac);transition:background .3s}
-/* ============================================================ DRAWER */
-.drawer-bd{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;opacity:0;pointer-events:none;transition:opacity .25s}
-.drawer-bd.open{opacity:1;pointer-events:all}
-.nav-drawer{position:fixed;top:0;left:0;bottom:0;z-index:160;width:var(--drawer);background:var(--bg-c);border-right:1px solid var(--bd);display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow-y:auto}
-.nav-drawer.open{transform:translateX(0)}
-.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--bd);flex-shrink:0}
-.drawer-close{width:30px;height:30px;border-radius:6px;background:transparent;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tm);transition:border-color .2s,color .2s}
-.drawer-close:hover{border-color:var(--red-bd);color:var(--red)}
-.drawer-body{flex:1;padding:10px 0;overflow-y:auto}
-.drawer-slbl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tm);padding:12px 18px 4px;display:block}
-.drawer-link{display:block;padding:9px 18px;font-size:13px;font-weight:500;color:var(--tb);transition:color .15s,background .15s;border-left:2px solid transparent}
+/* ============================================================ SIDEBAR (PUSH) */
+:root{--sb-exp:240px;--sb-col:72px}
+.nav-sidebar{position:fixed;top:var(--topbar);left:0;bottom:0;z-index:90;width:var(--sb-exp);background:var(--bg-nav);border-right:1px solid var(--bd);display:flex;flex-direction:column;transition:width .26s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.nav-sidebar.collapsed{width:var(--sb-col)}
+/* Header row inside sidebar */
+.sb-header{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 14px 16px;border-bottom:1px solid var(--bd);flex-shrink:0;min-height:52px}
+.nav-sidebar.collapsed .sb-header{justify-content:center;padding:14px 0}
+.sb-nav-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--tm);text-transform:uppercase;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .18s}
+.nav-sidebar.collapsed .sb-nav-lbl{opacity:0;width:0}
+.sb-toggle{width:32px;height:32px;border-radius:7px;background:transparent;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tm);transition:border-color .2s,color .2s;flex-shrink:0}
+.sb-toggle:hover{border-color:var(--ac-bd);color:var(--ac)}
+/* Scrollable body */
+.sb-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:8px 0}
+.sb-slbl{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tm);padding:10px 16px 3px;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .15s}
+.nav-sidebar.collapsed .sb-slbl{opacity:0}
+.drawer-link{display:flex;align-items:center;padding:10px 16px;font-size:13px;font-weight:500;color:var(--tb);transition:color .15s,background .15s;border-left:2px solid transparent;white-space:nowrap;overflow:hidden;gap:10px}
 .drawer-link:hover{color:var(--th);background:var(--ac-dim)}
 .drawer-link.active{color:var(--ac);border-left-color:var(--ac);background:var(--ac-dim)}
-.drawer-foot{padding:16px 18px;border-top:1px solid var(--bd);flex-shrink:0}
-.drawer-pills{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
-.d-pill{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:4px;display:inline-block;width:fit-content;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd)}
-.drawer-copy{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--tm);line-height:1.5}
-/* ============================================================ MAIN */
-.page-main{margin-top:var(--topbar);min-height:calc(100vh - var(--topbar))}
+.nav-sidebar.collapsed .drawer-link{padding:10px 0;justify-content:center;border-left:none}
+.dl-txt{overflow:hidden;white-space:nowrap;opacity:1;transition:opacity .15s;font-size:13px}
+.nav-sidebar.collapsed .dl-txt{opacity:0;width:0;pointer-events:none}
+/* Mini icon pills for collapsed state */
+.dl-mini{display:none;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--tm);width:36px;text-align:center}
+.nav-sidebar.collapsed .dl-mini{display:block}
+.nav-sidebar.collapsed .drawer-link.active .dl-mini{color:var(--ac)}
+/* Footer */
+.sb-foot{padding:14px 16px;border-top:1px solid var(--bd);flex-shrink:0;overflow:hidden}
+.sb-copy{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tm);line-height:1.55;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .15s}
+.nav-sidebar.collapsed .sb-copy{opacity:0}
+.sb-pills{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;overflow:hidden;opacity:1;transition:opacity .15s}
+.nav-sidebar.collapsed .sb-pills{opacity:0}
+.d-pill{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.07em;padding:3px 9px;border-radius:4px;display:inline-block;width:fit-content;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd)}
+/* Main area shifts right to match sidebar */
+.page-main{margin-top:var(--topbar);margin-left:var(--sb-exp);transition:margin-left .26s cubic-bezier(.4,0,.2,1);min-height:calc(100vh - var(--topbar))}
+.page-main.sb-collapsed{margin-left:var(--sb-col)}
+/* Mobile: sidebar hidden off-screen, main full-width */
+@media(max-width:768px){
+  .nav-sidebar{transform:translateX(-100%);transition:transform .26s cubic-bezier(.4,0,.2,1),width .26s}
+  .nav-sidebar.mob-open{transform:translateX(0)}
+  .page-main{margin-left:0!important}
+  .sb-backdrop{display:block}
+}
+.sb-backdrop{display:none;position:fixed;inset:0;z-index:89;background:rgba(0,0,0,.5)}
+.sb-backdrop.open{display:block}
 .content-wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px 72px}
 @media(max-width:600px){.content-wrap{padding:0 16px 48px}}
 /* ============================================================ UX BANNER */
@@ -359,9 +386,6 @@ ul{list-style:none}
 <!-- TOPBAR -->
 <header class="topbar">
   <div class="topbar-left">
-    <button class="ham-btn" id="hamBtn" aria-label="Open navigation">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
-    </button>
     <img src="logo-dark.png"  alt="Jemm" class="tb-logo ld">
     <img src="logo-light.png" alt="Jemm" class="tb-logo ll">
   </div>
@@ -373,40 +397,43 @@ ul{list-style:none}
   </div>
 </header>
 
-<!-- DRAWER BACKDROP -->
-<div class="drawer-bd" id="drawerBd" onclick="closeDrawer()"></div>
+<!-- MOBILE BACKDROP -->
+<div class="sb-backdrop" id="sbBackdrop" onclick="closeMobSidebar()"></div>
 
-<!-- NAVIGATION DRAWER -->
-<nav class="nav-drawer" id="navDrawer">
-  <div class="drawer-head">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--ac)">NAVIGATION</span>
-    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+<!-- PUSH SIDEBAR -->
+<nav class="nav-sidebar" id="navSidebar">
+  <div class="sb-header">
+    <span class="sb-nav-lbl">NAVIGATION</span>
+    <button class="sb-toggle" id="sbToggle" aria-label="Toggle navigation">
+      <!-- X icon (shown when expanded) -->
+      <svg class="ico-x" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <!-- ☰ icon (shown when collapsed) -->
+      <svg class="ico-ham" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:none"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
     </button>
   </div>
-  <div class="drawer-body">
-    <span class="drawer-slbl">Overview</span>
-    <a href="#hero"     class="drawer-link active" data-sec="hero">Behavioral Tenets Overview</a>
-    <span class="drawer-slbl">Specification</span>
-    <a href="#preamble" class="drawer-link" data-sec="preamble">§01 Executive Preamble &amp; Research</a>
-    <a href="#isnot"    class="drawer-link" data-sec="isnot">§02 Jemm Is / Jemm Is Not</a>
-    <a href="#pipeline" class="drawer-link" data-sec="pipeline">§03 The Live Decision &amp; Adaptation Loop</a>
-    <span class="drawer-slbl">Alignment Framework</span>
-    <a href="#tiers"    class="drawer-link" data-sec="tiers">§04 Behavioral Tenets &amp; Priority Tiers</a>
-    <a href="#tone"     class="drawer-link" data-sec="tone">§05 Adaptive Persona &amp; Tone Sliders</a>
+  <div class="sb-body">
+    <span class="sb-slbl">Overview</span>
+    <a href="#hero"     class="drawer-link active" data-sec="hero"><span class="dl-mini">H</span><span class="dl-txt">Behavioral Tenets Overview</span></a>
+    <span class="sb-slbl">Specification</span>
+    <a href="#preamble" class="drawer-link" data-sec="preamble"><span class="dl-mini">01</span><span class="dl-txt">§01 Executive Preamble &amp; Research</span></a>
+    <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-mini">02</span><span class="dl-txt">§02 Jemm Is / Jemm Is Not</span></a>
+    <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-mini">03</span><span class="dl-txt">§03 The Live Decision &amp; Adaptation Loop</span></a>
+    <span class="sb-slbl">Alignment Framework</span>
+    <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-mini">04</span><span class="dl-txt">§04 Behavioral Tenets &amp; Priority Tiers</span></a>
+    <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-mini">05</span><span class="dl-txt">§05 Adaptive Persona &amp; Tone Sliders</span></a>
   </div>
-  <div class="drawer-foot">
-    <div class="drawer-pills">
+  <div class="sb-foot">
+    <div class="sb-pills">
       <span class="d-pill">NODE: 100% LOCAL</span>
       <span class="d-pill">EGRESS: ZERO</span>
       <span class="d-pill">RBAC: ACTIVE</span>
     </div>
-    <div class="drawer-copy">© 2026 Copyright Jemm Tec, LLC<br>All rights reserved.</div>
+    <div class="sb-copy">© 2026 Copyright Jemm Tec, LLC<br>All rights reserved.</div>
   </div>
 </nav>
 
 <!-- MAIN -->
-<main class="page-main">
+<main class="page-main" id="pageMain">
 <div class="content-wrap">
 
 <!-- UX BANNER -->
@@ -1009,11 +1036,42 @@ applyTheme(localStorage.getItem('jemm-theme')||'dark');
 tPill.onclick=()=>applyTheme(html.getAttribute('data-theme')==='dark'?'light':'dark');
 
 /* DRAWER */
-const navD=document.getElementById('navDrawer'),drawerBd=document.getElementById('drawerBd');
-function openDrawer(){navD.classList.add('open');drawerBd.classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){navD.classList.remove('open');drawerBd.classList.remove('open');document.body.style.overflow='';}
-document.getElementById('hamBtn').onclick=openDrawer;
-document.querySelectorAll('.drawer-link').forEach(l=>l.addEventListener('click',closeDrawer));
+/* ── Push sidebar ── */
+const sb=document.getElementById('navSidebar');
+const pm=document.getElementById('pageMain');
+const sbTog=document.getElementById('sbToggle');
+const sbBack=document.getElementById('sbBackdrop');
+const isMob=()=>window.innerWidth<=768;
+
+function expandSidebar(){
+  sb.classList.remove('collapsed');
+  pm.classList.remove('sb-collapsed');
+  sbTog.querySelector('.ico-x').style.display='';
+  sbTog.querySelector('.ico-ham').style.display='none';
+}
+function collapseSidebar(){
+  sb.classList.add('collapsed');
+  pm.classList.add('sb-collapsed');
+  sbTog.querySelector('.ico-x').style.display='none';
+  sbTog.querySelector('.ico-ham').style.display='';
+}
+function closeMobSidebar(){
+  sb.classList.remove('mob-open');
+  sbBack.classList.remove('open');
+  document.body.style.overflow='';
+}
+sbTog.onclick=function(){
+  if(isMob()){
+    if(sb.classList.contains('mob-open')){closeMobSidebar();}
+    else{sb.classList.add('mob-open');sbBack.classList.add('open');document.body.style.overflow='hidden';}
+  } else {
+    if(sb.classList.contains('collapsed'))expandSidebar();else collapseSidebar();
+  }
+};
+/* Close mobile sidebar on link click */
+document.querySelectorAll('.drawer-link').forEach(l=>l.addEventListener('click',()=>{if(isMob())closeMobSidebar();}));
+/* Init: expanded on desktop, hidden on mobile */
+if(!isMob())expandSidebar();else collapseSidebar();
 
 /* INTERSECTION OBSERVER */
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('.drawer-link[data-sec]').forEach(l=>l.classList.toggle('active',l.dataset.sec===e.target.id));});},{rootMargin:'-40% 0px -55% 0px'});
