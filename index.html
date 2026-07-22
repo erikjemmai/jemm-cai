@@ -250,9 +250,10 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .sh-table tbody tr{border-bottom:1px solid var(--bd);transition:background .15s}
 .sh-table tbody tr:last-child{border-bottom:none}
 .sh-table tbody tr:hover{background:var(--bg-c)}
-.sh-table td{padding:12px 16px;vertical-align:top;line-height:1.55}
+.sh-table td{padding:12px 16px;vertical-align:top;line-height:1.55;color:var(--tb)}
 .sh-state{font-weight:600;color:var(--th);white-space:nowrap}
 .sh-green{color:var(--ac);font-weight:600}
+.sh-amber{color:#FF9F68;font-weight:600}
 .sh-red{color:var(--red);font-weight:600}
 .sh-muted{color:var(--tm)}
 /* ── System Reliability ── */
@@ -855,7 +856,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
     <!-- Active -->
     <div class="p-6 rounded-2xl bg-[#141A17] border border-[#00D58C]/40 flex flex-col items-center text-center gap-4">
       <div class="w-24 h-24 rounded-full border-2 border-[#00D58C] bg-[#0B0F0D] flex items-center justify-center" style="box-shadow:0 0 24px rgba(0,213,140,0.28)">
-        <img src="jemm-mark.png" alt="Jemm" style="width:40px;height:40px;filter:brightness(0) saturate(1) invert(1) sepia(1) saturate(3) hue-rotate(115deg) brightness(1.1)">
+        <img src="jemm-mark.png" alt="Jemm" style="width:40px;height:40px;filter:brightness(0) invert(1) sepia(1) saturate(6) hue-rotate(110deg) brightness(1.2) drop-shadow(0 0 8px #00D58C)">
       </div>
       <div>
         <h3 class="font-bold text-base" style="color:#00D58C">Active Operation</h3>
@@ -866,7 +867,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
     <!-- Refusal -->
     <div class="p-6 rounded-2xl bg-[#141A17] border border-[#FF9F68]/40 flex flex-col items-center text-center gap-4">
       <div class="w-24 h-24 rounded-full border-2 border-[#FF9F68] bg-[#0B0F0D] flex items-center justify-center" style="box-shadow:0 0 24px rgba(255,159,104,0.25)">
-        <img src="jemm-mark.png" alt="Jemm" style="width:40px;height:40px;filter:brightness(0) saturate(1) invert(1) sepia(1) saturate(4) hue-rotate(330deg) brightness(1.05)">
+        <img src="jemm-mark.png" alt="Jemm" style="width:40px;height:40px;filter:brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(330deg) brightness(1.1) drop-shadow(0 0 8px #FF9F68)">
       </div>
       <div>
         <h3 class="font-bold text-base" style="color:#FF9F68">Constitutional Refusal</h3>
@@ -878,39 +879,39 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
   <!-- State reference table -->
   <div class="overflow-x-auto mt-6">
-    <table class="w-full text-left border-collapse text-sm" style="color:#D8E2DC">
+    <table class="sh-table">
       <thead>
-        <tr style="border-bottom:1px solid #222C27">
-          <th class="p-3" style="color:#F2F2F2;font-weight:600">System State</th>
-          <th class="p-3" style="color:#F2F2F2;font-weight:600">Optical Indicator</th>
-          <th class="p-3" style="color:#F2F2F2;font-weight:600">Hardware Behavior</th>
-          <th class="p-3" style="color:#F2F2F2;font-weight:600">Acoustic Feedback</th>
+        <tr>
+          <th>System State</th>
+          <th>Optical Indicator</th>
+          <th>Hardware Behavior</th>
+          <th>Acoustic Feedback</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid #222C27">
-          <td class="p-3" style="color:#F2F2F2;font-weight:500">Idle State</td>
-          <td class="p-3" style="color:#8EA89E">Dark Matte (#000000)</td>
-          <td class="p-3">0% Luminance. Hardware visually invisible. Silent edge updates.</td>
-          <td class="p-3">Complete silence.</td>
-        </tr>
-        <tr style="border-bottom:1px solid #222C27">
-          <td class="p-3" style="color:#F2F2F2;font-weight:500">Active Listening</td>
-          <td class="p-3" style="color:#00D58C;font-weight:500">Neon Emerald Ring (#00D58C)</td>
-          <td class="p-3">30% ambient glow on closest spatial node only upon wake word.</td>
-          <td class="p-3">Localized subtle listening cue. No chimes.</td>
-        </tr>
-        <tr style="border-bottom:1px solid #222C27">
-          <td class="p-3" style="color:#F2F2F2;font-weight:500">Local Processing</td>
-          <td class="p-3" style="color:#00D58C;font-weight:500">Emerald Inward Ripple</td>
-          <td class="p-3">200ms inward optical pulse toward central icon; decays in 500ms.</td>
-          <td class="p-3">Zero audio chimes or verbal filler.</td>
+        <tr>
+          <td class="sh-state">Idle State</td>
+          <td class="sh-muted">Dark Matte (#000000)</td>
+          <td>0% Luminance. Hardware visually invisible. Silent edge updates.</td>
+          <td>Complete silence.</td>
         </tr>
         <tr>
-          <td class="p-3" style="color:#F2F2F2;font-weight:500">Constitutional Refusal</td>
-          <td class="p-3" style="color:#FF9F68;font-weight:500">Warm Amber Pulse (#FF9F68)</td>
-          <td class="p-3">1.0s soft warm amber pulse; transitions back to dark matte.</td>
-          <td class="p-3">Spoken constraint explanation. No harsh alarms.</td>
+          <td class="sh-state">Active Listening</td>
+          <td class="sh-green">Neon Emerald Ring (#00D58C)</td>
+          <td>30% ambient glow on closest spatial node only upon wake word.</td>
+          <td>Localized subtle listening cue. No chimes.</td>
+        </tr>
+        <tr>
+          <td class="sh-state">Local Processing</td>
+          <td class="sh-green">Emerald Inward Ripple</td>
+          <td>200ms inward optical pulse toward central icon; decays in 500ms.</td>
+          <td>Zero audio chimes or verbal filler.</td>
+        </tr>
+        <tr>
+          <td class="sh-state">Constitutional Refusal</td>
+          <td class="sh-amber">Warm Amber Pulse (#FF9F68)</td>
+          <td>1.0s soft warm amber pulse; transitions back to dark matte.</td>
+          <td>Spoken constraint explanation. No harsh alarms.</td>
         </tr>
       </tbody>
     </table>
