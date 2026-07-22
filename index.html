@@ -282,26 +282,57 @@ ul{list-style:none}
 .ov-rule-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
 .ov-rule-txt{font-size:13px;line-height:1.6;color:var(--tb);margin-bottom:9px}
 .ov-rule-txt strong{color:var(--th)}
-/* ============================================================ §05 TONE */
-.tone-ctrls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.tc-group{display:flex;gap:5px;align-items:center}
-.tc-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--tm);margin-right:2px}
-.tb2{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;padding:4px 11px;border-radius:5px;cursor:pointer;border:1px solid var(--bd);background:var(--bg-c);color:var(--tm);transition:all .2s}
-.tb2.active{background:var(--ac-dim);border-color:var(--ac-bd);color:var(--ac)}
-.tb2:not(.active):hover{border-color:var(--ac-bd);color:var(--th)}
-.slider-mod{display:flex;flex-direction:column;gap:14px;margin-bottom:22px}
+/* ============================================================ §05 TONE MATRIX */
+/* 2-col layout */
+.tone-2col{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:900px){.tone-2col{grid-template-columns:5fr 7fr;align-items:start}}
+/* Left column */
+.tone-left{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:14px;padding:22px 20px;display:flex;flex-direction:column;gap:20px}
+.tone-left-title{font-size:12px;font-weight:700;color:var(--th);letter-spacing:.02em;padding-bottom:14px;border-bottom:1px solid var(--bd)}
+.tone-ctx-group{display:flex;flex-direction:column;gap:8px}
+.tone-ctx-lbl{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm)}
+.tone-ctx-icon{color:var(--ac);display:flex;align-items:center}
+.tone-btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.tc-btn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;padding:6px 14px;border-radius:7px;cursor:pointer;border:1.5px solid var(--bd);background:var(--bg-ch);color:var(--tm);transition:all .18s}
+.tc-btn:hover:not(.active){border-color:var(--ac-bd);color:var(--th)}
+.tc-btn.active{background:var(--ac-dim);border-color:var(--ac);color:var(--ac)}
+.tc-btn-danger.active{background:rgba(255,77,77,.12);border-color:var(--red-bd);color:var(--red)}
+.tc-btn-danger:hover:not(.active){border-color:var(--red-bd);color:var(--red)}
+/* Active register display */
+.tone-register-wrap{padding-top:16px;border-top:1px solid var(--bd)}
+.tone-register-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm);margin-bottom:6px}
+.tone-register-val{font-size:18px;font-weight:700;color:var(--ac);line-height:1.2;transition:all .3s}
+/* Right column */
+.tone-right{display:flex;flex-direction:column;gap:14px}
+.tone-box{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:14px;padding:20px 20px}
+.tone-box-title{font-size:11px;font-weight:700;color:var(--tm);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+/* Sliders */
+.slider-mod{display:flex;flex-direction:column;gap:12px}
 .slider-row{display:flex;flex-direction:column;gap:5px}
 .sl-lr{display:flex;justify-content:space-between;align-items:center}
-.sl-lbl{font-size:12px;color:var(--tm);font-family:'JetBrains Mono',monospace;font-weight:600;letter-spacing:.04em}
+.sl-lbl{font-size:11px;color:var(--tm);font-family:'JetBrains Mono',monospace;font-weight:600;letter-spacing:.04em}
 .sl-track{height:6px;background:var(--bg-ch);border:1px solid var(--bd);border-radius:3px;position:relative;cursor:default}
 .sl-fill{height:100%;background:var(--ac);border-radius:3px;transition:width .6s cubic-bezier(.4,0,.2,1)}
-.sl-thumb{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--ac);border:2px solid var(--bg);transform:translateY(-50%) translateX(-50%);transition:left .6s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px rgba(0,213,140,.4)}
-.tone-prev{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:12px;padding:18px 20px}
-.tp-q{font-size:13px;color:var(--tm);margin-bottom:8px}
-.tp-q strong{color:var(--th)}
-.tp-a{font-size:15px;color:var(--th);line-height:1.55;font-style:italic;padding:10px 14px;background:var(--bg-ch);border-radius:7px;margin-bottom:10px}
-.tp-badges{display:flex;flex-wrap:wrap;gap:6px}
-.tp-badge{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:4px;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd)}
+.sl-thumb{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--ac);border:2px solid var(--bg);transform:translateY(-50%) translateX(-50%);transition:left .6s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px rgba(0,213,140,.45)}
+/* Response card */
+.tone-response-card{border-color:var(--ac-bd)}
+.tone-avatar-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+/* Jemm pulsing avatar */
+.jemm-avatar{position:relative;width:52px;height:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.jemm-pulse-ring{position:absolute;border-radius:50%;border:2px solid var(--ac);opacity:0;animation:jemm-pulse 2.4s ease-out infinite}
+.jemm-pulse-ring.r1{width:52px;height:52px;animation-delay:0s}
+.jemm-pulse-ring.r2{width:52px;height:52px;animation-delay:1.2s}
+@keyframes jemm-pulse{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.55);opacity:0}}
+.jemm-avatar-core{width:36px;height:36px;border-radius:50%;background:var(--ac-dim);border:2px solid var(--ac);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:1}
+.jemm-avatar-img{width:22px;height:22px;object-fit:contain;filter:brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(100deg)}
+:root[data-theme=light] .jemm-avatar-img{filter:none}
+/* Query + response text */
+.tone-query-wrap{flex:1}
+.tone-query-lbl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.1em;color:var(--tm);margin-bottom:4px}
+.tone-query-text{font-size:13px;color:var(--tm);font-style:italic;line-height:1.4;transition:all .3s}
+.tone-response-text{font-size:22px;font-weight:700;color:var(--th);line-height:1.3;margin-bottom:14px;min-height:62px;transition:all .35s}
+.tone-meta-badge{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.07em;padding:5px 12px;border-radius:5px;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd);display:inline-block;transition:all .3s}
+.tone-meta-badge.danger{background:rgba(255,77,77,.12);color:var(--red);border-color:var(--red-bd)}
 /* ============================================================ FOOTER */
 .site-footer{padding:24px 0;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12px}
 .fl-dark{display:block}.fl-light{display:none}
@@ -796,7 +827,7 @@ ul{list-style:none}
 
 <hr class="sec-div">
 
-<!-- §05 TONE SLIDERS -->
+<!-- §05 TONE MATRIX -->
 <section class="section" id="tone">
   <div class="sec-ey">
     <button class="anc-btn" onclick="copyAnchor('tone',this)">
@@ -804,44 +835,94 @@ ul{list-style:none}
       #tone
     </button>
   </div>
-  <h2 class="sec-h2">Adaptive Persona &amp; Tone Sliders</h2>
-  <p class="sec-sub">The 4 dimensions of tone &amp; contextual adaptation. Jemm's voice shifts dynamically based on who is speaking, where they are, and when it is.</p>
+  <h2 class="sec-h2">Adaptive Persona &amp; Contextual Tone Matrix</h2>
+  <p class="sec-sub">Jemm's voice shifts dynamically across 4 tone dimensions based on who is speaking, where they are, and when. Select a context below to see it adapt in real time.</p>
 
-  <div class="tone-ctrls">
-    <div class="tc-group">
-      <span class="tc-lbl">WHO</span>
-      <button class="tb2 active" onclick="setTC('who','l1',this)">L1 Owner</button>
-      <button class="tb2" onclick="setTC('who','l2',this)">L2 Family</button>
-      <button class="tb2" onclick="setTC('who','l3',this)">L3 Guest</button>
-    </div>
-    <div class="tc-group">
-      <span class="tc-lbl">WHERE</span>
-      <button class="tb2 active" onclick="setTC('where','office',this)">Office</button>
-      <button class="tb2" onclick="setTC('where','kitchen',this)">Kitchen</button>
-      <button class="tb2" onclick="setTC('where','playroom',this)">Playroom</button>
-    </div>
-    <div class="tc-group">
-      <span class="tc-lbl">WHEN</span>
-      <button class="tb2 active" onclick="setTC('when','work',this)">Work Hours</button>
-      <button class="tb2" onclick="setTC('when','evening',this)">Evening</button>
-      <button class="tb2" onclick="setTC('when','emergency',this)">Emergency</button>
-    </div>
-  </div>
+  <div class="tone-2col">
 
-  <div class="slider-mod">
-    <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Formal</span><span class="sl-lbl">Casual</span></div><div class="sl-track"><div class="sl-fill" id="sf0" style="width:88%"></div><div class="sl-thumb" id="st0" style="left:88%"></div></div></div>
-    <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Serious</span><span class="sl-lbl">Funny</span></div><div class="sl-track"><div class="sl-fill" id="sf1" style="width:92%"></div><div class="sl-thumb" id="st1" style="left:92%"></div></div></div>
-    <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Respectful</span><span class="sl-lbl">Irreverent</span></div><div class="sl-track"><div class="sl-fill" id="sf2" style="width:20%"></div><div class="sl-thumb" id="st2" style="left:20%"></div></div></div>
-    <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Matter-of-Fact</span><span class="sl-lbl">Enthusiastic</span></div><div class="sl-track"><div class="sl-fill" id="sf3" style="width:95%"></div><div class="sl-thumb" id="st3" style="left:95%"></div></div></div>
-  </div>
+    <!-- LEFT: Context Controls -->
+    <div class="tone-left">
+      <div class="tone-left-title">Select Interaction Context</div>
 
-  <div class="tone-prev" id="tonePrev">
-    <div class="tp-q"><strong>Sample Query:</strong> "Jemm, what's the office temperature right now?"</div>
-    <div class="tp-a" id="tpA">"Office is at 70°F. HVAC on scheduled cooling cycle."</div>
-    <div class="tp-badges" id="tpBadges">
-      <span class="tp-badge">L1 OWNER</span><span class="tp-badge">OFFICE</span><span class="tp-badge">WORK HOURS</span><span class="tp-badge">CLINICAL · DIRECT</span>
+      <div class="tone-ctx-group">
+        <div class="tone-ctx-lbl">
+          <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          WHO — Authority Profile
+        </div>
+        <div class="tone-btn-row">
+          <button class="tc-btn active" onclick="setTC('who','l1',this)">L1 Owner</button>
+          <button class="tc-btn" onclick="setTC('who','l2',this)">L2 Family</button>
+          <button class="tc-btn" onclick="setTC('who','l3',this)">L3 Guest</button>
+        </div>
+      </div>
+
+      <div class="tone-ctx-group">
+        <div class="tone-ctx-lbl">
+          <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+          WHERE — Spatial Zone
+        </div>
+        <div class="tone-btn-row">
+          <button class="tc-btn active" onclick="setTC('where','office',this)">Office</button>
+          <button class="tc-btn" onclick="setTC('where','kitchen',this)">Kitchen</button>
+          <button class="tc-btn" onclick="setTC('where','playroom',this)">Playroom</button>
+        </div>
+      </div>
+
+      <div class="tone-ctx-group">
+        <div class="tone-ctx-lbl">
+          <span class="tone-ctx-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+          WHEN — Time / Stress Level
+        </div>
+        <div class="tone-btn-row">
+          <button class="tc-btn active" onclick="setTC('when','work',this)">Work Hours</button>
+          <button class="tc-btn" onclick="setTC('when','evening',this)">Evening</button>
+          <button class="tc-btn tc-btn-danger" onclick="setTC('when','emergency',this)">Emergency</button>
+        </div>
+      </div>
+
+      <!-- Register label -->
+      <div class="tone-register-wrap">
+        <div class="tone-register-lbl">ACTIVE REGISTER</div>
+        <div class="tone-register-val" id="toneRegister">Clinical &amp; Direct</div>
+      </div>
     </div>
-  </div>
+
+    <!-- RIGHT: Sliders + Response Card -->
+    <div class="tone-right">
+
+      <!-- Sliders box -->
+      <div class="tone-box">
+        <div class="tone-box-title">4 Tone Dimensions</div>
+        <div class="slider-mod">
+          <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Formal</span><span class="sl-lbl">Casual</span></div><div class="sl-track"><div class="sl-fill" id="sf0" style="width:88%"></div><div class="sl-thumb" id="st0" style="left:88%"></div></div></div>
+          <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Serious</span><span class="sl-lbl">Funny</span></div><div class="sl-track"><div class="sl-fill" id="sf1" style="width:92%"></div><div class="sl-thumb" id="st1" style="left:92%"></div></div></div>
+          <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Respectful</span><span class="sl-lbl">Irreverent</span></div><div class="sl-track"><div class="sl-fill" id="sf2" style="width:20%"></div><div class="sl-thumb" id="st2" style="left:20%"></div></div></div>
+          <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Matter-of-Fact</span><span class="sl-lbl">Enthusiastic</span></div><div class="sl-track"><div class="sl-fill" id="sf3" style="width:95%"></div><div class="sl-thumb" id="st3" style="left:95%"></div></div></div>
+        </div>
+      </div>
+
+      <!-- Live response card -->
+      <div class="tone-box tone-response-card">
+        <div class="tone-box-title">Live Jemm Response</div>
+        <div class="tone-avatar-row">
+          <div class="jemm-avatar">
+            <div class="jemm-pulse-ring r1"></div>
+            <div class="jemm-pulse-ring r2"></div>
+            <div class="jemm-avatar-core">
+              <img src="favicon.png" alt="Jemm" class="jemm-avatar-img">
+            </div>
+          </div>
+          <div class="tone-query-wrap">
+            <div class="tone-query-lbl">USER QUERY</div>
+            <div class="tone-query-text" id="tpQ">"Jemm, status on all locks."</div>
+          </div>
+        </div>
+        <div class="tone-response-text" id="tpA">"All 6 locks secured. No anomalies detected."</div>
+        <div class="tone-meta-badge" id="tpBadge">REGISTER: CLINICAL &amp; DIRECT · L1 OWNER · OFFICE · WORK HOURS</div>
+      </div>
+
+    </div><!-- /tone-right -->
+  </div><!-- /tone-2col -->
 </section>
 
 <!-- FOOTER -->
@@ -1057,19 +1138,41 @@ const TP={
 let tCtx={who:'l1',where:'office',when:'work'};
 function setTC(dim,val,btn){
   tCtx[dim]=val;
-  btn.closest('.tc-group').querySelectorAll('.tb2').forEach(b=>b.classList.remove('active'));
+  btn.closest('.tone-btn-row').querySelectorAll('.tc-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   updateSliders();
 }
+/* Register label map */
+const REG_LABELS={
+  l1:{office:{work:'Clinical &amp; Direct',evening:'Direct &amp; Brief',emergency:'Precise &amp; Immediate'},kitchen:{work:'Direct &amp; Brief',evening:'Honest &amp; Precise',emergency:'Clinical &amp; Direct'},playroom:{work:'Factual &amp; Brief',evening:'Minimal &amp; Direct',emergency:'Precise &amp; Immediate'}},
+  l2:{office:{work:'Warm &amp; Helpful',evening:'Gentle &amp; Considerate',emergency:'Calm &amp; Reassuring'},kitchen:{work:'Warm &amp; Friendly',evening:'Warm &amp; Reassuring',emergency:'Calm &amp; Urgent'},playroom:{work:'Friendly &amp; Brief',evening:'Warm &amp; Light',emergency:'Reassuring &amp; Factual'}},
+  l3:{office:{work:'Polished &amp; Guarded',evening:'Polite &amp; Firm',emergency:'Helpful &amp; Immediate'},kitchen:{work:'Friendly &amp; Brief',evening:'Pleasant &amp; Brief',emergency:'Calm &amp; Directive'},playroom:{work:'Simple &amp; Direct',evening:'Friendly &amp; Bounded',emergency:'Immediate &amp; Calm'}}
+};
+const BADGE_DANGER_WHEN=['emergency'];
 function updateSliders(){
   const vals=(TM[tCtx.who]?.[tCtx.where]?.[tCtx.when])||[50,50,50,50];
   [0,1,2,3].forEach(i=>{const p=vals[i]+'%';document.getElementById('sf'+i).style.width=p;document.getElementById('st'+i).style.left=p;});
   let prev=TP?.[tCtx.who]?.[tCtx.where]?.[tCtx.when];
   if(!prev){const fw=Object.keys(TP[tCtx.who])[0];prev=TP[tCtx.who][fw][Object.keys(TP[tCtx.who][fw])[0]];}
   if(prev){
-    document.getElementById('tpA').textContent=prev.a;
-    document.getElementById('tpBadges').innerHTML=prev.b.map(b=>`<span class="tp-badge">${b}</span>`).join('');
-    document.querySelector('.tp-q').innerHTML=`<strong>Sample Query:</strong> ${prev.q}`;
+    const qEl=document.getElementById('tpQ');
+    const aEl=document.getElementById('tpA');
+    if(qEl)qEl.textContent=prev.q;
+    if(aEl)aEl.textContent=prev.a;
+    /* meta badge */
+    const badgeEl=document.getElementById('tpBadge');
+    if(badgeEl){
+      const whoL=tCtx.who==='l1'?'L1 OWNER':tCtx.who==='l2'?'L2 FAMILY':'L3 GUEST';
+      const whereL=tCtx.where.charAt(0).toUpperCase()+tCtx.where.slice(1);
+      const whenL=tCtx.when==='work'?'WORK HOURS':tCtx.when==='evening'?'EVENING':'EMERGENCY';
+      const regRaw=REG_LABELS[tCtx.who]?.[tCtx.where]?.[tCtx.when]||'Clinical &amp; Direct';
+      const regPlain=regRaw.replace(/&amp;/g,'&');
+      badgeEl.innerHTML=`REGISTER: ${regPlain.toUpperCase()} · ${whoL} · ${whereL.toUpperCase()} · ${whenL}`;
+      badgeEl.className='tone-meta-badge'+(BADGE_DANGER_WHEN.includes(tCtx.when)?' danger':'');
+    }
+    /* register label */
+    const regEl=document.getElementById('toneRegister');
+    if(regEl)regEl.innerHTML=REG_LABELS[tCtx.who]?.[tCtx.where]?.[tCtx.when]||'Clinical &amp; Direct';
   }
 }
 </script>
