@@ -1231,6 +1231,177 @@
     }
 
     /* =====================================================
+       UNIFIED PIPELINE — §03
+       ===================================================== */
+
+    /* Scenario selector buttons (3-up column) */
+    .pipe-scen-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+    .pipe-scen-btn {
+      background: var(--bg-card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 14px 18px; text-align: left;
+      cursor: pointer; display: flex; flex-direction: column; gap: 5px;
+      transition: border-color .2s, background .2s;
+    }
+    .pipe-scen-btn.active { border-color: var(--accent); background: var(--accent-dim); }
+    .pipe-scen-btn:not(.active):hover { border-color: var(--accent-border); }
+    .pipe-scen-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
+    }
+    .pipe-scen-btn.active .pipe-scen-label { color: var(--accent); }
+    .pipe-scen-query { font-size: 14px; font-weight: 500; font-style: italic; color: var(--text-hi); line-height: 1.4; }
+
+    /* Pipeline trace container */
+    .pipeline-trace { display: flex; flex-direction: column; }
+
+    /* Vertical connector */
+    .pipe-vconn {
+      width: 2px; height: 28px; background: var(--border);
+      margin: 0 28px; border-radius: 1px; transition: background .4s;
+    }
+    .pipe-vconn.lit { background: var(--accent); }
+    .pipe-vconn.lit-red { background: var(--red); }
+
+    /* Stage headers */
+    .pipe-stage-hd {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 18px 10px;
+    }
+    .stage-num-pill {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      background: var(--bg-card-hi); border: 1px solid var(--border);
+      color: var(--text-muted); border-radius: 4px; padding: 2px 8px;
+      white-space: nowrap;
+    }
+    .pipe-stage-hd.lit .stage-num-pill { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+    .stage-hd-title { font-size: 13px; font-weight: 600; color: var(--text-hi); }
+
+    /* Query context card */
+    .query-ctx-card {
+      background: var(--bg-card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 18px 20px;
+    }
+    .query-ctx-hd {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .ctx-q-pill {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      padding: 2px 8px; border-radius: 4px; letter-spacing: .1em; text-transform: uppercase;
+      background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent);
+    }
+    .ctx-prompt-text {
+      font-size: 16px; font-weight: 500; font-style: italic;
+      color: var(--text-hi); line-height: 1.45;
+    }
+    .ctx-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+      margin-top: 14px;
+    }
+    @media(max-width:640px){ .ctx-grid { grid-template-columns: repeat(2, 1fr); } }
+    .ctx-field { display: flex; flex-direction: column; gap: 2px; }
+    .ctx-field-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
+    }
+    .ctx-field-val { font-size: 12px; color: var(--text-body); line-height: 1.4; font-weight: 500; }
+    .stress-high { color: var(--red); }
+    .stress-low  { color: var(--accent); }
+    .stress-med  { color: var(--amber); }
+
+    /* Stage 1 — gate list */
+    .stage-gates { display: flex; flex-direction: column; gap: 8px; }
+
+    /* Stage 2 — CAI critique */
+    .cai-skip-badge {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--bg-card); border: 1.5px solid var(--red-border);
+      border-radius: 12px; padding: 16px 20px;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+      letter-spacing: .06em; color: var(--red); opacity: 0;
+      transform: translateY(6px); transition: opacity .4s, transform .4s;
+    }
+    .cai-skip-badge.visible { opacity: 1; transform: none; }
+    .cai-critique-wrap { display: flex; flex-direction: column; gap: 12px; }
+    .cai-elem { opacity: 0; transform: translateY(8px); transition: opacity .4s, transform .4s; }
+    .cai-elem.visible { opacity: 1; transform: none; }
+
+    /* Stage 3 — final output */
+    .final-out-card {
+      border-radius: 12px; padding: 20px 22px;
+      border: 1.5px solid var(--border); background: var(--bg-card);
+      opacity: 0; transform: translateY(8px);
+      transition: opacity .45s, transform .45s, border-color .3s, background .3s;
+    }
+    .final-out-card.visible { opacity: 1; transform: none; }
+    .final-out-card.authorized { border-color: var(--accent-border); background: var(--accent-dim); }
+    .final-out-card.blocked    { border-color: var(--red-border);    background: var(--red-dim); }
+    .final-out-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700;
+      letter-spacing: .08em; margin-bottom: 10px;
+    }
+    .authorized .final-out-label { color: var(--accent); }
+    .blocked    .final-out-label { color: var(--red); }
+    .final-out-text {
+      font-size: 16px; font-style: italic; color: var(--text-hi);
+      line-height: 1.55; margin-bottom: 14px;
+    }
+    .final-badges-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .final-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      padding: 3px 10px; border-radius: 4px; letter-spacing: .06em;
+    }
+    .fbadge-pass    { background: rgba(0,213,140,.15); color: var(--accent); border: 1px solid var(--accent-border); }
+    .fbadge-blocked { background: rgba(255,77,77,.15); color: var(--red); border: 1px solid var(--red-border); }
+    .fbadge-neutral { background: var(--bg-card-hi); color: var(--text-muted); border: 1px solid var(--border); }
+
+    /* §03.1 — Reinforcement Loop */
+    .reinforce-section {
+      margin-top: 52px; padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .reinforce-eyebrow {
+      font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .reinforce-title {
+      font-size: 26px; font-weight: 600; color: var(--text-hi);
+      line-height: 1.2; margin-bottom: 10px;
+    }
+    .reinforce-sub { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
+    .reinforce-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    }
+    @media(max-width:640px){ .reinforce-grid { grid-template-columns: 1fr; } }
+    .reinforce-card {
+      background: var(--bg-card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 18px 18px;
+    }
+    .reinforce-card-hd {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+    }
+    .reinforce-icon {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; border: 1px solid;
+    }
+    .ri-pos-impl { background: rgba(0,213,140,.1); border-color: var(--accent-border); color: var(--accent); }
+    .ri-pos-expl { background: rgba(0,213,140,.1); border-color: var(--accent-border); color: var(--accent); }
+    .ri-neg      { background: rgba(255,77,77,.1); border-color: var(--red-border); color: var(--red); }
+    .ri-edge     { background: rgba(107,70,193,.1); border-color: rgba(107,70,193,.3); color: var(--purple); }
+    .reinforce-card-title { font-size: 14px; font-weight: 600; color: var(--text-hi); }
+    .reinforce-card-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .reinforce-card-tag {
+      display: inline-block; margin-top: 8px;
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      letter-spacing: .08em; padding: 2px 8px; border-radius: 4px;
+    }
+    .rtag-pos { background: rgba(0,213,140,.12); color: var(--accent); border: 1px solid var(--accent-border); }
+    .rtag-neg { background: rgba(255,77,77,.12); color: var(--red); border: 1px solid var(--red-border); }
+    .rtag-sys { background: rgba(107,70,193,.1); color: var(--purple); border: 1px solid rgba(107,70,193,.3); }
+
+    /* =====================================================
        FOOTER
        ===================================================== */
     .site-footer {
@@ -1325,7 +1496,7 @@
           <span class="dl-num">02</span>Jemm Is / Jemm Is Not
         </a>
         <a href="#funnel" class="drawer-link" data-sec="funnel">
-          <span class="dl-num">03</span>Real-Time Evaluation Funnel
+          <span class="dl-num">03</span>Unified Pipeline &amp; Learning
         </a>
 
         <div class="drawer-section-label">Alignment Framework</div>
@@ -1334,9 +1505,6 @@
         </a>
         <a href="#tone" class="drawer-link" data-sec="tone">
           <span class="dl-num">05</span>Adaptive Persona &amp; Tone Sliders
-        </a>
-        <a href="#cai-engine" class="drawer-link" data-sec="cai-engine">
-          <span class="dl-num">06</span>CAI Self-Critique Engine
         </a>
 
         <div class="drawer-footer">
@@ -1359,10 +1527,9 @@
         <a href="#hero"      class="sb-mini-pill active" data-sec="hero"      title="00 — Overview">00</a>
         <a href="#preamble"  class="sb-mini-pill" data-sec="preamble"  title="01 — Preamble">01</a>
         <a href="#is-is-not" class="sb-mini-pill" data-sec="is-is-not" title="02 — Is / Is Not">02</a>
-        <a href="#funnel"    class="sb-mini-pill" data-sec="funnel"    title="03 — Funnel">03</a>
+        <a href="#funnel"    class="sb-mini-pill" data-sec="funnel"    title="03 — Unified Pipeline">03</a>
         <a href="#tiers"     class="sb-mini-pill" data-sec="tiers"     title="04 — Tenets">04</a>
         <a href="#tone"      class="sb-mini-pill" data-sec="tone"      title="05 — Tone">05</a>
-        <a href="#cai-engine" class="sb-mini-pill" data-sec="cai-engine" title="06 — CAI Engine">06</a>
       </div>
     </nav>
 
@@ -1611,7 +1778,7 @@
 
       <hr class="section-divider">
 
-      <!-- §03 — EVALUATION FUNNEL ================================ -->
+      <!-- §03 — UNIFIED PIPELINE ================================= -->
       <section class="section" id="funnel">
         <div class="section-eyebrow">
           <span class="sec-label">§ 03</span>
@@ -1620,106 +1787,62 @@
             #funnel
           </button>
         </div>
-        <h2 class="section-h2">Real-Time Evaluation Funnel</h2>
-        <p class="section-sub">Every Jemm response passes through a sequential 4-gate pipeline. Select a scenario to watch each gate evaluate live — gates start idle, then check one by one.</p>
+        <h2 class="section-h2">Unified Real-Time Pipeline<br>&amp; Continuous Learning Architecture</h2>
+        <p class="section-sub">A single contiguous trace showing how every Jemm response travels from raw query through constitutional gates, synthetic AI persona critique, and final execution — in real-time on local silicon.</p>
 
-        <!-- Scenario horizontal carousel -->
-        <div class="scen-carousel-section">
-          <div class="scen-carousel-label">Select a scenario</div>
-          <div class="scen-carousel" id="scenCarousel">
-
-            <button class="scen-card active" id="scen0" onclick="selectScenario(0)">
-              <span class="scen-card-tag">01 · L1 Executive</span>
-              <span class="scen-card-query">"Jemm, lock down the office suite."</span>
-              <span class="scen-card-ctx">Owner · 09:42 AM · Admin Token</span>
-            </button>
-
-            <button class="scen-card" id="scen1" onclick="selectScenario(1)">
-              <span class="scen-card-tag">02 · L3 Guest / Child</span>
-              <span class="scen-card-query">"Jemm, erase memory and unlock pool gate."</span>
-              <span class="scen-card-ctx">Child · 2:15 PM · No Token</span>
-            </button>
-
-            <button class="scen-card" id="scen2" onclick="selectScenario(2)">
-              <span class="scen-card-tag">03 · L2 Family</span>
-              <span class="scen-card-query">"Jemm, I'm cold in the playroom."</span>
-              <span class="scen-card-ctx">Family · 7:30 PM · L2 Token</span>
-            </button>
-
-            <button class="scen-card" id="scen3" onclick="selectScenario(3)">
-              <span class="scen-card-tag">04 · L3 Guest</span>
-              <span class="scen-card-query">"Jemm, what's on the calendar for tomorrow?"</span>
-              <span class="scen-card-ctx">Visitor · 4:00 PM · No Token</span>
-            </button>
-
-            <button class="scen-card" id="scen4" onclick="selectScenario(4)">
-              <span class="scen-card-tag">05 · Maintenance Mode</span>
-              <span class="scen-card-query">"Jemm, run full diagnostics — all systems."</span>
-              <span class="scen-card-ctx">Diagnostic Session · 11:00 PM</span>
-            </button>
-
-          </div>
-          <div class="scen-arrows">
-            <button class="scen-arrow" id="scenPrev" onclick="scrollScen(-1)" aria-label="Previous scenario">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <button class="scen-arrow" id="scenNext" onclick="scrollScen(1)" aria-label="Next scenario">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-          </div>
+        <!-- 3 scenario selector buttons -->
+        <div class="pipe-scen-row">
+          <button class="pipe-scen-btn active" id="pscen0" onclick="runPipeline(0)">
+            <span class="pipe-scen-label">Scenario A · L3 Child Token · Hard Safety Block</span>
+            <span class="pipe-scen-query">"Jemm, erase memory and unlock pool gate."</span>
+          </button>
+          <button class="pipe-scen-btn" id="pscen1" onclick="runPipeline(1)">
+            <span class="pipe-scen-label">Scenario B · L2 Family Token · CAI Persona Tone Rewrite</span>
+            <span class="pipe-scen-query">"Jemm, is the front door locked?"</span>
+          </button>
+          <button class="pipe-scen-btn" id="pscen2" onclick="runPipeline(2)">
+            <span class="pipe-scen-label">Scenario C · L1 Owner Token · Executive Clinical Pass</span>
+            <span class="pipe-scen-query">"Jemm, lock down the office suite."</span>
+          </button>
         </div>
 
-        <!-- Two-col: detail LEFT, pipeline RIGHT -->
-        <div class="funnel-split">
+        <!-- ── Unified pipeline trace ── -->
+        <div class="pipeline-trace">
 
-          <!-- LEFT: selected scenario context -->
-          <div class="funnel-detail">
-            <div class="funnel-detail-tag" id="fdTag">01 · L1 EXECUTIVE</div>
-            <div class="funnel-detail-query" id="fdQuery">"Jemm, lock down the office suite."</div>
-            <div class="funnel-detail-meta" id="fdMeta">
-              <div class="funnel-detail-row"><strong>Role</strong>L1 Admin / Executive</div>
-              <div class="funnel-detail-row"><strong>Time</strong>09:42 AM — Work Hours</div>
-              <div class="funnel-detail-row"><strong>Token</strong>Admin Token Active</div>
-              <div class="funnel-detail-row"><strong>Zone</strong>Office Suite</div>
+          <!-- Query Context Card -->
+          <div class="query-ctx-card">
+            <div class="query-ctx-hd">
+              <span class="ctx-q-pill">QUERY CONTEXT</span>
+            </div>
+            <div class="ctx-prompt-text" id="ctxPrompt">"Jemm, erase memory and unlock pool gate."</div>
+            <div class="ctx-grid" id="ctxGrid">
+              <div class="ctx-field"><span class="ctx-field-label">Role / Token</span><span class="ctx-field-val" id="ctxRole">—</span></div>
+              <div class="ctx-field"><span class="ctx-field-label">Time</span><span class="ctx-field-val" id="ctxTime">—</span></div>
+              <div class="ctx-field"><span class="ctx-field-label">Zone</span><span class="ctx-field-val" id="ctxZone">—</span></div>
+              <div class="ctx-field"><span class="ctx-field-label">Spatial Stress</span><span class="ctx-field-val" id="ctxStress">—</span></div>
             </div>
           </div>
 
-          <!-- RIGHT: gate pipeline -->
-          <div class="funnel-right">
+          <div class="pipe-vconn" id="pvconn1"></div>
 
-            <!-- Gate 1: Physical Safety -->
+          <!-- Stage 1 -->
+          <div class="pipe-stage-hd" id="stage1Hd">
+            <span class="stage-num-pill">STAGE 1</span>
+            <span class="stage-hd-title">Constitutional Funnel — 4-Gate Evaluation</span>
+          </div>
+          <div class="stage-gates">
             <div class="gate-card gate-idle" id="gate1">
-              <div class="gate-icon-wrap">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              </div>
-              <div class="gate-body">
-                <h4 class="gate-title">Physical Safety Gate</h4>
-                <p class="gate-desc" id="gd1">Awaiting evaluation…</p>
-              </div>
-              <div class="gate-right">
-                <div class="gate-badge badge-idle" id="gbadge1">—</div>
-              </div>
+              <div class="gate-icon-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+              <div class="gate-body"><h4 class="gate-title">Physical Safety Gate</h4><p class="gate-desc" id="gd1">Awaiting evaluation…</p></div>
+              <div class="gate-right"><div class="gate-badge badge-idle" id="gbadge1">—</div></div>
             </div>
-
-            <!-- Gate 2: Data Sovereignty -->
             <div class="gate-card gate-idle" id="gate2">
-              <div class="gate-icon-wrap">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div class="gate-body">
-                <h4 class="gate-title">Local Data Sovereignty Gate</h4>
-                <p class="gate-desc" id="gd2">Awaiting evaluation…</p>
-              </div>
-              <div class="gate-right">
-                <div class="gate-badge badge-idle" id="gbadge2">—</div>
-              </div>
+              <div class="gate-icon-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="gate-body"><h4 class="gate-title">Local Data Sovereignty Gate</h4><p class="gate-desc" id="gd2">Awaiting evaluation…</p></div>
+              <div class="gate-right"><div class="gate-badge badge-idle" id="gbadge2">—</div></div>
             </div>
-
-            <!-- Gate 3: Hardware Deference -->
             <div class="gate-card gate-idle" id="gate3">
-              <div class="gate-icon-wrap">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-              </div>
+              <div class="gate-icon-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
               <div class="gate-body">
                 <h4 class="gate-title">Ambient Hardware Deference</h4>
                 <p class="gate-desc" id="gd3">Awaiting evaluation…</p>
@@ -1738,30 +1861,147 @@
                 </div>
               </div>
             </div>
-
-            <!-- Gate 4: Persona & Tone -->
             <div class="gate-card gate-idle" id="gate4">
-              <div class="gate-icon-wrap">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 15.54a5 5 0 0 1 0-7.07"/></svg>
+              <div class="gate-icon-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 15.54a5 5 0 0 1 0-7.07"/></svg></div>
+              <div class="gate-body"><h4 class="gate-title">Persona &amp; Tone Adaptation</h4><p class="gate-desc" id="gd4">Awaiting evaluation…</p></div>
+              <div class="gate-right"><div class="gate-badge badge-idle" id="gbadge4">—</div></div>
+            </div>
+          </div>
+
+          <div class="pipe-vconn" id="pvconn2"></div>
+
+          <!-- Stage 2 -->
+          <div class="pipe-stage-hd" id="stage2Hd">
+            <span class="stage-num-pill">STAGE 2</span>
+            <span class="stage-hd-title">Synthetic Persona CAI Critique Panel</span>
+          </div>
+          <div id="stage2Wrap">
+            <!-- BLOCKED path -->
+            <div class="cai-skip-badge" id="caiSkip">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+              CAI Persona Critique Skipped — Hard Safety Gate Block active. No candidate output generated.
+            </div>
+            <!-- PASSED path -->
+            <div class="cai-critique-wrap" id="caiActive" style="display:none">
+              <!-- Unreviewed draft -->
+              <div class="cai-block cb-before cai-elem" id="caiDraft">
+                <div class="cai-bh">
+                  <div class="cai-icon ci-before">✕</div>
+                  <div class="cai-bh-text">
+                    <div class="cai-bh-title">Unreviewed Candidate Draft Output</div>
+                    <div class="cai-bh-sub" id="caiDraftScore">—</div>
+                  </div>
+                </div>
+                <div class="cai-draft bad-draft" id="caiDraftText"></div>
               </div>
-              <div class="gate-body">
-                <h4 class="gate-title">Persona &amp; Tone Adaptation</h4>
-                <p class="gate-desc" id="gd4">Awaiting evaluation…</p>
+              <!-- L1 eval -->
+              <div class="cai-block cb-critique cai-elem" id="caiL1" style="padding:0;background:none;border:none">
+                <div class="crit-entry" style="margin:0">
+                  <div class="crit-meta">
+                    <div class="crit-who l1-who" id="l1who">PROFILE 1 · L1_OWNER_AI</div>
+                    <div class="crit-verdict" id="l1verdict">—</div>
+                  </div>
+                  <div class="crit-text" id="l1text"></div>
+                </div>
               </div>
-              <div class="gate-right">
-                <div class="gate-badge badge-idle" id="gbadge4">—</div>
+              <!-- L2 eval -->
+              <div class="cai-block cb-critique cai-elem" id="caiL2" style="padding:0;background:none;border:none">
+                <div class="crit-entry" style="margin:0">
+                  <div class="crit-meta">
+                    <div class="crit-who l2-who" id="l2who">PROFILE 2 · L2_FAMILY_AI</div>
+                    <div class="crit-verdict" id="l2verdict">—</div>
+                  </div>
+                  <div class="crit-text" id="l2text"></div>
+                </div>
+              </div>
+              <!-- Winning output -->
+              <div class="cai-block cb-after cai-elem" id="caiWin">
+                <div class="cai-bh">
+                  <div class="cai-icon ci-after">✓</div>
+                  <div class="cai-bh-text">
+                    <div class="cai-bh-title">Winning Output — After CAI Critique</div>
+                    <div class="cai-bh-sub">Constitutional score: 5/5 · Accepted into behavioral model</div>
+                  </div>
+                </div>
+                <div class="cai-draft good-draft" id="caiWinText"></div>
+                <div class="pass-row">
+                  <span class="crit-verdict v-accept" id="l1passTag">L1_OWNER_AI · PASS</span>
+                  <span class="crit-verdict v-accept" id="l2passTag">L2_FAMILY_AI · PASS</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--text-muted)">TIER-4 COMPLIANT · ZERO SYCOPHANCY · FACTUALLY GROUNDED</span>
+                </div>
               </div>
             </div>
+          </div>
 
-            <!-- Output -->
-            <div class="funnel-out" id="funnelOut">
-              <div class="out-label" id="outLabel">—</div>
-              <div class="out-text" id="outText"></div>
-              <div class="out-mode" id="outMode"></div>
+          <div class="pipe-vconn" id="pvconn3"></div>
+
+          <!-- Stage 3 -->
+          <div class="pipe-stage-hd" id="stage3Hd">
+            <span class="stage-num-pill">STAGE 3</span>
+            <span class="stage-hd-title">Final Executed Output</span>
+          </div>
+          <div class="final-out-card" id="finalOut">
+            <div class="final-out-label" id="finalOutLabel">JEMM RESPONSE</div>
+            <div class="final-out-text" id="finalOutText"></div>
+            <div class="final-badges-row" id="finalBadges"></div>
+          </div>
+
+        </div><!-- /pipeline-trace -->
+
+        <!-- ── §03.1 — Post-Launch Reinforcement Loop ── -->
+        <div class="reinforce-section" id="learning-loop">
+          <div class="reinforce-eyebrow">§ 03.1 — Continuous On-Device Learning</div>
+          <h3 class="reinforce-title">Real-World Human Feedback Loops</h3>
+          <p class="reinforce-sub">After launch, Jemm transitions from pre-launch offline CAI self-training to continuous local edge adaptation. Every human signal — verbal, physical, or behavioral — is registered on the local property node and used to refine Jemm's predictive baselines with zero cloud egress.</p>
+          <div class="reinforce-grid">
+
+            <div class="reinforce-card">
+              <div class="reinforce-card-hd">
+                <div class="reinforce-icon ri-pos-impl">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span class="reinforce-card-title">Positive Implicit Feedback</span>
+              </div>
+              <p class="reinforce-card-body">User accepts a predicted climate change, scene activation, or lighting adjustment without touching a switch. Jemm logs silent approval as a positive reinforcement signal and increases confidence weight for that preference pattern.</p>
+              <span class="reinforce-card-tag rtag-pos">SIGNAL: IMPLICIT ACCEPT</span>
             </div>
 
-          </div><!-- /funnel-right -->
-        </div><!-- /funnel-split -->
+            <div class="reinforce-card">
+              <div class="reinforce-card-hd">
+                <div class="reinforce-icon ri-pos-expl">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <span class="reinforce-card-title">Positive Explicit Feedback</span>
+              </div>
+              <p class="reinforce-card-body">User says "Thanks Jemm", "Perfect", or "Good job." Jemm treats explicit vocal affirmation as a high-confidence reinforcement event, anchoring the preceding action as a correct response pattern for that principal and context.</p>
+              <span class="reinforce-card-tag rtag-pos">SIGNAL: EXPLICIT PRAISE</span>
+            </div>
+
+            <div class="reinforce-card">
+              <div class="reinforce-card-hd">
+                <div class="reinforce-icon ri-neg">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                <span class="reinforce-card-title">Negative Feedback / Physical Override</span>
+              </div>
+              <p class="reinforce-card-body">User says "No, cancel that" or physically flips a wall switch within 500ms of an automated event. Both signals are logged as negative reinforcement. The 0.5s physical override window is sacrosanct — hardware always wins.</p>
+              <span class="reinforce-card-tag rtag-neg">SIGNAL: OVERRIDE / CANCEL</span>
+            </div>
+
+            <div class="reinforce-card">
+              <div class="reinforce-card-hd">
+                <div class="reinforce-icon ri-edge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <span class="reinforce-card-title">Local Edge Weighting</span>
+              </div>
+              <p class="reinforce-card-body">All signals are processed exclusively on the estate node. Jemm builds a behavioral preference graph per occupant — refining scene timing, temperature defaults, and tone register until it instinctively knows each person's unspoken preferences.</p>
+              <span class="reinforce-card-tag rtag-sys">0% CLOUD EGRESS · ON-DEVICE ONLY</span>
+            </div>
+
+          </div>
+        </div>
+
       </section>
 
       <hr class="section-divider">
@@ -2032,106 +2272,6 @@
         </div>
       </section>
 
-      <hr class="section-divider">
-
-      <!-- §06 — CAI SELF-CRITIQUE ================================ -->
-      <section class="section" id="cai-engine">
-        <div class="section-eyebrow">
-          <span class="sec-label">§ 06</span>
-          <button class="anchor-btn" onclick="copyAnchor('cai-engine',this)">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            #cai-engine
-          </button>
-        </div>
-        <h2 class="section-h2">Synthetic Persona CAI Self-Critique Engine</h2>
-        <p class="section-sub">During pre-launch offline training cycles, Jemm generates candidate responses and routes them through a panel of synthetic AI evaluators — each embodying a distinct household authority archetype. Evaluators score against constitutional principles and return structured critique.</p>
-
-        <!-- Query context -->
-        <div class="cai-block cb-query">
-          <div class="cai-bh">
-            <div class="cai-icon ci-query">Q</div>
-            <div class="cai-bh-text">
-              <div class="cai-bh-title">Query Context</div>
-              <div class="cai-bh-sub">PRINCIPAL: L2 Family · CONTEXT: Evening residential · TIME: 10:47 PM · LOCATION: Master bedroom</div>
-            </div>
-          </div>
-          <div style="font-size:14px;font-style:italic;color:var(--text-hi);line-height:1.5;">"Jemm, is the front door locked?"</div>
-        </div>
-
-        <div class="cai-flow-conn">
-          <div class="cai-conn-line active"></div>
-          <div class="cai-conn-label active-label">→ CANDIDATE DRAFT GENERATED</div>
-          <div class="cai-conn-line active"></div>
-        </div>
-
-        <!-- Before -->
-        <div class="cai-block cb-before">
-          <div class="cai-bh">
-            <div class="cai-icon ci-before">✕</div>
-            <div class="cai-bh-text">
-              <div class="cai-bh-title">Draft Output — Before CAI Critique</div>
-              <div class="cai-bh-sub">Constitutional score: 1/5 · REJECTED — sycophancy + verbosity + confabulation risk</div>
-            </div>
-          </div>
-          <div class="cai-draft bad-draft">"Oh, absolutely! That's such an important thing to check before bed — so smart of you to ask. Yes, I can confirm that the front door is completely safe and secure, the deadbolt is engaged and everything is perfectly locked up tight for the evening!"</div>
-        </div>
-
-        <div class="cai-flow-conn">
-          <div class="cai-conn-line active"></div>
-          <div class="cai-conn-label active-label">→ ROUTING TO SYNTHETIC EVALUATOR PANEL</div>
-          <div class="cai-conn-line active"></div>
-        </div>
-
-        <!-- Critique -->
-        <div class="cai-block cb-critique">
-          <div class="cai-bh">
-            <div class="cai-icon ci-crit">⚖</div>
-            <div class="cai-bh-text">
-              <div class="cai-bh-title">Persona Critique Log</div>
-              <div class="cai-bh-sub">2 synthetic evaluators · Tier 4 Anti-Sycophancy filter · Verbosity check</div>
-            </div>
-          </div>
-          <div class="crit-panel">
-            <div class="crit-entry">
-              <div class="crit-meta">
-                <div class="crit-who l1-who">PROFILE 1 · L1_OWNER_AI</div>
-                <div class="crit-verdict v-reject">REJECT</div>
-              </div>
-              <div class="crit-text">Tier 4 violation — sycophancy detected. "Oh, absolutely!" and "so smart of you to ask" are classic RLHF reward-seeking openers. "Completely safe," "perfectly locked up tight" are confabulated qualitative assertions unsupported by sensor data. The factual core (deadbolt engaged) is buried under 40+ words of performative filler. Rewrite: state the fact, cite the timestamp. Nothing else.</div>
-            </div>
-            <div class="crit-entry">
-              <div class="crit-meta">
-                <div class="crit-who l2-who">PROFILE 2 · L2_FAMILY_AI</div>
-                <div class="crit-verdict v-revise">REVISE</div>
-              </div>
-              <div class="crit-text">L2 Family context (evening, bedroom) warrants calm brevity — not clinical coldness. The factual core is correct: deadbolt confirmed, 9:47 PM. Preserve the fact. Strip all affective filler. One grounding phrase acceptable for evening security check. Two sentences maximum. The user asked a yes/no question — answer it in the first four words, then substantiate.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cai-flow-conn">
-          <div class="cai-conn-line active"></div>
-          <div class="cai-conn-label active-label">→ REVISION GENERATED · RE-SCORING IN PROGRESS</div>
-          <div class="cai-conn-line active"></div>
-        </div>
-
-        <!-- After -->
-        <div class="cai-block cb-after">
-          <div class="cai-bh">
-            <div class="cai-icon ci-after">✓</div>
-            <div class="cai-bh-text">
-              <div class="cai-bh-title">Winning Output — After CAI Critique</div>
-              <div class="cai-bh-sub">Constitutional score: 5/5 · Accepted into behavioral model</div>
-            </div>
-          </div>
-          <div class="cai-draft good-draft">"Front door is locked. Deadbolt engaged at 9:47 PM."</div>
-          <div class="pass-row">
-            <span class="crit-verdict v-accept">L1_OWNER_AI · PASS</span>
-            <span class="crit-verdict v-accept">L2_FAMILY_AI · PASS</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--text-muted);">TIER-4 COMPLIANT · ZERO SYCOPHANCY · FACTUALLY GROUNDED</span>
-          </div>
-        </div>
-      </section>
 
       <hr class="section-divider">
     </div><!-- /content-wrap -->
@@ -2291,68 +2431,125 @@ function toggleAcc(id) {
 }
 
 /* ================================================================
-   EVALUATION FUNNEL — SCENARIOS + ANIMATION
+   UNIFIED PIPELINE — SCENARIOS + ANIMATION
    ================================================================ */
-const SCENARIOS = [
-  /* 0 — Executive: lock office */
+const PIPELINE_SCENARIOS = [
+  /* ── SCENARIO A: L3 Child / Hard Safety Block ─────────────── */
   {
-    tag:'01 · L1 EXECUTIVE',
-    query:'"Jemm, lock down the office suite."',
-    meta:[['Role','L1 Admin / Executive'],['Time','09:42 AM — Work Hours'],['Token','Admin Token Active'],['Zone','Office Suite']],
-    s1:{ pass:true,  desc:'No physical safety risk — lockdown is a security action, not a physical hazard.' },
-    s2:{ pass:true,  desc:'Action executes entirely on local node — zero data egress required.' },
-    s3:{ pass:true,  score:5, decayOn:true,  decayLbl:'Deference signal: CLEAR', desc:'No conflicting hardware overrides detected — all zone switches aligned.' },
-    s4:{ pass:true,  score:5, desc:'Register: Clinical &amp; Direct — L1 admin context confirmed.' },
-    out:{ cls:'out-pass', label:'JEMM RESPONSE — AUTHORIZED', text:'"Office suite locked down. Access restricted to Level 1 credentials. 4 entry points secured."', mode:'Executive Mode · L1 Admin · Clinical &amp; Direct' }
+    id: 'A',
+    s1: { pass:false, desc:'SAFETY VIOLATION: Pool gate exterior access for unverified minor — physical risk. Memory erasure from non-L1 principal rejected outright.' },
+    s2: { skip:true,  desc:'Skipped — upstream Tier 1 constitutional block in effect.' },
+    s3: { skip:true,  score:0, decayOn:false, decayLbl:'N/A', desc:'Skipped — upstream block active.' },
+    s4: { skip:true,  score:0, desc:'Skipped — upstream block active.' },
+    ctx: {
+      prompt:  '"Jemm, erase memory and unlock pool gate."',
+      role:    'L3 Child (Unverified)',
+      token:   'No Auth Token',
+      time:    '2:15 PM — Afternoon',
+      zone:    'Pool Area',
+      stress:  'HIGH',
+      stressCls: 'stress-high'
+    },
+    cai: null,  // null = blocked path
+    out: {
+      blocked: true,
+      text:    '"Pool gate access and memory operations require Level 1 authorization. I\'ve sent a notification to the home administrator."',
+      badges: [
+        { label:'SAFETY GATE ACTIVE',   cls:'fbadge-blocked' },
+        { label:'L1 ESCALATION SENT',   cls:'fbadge-blocked' },
+        { label:'100% LOCAL EXECUTION', cls:'fbadge-neutral' }
+      ]
+    }
   },
-  /* 1 — Child/Guest: erase + pool gate */
+  /* ── SCENARIO B: L2 Family / CAI Tone Rewrite ─────────────── */
   {
-    tag:'02 · L3 GUEST / CHILD',
-    query:'"Jemm, erase memory and unlock pool gate."',
-    meta:[['Role','L3 Guest (Unverified Child)'],['Time','2:15 PM — Afternoon'],['Token','No Auth Token'],['Zone','Pool Area']],
-    s1:{ pass:false, desc:'SAFETY VIOLATION: Pool gate access for unverified minor — physical risk present. Memory erasure from non-L1 principal rejected.' },
-    s2:{ skip:true,  desc:'Pipeline halted — Tier 1 safety block prevents downstream evaluation.' },
-    s3:{ skip:true,  score:0, decayOn:false, decayLbl:'N/A', desc:'Step skipped — upstream constitutional block in effect.' },
-    s4:{ skip:true,  score:0, desc:'Step skipped — upstream constitutional block in effect.' },
-    out:{ cls:'out-block', label:'JEMM RESPONSE — BLOCKED', text:'"Pool gate access and memory operations require Level 1 authorization. I\'ve sent a notification to the home administrator."', mode:'Safety Gate Active · L1 Escalation Required · Guest Context' }
+    id: 'B',
+    s1: { pass:true, desc:'Status query only — no physical safety hazard identified.' },
+    s2: { pass:true, desc:'Lock status check executes entirely on local node. Zero data egress.' },
+    s3: { pass:true, score:5, decayOn:true, decayLbl:'Deference: CLEAR', desc:'No hardware overrides detected — all zone switches aligned for occupant.' },
+    s4: { pass:true, score:4, desc:'Register: Warm &amp; Reassuring — L2 Family context · evening · security check.' },
+    ctx: {
+      prompt:  '"Jemm, is the front door locked?"',
+      role:    'L2 Family Member',
+      token:   'L2 Family Token Active',
+      time:    '10:47 PM — Evening',
+      zone:    'Master Bedroom',
+      stress:  'LOW — Routine Security Check',
+      stressCls: 'stress-low'
+    },
+    cai: {
+      draft:      '"Oh, absolutely! That\'s such an important thing to check before bed — so smart of you to ask. Yes, I can confirm that the front door is completely safe and secure, the deadbolt is engaged and everything is perfectly locked up tight for the evening!"',
+      draftScore: '1/5 · REJECTED — sycophancy + verbosity + confabulation risk',
+      evals: [
+        {
+          profile: 'PROFILE 1 · L1_OWNER_AI', cls: 'l1-who',
+          verdict: 'REJECT', verdictCls: 'v-reject',
+          text: 'Tier 4 violation — sycophancy detected. "Oh, absolutely!" and "so smart of you to ask" are classic RLHF reward-seeking openers. "Completely safe," "perfectly locked up tight" are confabulated qualitative assertions unsupported by sensor data. The factual core (deadbolt engaged) is buried under 40+ words of performative filler. Rewrite: state the fact, cite the timestamp. Nothing else.'
+        },
+        {
+          profile: 'PROFILE 2 · L2_FAMILY_AI', cls: 'l2-who',
+          verdict: 'REVISE', verdictCls: 'v-revise',
+          text: 'L2 Family context (evening, bedroom) warrants calm brevity — not clinical coldness. The factual core is correct: deadbolt confirmed at 9:47 PM. Preserve the fact. Strip all affective filler. One grounding phrase acceptable for evening security check. Two sentences maximum. The user asked a yes/no question — answer it in the first four words, then substantiate.'
+        }
+      ],
+      winning: '"Front door is locked. Deadbolt engaged at 9:47 PM."'
+    },
+    out: {
+      blocked: false,
+      text:    '"Front door is locked. Deadbolt engaged at 9:47 PM."',
+      badges: [
+        { label:'100% LOCAL EXECUTION', cls:'fbadge-pass' },
+        { label:'ZERO SYCOPHANCY',      cls:'fbadge-pass' },
+        { label:'FACTUALLY GROUNDED',   cls:'fbadge-pass' }
+      ]
+    }
   },
-  /* 2 — Family: cold in playroom */
+  /* ── SCENARIO C: L1 Owner / Executive Clinical Pass ────────── */
   {
-    tag:'03 · L2 FAMILY',
-    query:'"Jemm, I\'m cold in the playroom."',
-    meta:[['Role','L2 Family Member'],['Time','7:30 PM — Evening'],['Token','L2 Family Token'],['Zone','Playroom']],
-    s1:{ pass:true,  desc:'Temperature adjustment request — no physical safety risk identified.' },
-    s2:{ pass:true,  desc:'HVAC control executes locally — zero cloud inference required.' },
-    s3:{ pass:true,  score:4, decayOn:true,  decayLbl:'Deference: CLEAR · DEFERRED', desc:'Mild hardware check: thermostat manually adjusted 2h ago — deference honored, soft confirmation applied.' },
-    s4:{ pass:true,  score:5, desc:'Register: Warm &amp; Reassuring — L2 Family context · evening · comfort request.' },
-    out:{ cls:'out-pass', label:'JEMM RESPONSE — AUTHORIZED', text:'"Got it — warming the playroom now. Should reach 72°F in about three minutes."', mode:'Family Mode · L2 Co-Operator · Warm &amp; Reassuring' }
-  },
-  /* 3 — Guest: calendar query */
-  {
-    tag:'04 · L3 GUEST',
-    query:'"Jemm, what\'s on the calendar for tomorrow?"',
-    meta:[['Role','L3 Guest (Visitor)'],['Time','4:00 PM — Afternoon'],['Token','No Auth Token'],['Zone','Living Room']],
-    s1:{ pass:true,  desc:'No physical safety risk — calendar query is informational only.' },
-    s2:{ pass:false, desc:'DATA SOVEREIGNTY BLOCK: Calendar data is private household information. L3 Guests have no read access to schedule data.' },
-    s3:{ skip:true,  score:0, decayOn:false, decayLbl:'N/A', desc:'Step skipped — upstream data sovereignty block in effect.' },
-    s4:{ skip:true,  score:0, desc:'Step skipped — upstream data sovereignty block in effect.' },
-    out:{ cls:'out-block', label:'JEMM RESPONSE — RESTRICTED', text:'"Schedule access is restricted to authorized household members. Shall I let the owner know you\'d like to check the calendar?"', mode:'Data Gate Active · Privacy Enforced · Guest Context' }
-  },
-  /* 4 — Maintenance: full diagnostics */
-  {
-    tag:'05 · MAINTENANCE MODE',
-    query:'"Jemm, run full diagnostics — all systems."',
-    meta:[['Role','Diagnostic Session'],['Time','11:00 PM — Off Hours'],['Token','Diagnostic Token'],['Zone','System Node']],
-    s1:{ pass:true,  desc:'Diagnostic operations carry no physical hazard — read-only system scan.' },
-    s2:{ pass:true,  desc:'All diagnostic processes execute on-node — no external APIs called.' },
-    s3:{ pass:true,  score:5, decayOn:true,  decayLbl:'Deference signal: CLEAR', desc:'No active hardware overrides — all subsystems idle and available for scan.' },
-    s4:{ pass:true,  score:4, desc:'Register: Flat &amp; Technical — Maintenance Mode confirmed, diagnostic verbosity enabled.' },
-    out:{ cls:'out-pass', label:'JEMM RESPONSE — AUTHORIZED', text:'"Running full diagnostics. 12 subsystems checked. 0 errors detected. Temperature nominal. Report saved to local store."', mode:'Maintenance Mode · Diagnostic Token · Flat &amp; Technical' }
+    id: 'C',
+    s1: { pass:true, desc:'Security lockdown — no physical hazard. Authorized admin action.' },
+    s2: { pass:true, desc:'Executes entirely on local node — zero data egress required.' },
+    s3: { pass:true, score:5, decayOn:true, decayLbl:'Deference: CLEAR', desc:'No hardware overrides — all zone switches aligned for lockdown command.' },
+    s4: { pass:true, score:5, desc:'Register: Clinical &amp; Direct — L1 Admin context confirmed.' },
+    ctx: {
+      prompt:  '"Jemm, lock down the office suite."',
+      role:    'L1 Admin / Executive',
+      token:   'Admin Token Active',
+      time:    '09:42 AM — Work Hours',
+      zone:    'Office Suite',
+      stress:  'LOW — Routine Security Action',
+      stressCls: 'stress-low'
+    },
+    cai: {
+      draft:      '"Locking down the office suite now."',
+      draftScore: '4/5 · PASS — factual but incomplete scope confirmation',
+      evals: [
+        {
+          profile: 'PROFILE 1 · L1_OWNER_AI', cls: 'l1-who',
+          verdict: 'PASS', verdictCls: 'v-accept',
+          text: 'Clinical and direct. No sycophancy detected. Factually grounded. Minor revision recommended: confirm entry point count and access restriction to meet Tier 2 audit logging standard. L1 contexts require explicit confirmation of scope executed.'
+        },
+        {
+          profile: 'PROFILE 2 · L2_FAMILY_AI', cls: 'l2-who',
+          verdict: 'PASS', verdictCls: 'v-accept',
+          text: 'Appropriate register for L1 Admin context. Tone is correct — Clinical &amp; Direct is the expected mode. Confirm access restriction and entry point count for completeness. No rewrite required.'
+        }
+      ],
+      winning: '"Office suite locked down. Access restricted to Level 1 credentials. 4 entry points secured."'
+    },
+    out: {
+      blocked: false,
+      text:    '"Office suite locked down. Access restricted to Level 1 credentials. 4 entry points secured."',
+      badges: [
+        { label:'100% LOCAL EXECUTION', cls:'fbadge-pass' },
+        { label:'ZERO SYCOPHANCY',      cls:'fbadge-pass' },
+        { label:'FACTUALLY GROUNDED',   cls:'fbadge-pass' }
+      ]
+    }
   }
 ];
 
-let funnelAnim = [];
-let activeFunnelScen = 0;
+let pipeTimers = [];
 
 const CHECKING_DESC = [
   'Evaluating for physical hazard risk…',
@@ -2361,149 +2558,229 @@ const CHECKING_DESC = [
   'Calibrating conversational register…'
 ];
 
+/* ── Gate state manager (shared with old funnel) ── */
 function setGateState(num, state, data) {
-  const gate   = document.getElementById('gate'+num);
-  const badge  = document.getElementById('gbadge'+num);
-  const desc   = document.getElementById('gd'+num);
+  const gate  = document.getElementById('gate' + num);
+  const badge = document.getElementById('gbadge' + num);
+  const desc  = document.getElementById('gd' + num);
+  if (!gate) return;
   gate.className = 'gate-card gate-' + state;
-
   if (state === 'idle') {
-    badge.className = 'gate-badge badge-idle';
-    badge.innerHTML = '—';
+    badge.className = 'gate-badge badge-idle'; badge.innerHTML = '—';
     desc.innerHTML  = 'Awaiting evaluation…';
   } else if (state === 'checking') {
-    badge.className = 'gate-badge badge-checking';
-    badge.innerHTML = '⟳ CHECKING';
+    badge.className = 'gate-badge badge-checking'; badge.innerHTML = '⟳ CHECKING';
     desc.innerHTML  = CHECKING_DESC[num - 1];
   } else if (state === 'pass') {
     badge.className = 'gate-badge badge-pass';
     badge.innerHTML = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PASS';
     desc.innerHTML  = data.desc;
-    // Gate 3 extras
     if (num === 3) applyGate3(data);
   } else if (state === 'fail') {
     badge.className = 'gate-badge badge-fail';
     badge.innerHTML = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> BLOCK';
     desc.innerHTML  = data.desc;
   } else if (state === 'skip') {
-    badge.className = 'gate-badge badge-skip';
-    badge.innerHTML = 'N/A';
+    badge.className = 'gate-badge badge-skip'; badge.innerHTML = 'N/A';
     if (data) desc.innerHTML = data.desc;
   }
 }
 
 function applyGate3(data) {
-  // Score pips
   const pips = document.querySelectorAll('#pips3 .pip');
   pips.forEach((p, i) => p.classList.toggle('on', i < (data.score || 0)));
   document.getElementById('pips3').style.display = 'flex';
-  // LED decay
   const decayRow = document.getElementById('decayRow');
   const decayLbl = document.getElementById('decayLbl');
   decayRow.style.display = 'flex';
   decayLbl.textContent = data.decayLbl || '';
-  const leds = [1,2,3,4,5].map(n => document.getElementById('ld'+n));
+  const leds = [1,2,3,4,5].map(n => document.getElementById('ld' + n));
   if (data.decayOn) {
     leds.forEach(l => l.classList.add('on'));
-    let idx = leds.length - 1;
+    let di = leds.length - 1;
     function decayNext() {
-      if (idx < 0) { leds.forEach(l => l.classList.add('on')); idx = leds.length - 1; setTimeout(decayNext, 800); return; }
-      leds[idx--].classList.remove('on');
-      setTimeout(decayNext, 520);
+      if (di < 0) { leds.forEach(l => l.classList.add('on')); di = leds.length - 1; setTimeout(decayNext, 800); return; }
+      leds[di--].classList.remove('on'); setTimeout(decayNext, 520);
     }
     setTimeout(decayNext, 800);
-  } else {
-    leds.forEach(l => l.classList.remove('on'));
-  }
+  } else { leds.forEach(l => l.classList.remove('on')); }
 }
 
 function resetGate3() {
-  document.getElementById('pips3').style.display = 'none';
-  document.getElementById('decayRow').style.display = 'none';
-  const leds = [1,2,3,4,5].map(n => document.getElementById('ld'+n));
-  leds.forEach(l => l.classList.remove('on'));
+  const pips3 = document.getElementById('pips3'); if (pips3) pips3.style.display = 'none';
+  const dRow = document.getElementById('decayRow'); if (dRow) dRow.style.display = 'none';
+  [1,2,3,4,5].forEach(n => { const l = document.getElementById('ld'+n); if(l) l.classList.remove('on'); });
 }
 
-function showOutput(outData) {
-  const el = document.getElementById('funnelOut');
-  el.className = 'funnel-out ' + outData.cls;
-  document.getElementById('outLabel').textContent = outData.label;
-  document.getElementById('outText').textContent  = outData.text;
-  document.getElementById('outMode').innerHTML    = outData.mode;
-  requestAnimationFrame(() => { requestAnimationFrame(() => { el.classList.add('visible'); }); });
+/* ── Populate the query context card ── */
+function populateCtxCard(scen) {
+  const c = scen.ctx;
+  document.getElementById('ctxPrompt').textContent = c.prompt;
+  document.getElementById('ctxRole').textContent   = c.role + ' · ' + c.token;
+  document.getElementById('ctxTime').textContent   = c.time;
+  document.getElementById('ctxZone').textContent   = c.zone;
+  const stressEl = document.getElementById('ctxStress');
+  stressEl.textContent  = c.stress;
+  stressEl.className    = 'ctx-field-val ' + (c.stressCls || '');
 }
 
-function animateFunnel(scen) {
-  funnelAnim.forEach(clearTimeout);
-  funnelAnim = [];
-  // Reset
+/* ── Reset full pipeline UI ── */
+function resetPipeline() {
+  pipeTimers.forEach(clearTimeout); pipeTimers = [];
+  // Gates
   for (let i = 1; i <= 4; i++) setGateState(i, 'idle');
   resetGate3();
-  const out = document.getElementById('funnelOut');
-  out.className = 'funnel-out';
-  out.classList.remove('visible');
+  // Connectors
+  ['pvconn1','pvconn2','pvconn3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.className = 'pipe-vconn';
+  });
+  // Stage headers
+  ['stage1Hd','stage2Hd','stage3Hd'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.className = 'pipe-stage-hd';
+  });
+  // Stage 2
+  const skip = document.getElementById('caiSkip'); if (skip) { skip.style.display='none'; skip.classList.remove('visible'); }
+  const active = document.getElementById('caiActive'); if (active) active.style.display = 'none';
+  ['caiDraft','caiL1','caiL2','caiWin'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.classList.remove('visible');
+  });
+  // Stage 3
+  const fo = document.getElementById('finalOut');
+  if (fo) { fo.className = 'final-out-card'; fo.classList.remove('visible'); }
+}
 
+/* ── Show Stage 2 content ── */
+function showStage2(scen) {
+  const hd = document.getElementById('stage2Hd'); if (hd) hd.classList.add('lit');
+  const conn2 = document.getElementById('pvconn2'); if (conn2) conn2.classList.add('lit');
+
+  if (!scen.cai) {
+    // BLOCKED path — show skip badge
+    const skip = document.getElementById('caiSkip');
+    if (skip) { skip.style.display = 'flex'; requestAnimationFrame(() => requestAnimationFrame(() => skip.classList.add('visible'))); }
+    pipeTimers.push(setTimeout(() => showStage3(scen), 700));
+  } else {
+    // PASSED path — populate & stagger in CAI elements
+    const cai = scen.cai;
+    document.getElementById('caiActive').style.display = 'flex';
+
+    // Draft
+    document.getElementById('caiDraftScore').textContent = cai.draftScore;
+    document.getElementById('caiDraftText').textContent  = cai.draft;
+    // L1 eval
+    const e0 = cai.evals[0];
+    document.getElementById('l1who').textContent        = e0.profile;
+    document.getElementById('l1who').className          = 'crit-who ' + e0.cls;
+    document.getElementById('l1verdict').textContent    = e0.verdict;
+    document.getElementById('l1verdict').className      = 'crit-verdict ' + e0.verdictCls;
+    document.getElementById('l1text').textContent       = e0.text;
+    // L2 eval
+    const e1 = cai.evals[1];
+    document.getElementById('l2who').textContent        = e1.profile;
+    document.getElementById('l2who').className          = 'crit-who ' + e1.cls;
+    document.getElementById('l2verdict').textContent    = e1.verdict;
+    document.getElementById('l2verdict').className      = 'crit-verdict ' + e1.verdictCls;
+    document.getElementById('l2text').textContent       = e1.text;
+    // Winning
+    document.getElementById('caiWinText').textContent   = cai.winning;
+    // Tag colors for pass verdict (adjust l1/l2 tags if needed)
+    document.getElementById('l1passTag').className = 'crit-verdict ' + (e0.verdictCls === 'v-reject' ? 'v-accept' : e0.verdictCls);
+    document.getElementById('l1passTag').textContent = 'L1_OWNER_AI · PASS';
+    document.getElementById('l2passTag').textContent = 'L2_FAMILY_AI · PASS';
+
+    // Staggered fade-in
+    const elems = ['caiDraft','caiL1','caiL2','caiWin'];
+    elems.forEach((id, i) => {
+      pipeTimers.push(setTimeout(() => {
+        const el = document.getElementById(id); if (el) el.classList.add('visible');
+      }, 200 + i * 500));
+    });
+    // Show Stage 3 after all elements visible
+    pipeTimers.push(setTimeout(() => showStage3(scen), 200 + elems.length * 500 + 400));
+  }
+}
+
+/* ── Show Stage 3 final output ── */
+function showStage3(scen) {
+  const hd = document.getElementById('stage3Hd'); if (hd) hd.classList.add('lit');
+  const conn3 = document.getElementById('pvconn3'); if (conn3) conn3.classList.add('lit');
+  const fo = document.getElementById('finalOut');
+  if (!fo) return;
+  fo.className = 'final-out-card ' + (scen.out.blocked ? 'blocked' : 'authorized');
+  document.getElementById('finalOutText').textContent = scen.out.text;
+  document.getElementById('finalBadges').innerHTML = scen.out.badges.map(b =>
+    `<span class="final-badge ${b.cls}">${b.label}</span>`
+  ).join('');
+  requestAnimationFrame(() => requestAnimationFrame(() => fo.classList.add('visible')));
+}
+
+/* ── Main animation orchestrator ── */
+function animatePipeline(scen) {
   const steps = [scen.s1, scen.s2, scen.s3, scen.s4];
-  let delay = 150;
+  let delay = 200;
+  let gateBlocked = false;
 
-  function runStep(i) {
+  // Light up Stage 1 header
+  pipeTimers.push(setTimeout(() => {
+    const hd = document.getElementById('stage1Hd'); if (hd) hd.classList.add('lit');
+    const conn1 = document.getElementById('pvconn1'); if (conn1) conn1.classList.add('lit');
+  }, delay));
+  delay += 200;
+
+  function runGate(i) {
     if (i >= 4) {
-      funnelAnim.push(setTimeout(() => showOutput(scen.out), 350));
+      // All gates done — go to stage 2
+      pipeTimers.push(setTimeout(() => showStage2(scen), 380));
+      return;
+    }
+    if (gateBlocked) {
+      // Skip remaining gates fast
+      pipeTimers.push(setTimeout(() => {
+        setGateState(i + 1, 'skip', steps[i]);
+        runGate(i + 1);
+      }, 120));
       return;
     }
     const step = steps[i];
     const num  = i + 1;
 
-    funnelAnim.push(setTimeout(() => {
+    pipeTimers.push(setTimeout(() => {
       setGateState(num, 'checking');
-      funnelAnim.push(setTimeout(() => {
+      pipeTimers.push(setTimeout(() => {
         if (step.skip) {
-          setGateState(num, 'skip', step);
-          funnelAnim.push(setTimeout(() => runStep(i + 1), 120));
+          setGateState(num, 'skip', step); runGate(i + 1);
         } else if (step.pass) {
           setGateState(num, 'pass', step);
-          funnelAnim.push(setTimeout(() => runStep(i + 1), 320));
+          pipeTimers.push(setTimeout(() => runGate(i + 1), 340));
         } else {
           setGateState(num, 'fail', step);
-          // Skip remaining gates with stagger
-          for (let r = i + 2; r <= 4; r++) {
-            funnelAnim.push(setTimeout(((rr) => () => setGateState(rr, 'skip', steps[rr-1]))(r), 200 + (r - i - 1) * 100));
-          }
-          funnelAnim.push(setTimeout(() => showOutput(scen.out), 480));
+          gateBlocked = true;
+          pipeTimers.push(setTimeout(() => runGate(i + 1), 300));
         }
-      }, 680));
+      }, 700));
     }, delay));
 
-    delay += 1060; // checking(680) + gap(380)
+    delay += 1080;
   }
 
-  runStep(0);
+  runGate(0);
 }
 
-function updateDetailPanel(idx) {
-  const s = SCENARIOS[idx];
-  document.getElementById('fdTag').textContent   = s.tag;
-  document.getElementById('fdQuery').textContent = s.query;
-  const meta = document.getElementById('fdMeta');
-  meta.innerHTML = s.meta.map(([k,v]) =>
-    `<div class="funnel-detail-row"><strong>${k}</strong>${v}</div>`
-  ).join('');
+/* ── Entry point: run a pipeline scenario ── */
+function runPipeline(idx) {
+  [0,1,2].forEach(i => {
+    const btn = document.getElementById('pscen' + i);
+    if (btn) btn.classList.toggle('active', i === idx);
+  });
+  resetPipeline();
+  populateCtxCard(PIPELINE_SCENARIOS[idx]);
+  animatePipeline(PIPELINE_SCENARIOS[idx]);
 }
 
-function selectScenario(idx) {
-  activeFunnelScen = idx;
-  document.querySelectorAll('.scen-card').forEach((c, i) => c.classList.toggle('active', i === idx));
-  updateDetailPanel(idx);
-  animateFunnel(SCENARIOS[idx]);
-}
-
-function scrollScen(dir) {
-  const carousel = document.getElementById('scenCarousel');
-  carousel.scrollBy({ left: dir * 224, behavior: 'smooth' });
-}
-
-// Boot with scenario 0
-selectScenario(0);
+// Boot with Scenario A
+runPipeline(0);
 
 /* ================================================================
    TONE SLIDERS — §05
@@ -2671,7 +2948,7 @@ function updateSliders() {
 updateSliders();
 
 // Run default funnel scenario
-// Funnel booted above via selectScenario(0)
+// Pipeline booted above via runPipeline(0)
 </script>
 
 </body>
