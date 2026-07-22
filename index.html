@@ -76,7 +76,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .sb-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:8px 0}
 .sb-slbl{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--tm);padding:14px 16px 3px;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .15s}
 .nav-sidebar.collapsed .sb-slbl{opacity:0}
-.drawer-link{display:flex;align-items:center;padding:10px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--tb);transition:color .15s,background .15s;border-left:2px solid transparent;white-space:nowrap;overflow:hidden;gap:10px}
+.drawer-link{display:flex;align-items:center;padding:11px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--tb);transition:color .15s,background .15s;border-left:2px solid transparent;white-space:nowrap;overflow:hidden;gap:10px}
 .drawer-link:hover{color:var(--th);background:var(--ac-dim)}
 .drawer-link.active{color:var(--ac);font-weight:500;border-left-color:var(--ac);background:var(--ac-dim)}
 .nav-sidebar.collapsed .drawer-link{padding:10px 0;justify-content:center;border-left:none}
@@ -114,9 +114,12 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 /* ============================================================ SECTION */
 .section{padding:72px 0 48px}
 .sec-div{border:none;border-top:1px solid var(--bd);margin:6px 0}
-.sec-ey{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.anc-btn{display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--tm);background:none;border:none;cursor:pointer;padding:3px 7px;border-radius:4px;transition:color .2s,background .2s}
-.anc-btn:hover{color:var(--ac);background:var(--ac-dim)}
+/* ── Section title row + inline copy icon ── */
+.sec-title-row{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sec-title-row .sec-h2{margin-bottom:0}
+.anc-ico{background:none;border:none;cursor:pointer;padding:4px;border-radius:5px;color:var(--tm);opacity:0;transition:opacity .15s,color .15s,background .15s;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.sec-title-row:hover .anc-ico{opacity:1}
+.anc-ico:hover{color:var(--ac);background:var(--ac-dim)}
 /* H2: 44px / 600 - brand spec section heading */
 .sec-h2{font-size:clamp(28px,4vw,44px);font-weight:600;color:var(--th);letter-spacing:-.02em;line-height:1.15;margin-bottom:12px}
 /* Subtitle / body: 16px / 400 */
@@ -639,17 +642,17 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
   </div>
   <div class="sb-body">
     <span class="sb-slbl">Overview</span>
-    <a href="#overview"  class="drawer-link active" data-sec="overview"><span class="dl-mini">H</span><span class="dl-txt">Overview</span></a>
+    <a href="#overview"  class="drawer-link active" data-sec="overview"><span class="dl-txt">Overview</span></a>
     <span class="sb-slbl">Specification</span>
-    <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-mini">02</span><span class="dl-txt">Jemm Is / Jemm Is Not</span></a>
-    <a href="#spatial-hardware" class="drawer-link" data-sec="spatial-hardware"><span class="dl-mini">02.1</span><span class="dl-txt">Spatial Hardware</span></a>
-    <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-mini">03</span><span class="dl-txt">Evaluation Loop</span></a>
-    <a href="#system-reliability" class="drawer-link" data-sec="system-reliability"><span class="dl-mini">03.1</span><span class="dl-txt">System Reliability &amp; Memory</span></a>
-    <a href="#evaluators" class="drawer-link" data-sec="evaluators"><span class="dl-mini">03.5</span><span class="dl-txt">Evaluator Personas (RLAIF)</span></a>
+    <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-txt">Jemm Is / Jemm Is Not</span></a>
+    <a href="#spatial-hardware" class="drawer-link" data-sec="spatial-hardware"><span class="dl-txt">Spatial Hardware</span></a>
+    <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-txt">Evaluation Loop</span></a>
+    <a href="#system-reliability" class="drawer-link" data-sec="system-reliability"><span class="dl-txt">System Reliability &amp; Memory</span></a>
+    <a href="#evaluators" class="drawer-link" data-sec="evaluators"><span class="dl-txt">Evaluator Personas (RLAIF)</span></a>
     <span class="sb-slbl">Alignment Framework</span>
-    <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-mini">04</span><span class="dl-txt">Priority Tiers &amp; Tenets</span></a>
-    <a href="#conflict-resolution" class="drawer-link" data-sec="conflict-resolution"><span class="dl-mini">04.1</span><span class="dl-txt">Conflict Resolution</span></a>
-    <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-mini">05</span><span class="dl-txt">Adaptive Persona &amp; Tone Matrix</span></a>
+    <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-txt">Priority Tiers &amp; Tenets</span></a>
+    <a href="#conflict-resolution" class="drawer-link" data-sec="conflict-resolution"><span class="dl-txt">Conflict Resolution</span></a>
+    <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-txt">Adaptive Persona &amp; Tone Matrix</span></a>
   </div>
   <div class="sb-foot">
     <div class="sb-copy">© 2026 Copyright Jemm Tec, LLC<br>All rights reserved.</div>
@@ -680,14 +683,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- OVERVIEW -->
 <section class="section" id="overview">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('overview',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #overview
-    </button>
-  </div>
-
-  <!-- Inline UX disclaimer -->
+<!-- Inline UX disclaimer -->
   <div class="ov-disclaimer">
     <strong class="ovd-lbl">UX ARCHITECT SPECIFICATION DISCLAIMER</strong>
     This document defines the behavioral, spatial, and conversational alignment targets for Jemm from a UX perspective. It serves as an active behavioral contract for AI Engineering and is open to collaborative technical refinement.
@@ -748,13 +744,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- §02 IS / IS NOT -->
 <section class="section" id="isnot">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('isnot',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #isnot
-    </button>
-  </div>
-  <h2 class="sec-h2">Jemm Is / Jemm Is Not</h2>
+<div class="sec-title-row"><h2 class="sec-h2">Jemm Is / Jemm Is Not</h2><button class="anc-ico" onclick="copyAnchor('isnot',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
   <p class="sec-sub">The clearest way to define an AI system is to specify what it refuses to be as precisely as what it is.</p>
   <p class="sec-sub" style="margin-top:16px">Defining an AI system's core identity requires establishing what it strictly refuses to be as clearly as what it strives to be, as ambiguity in a physical estate operating system leads directly to unpredictable behavior. Unlike general-purpose cloud assistants that attempt to be everything to everyone - often resulting in conversational bloat, unprompted advice, and intrusive telemetry - Jemm is engineered around strict, constitutional boundaries that govern how local silicon manages data flow, interprets user intent, and executes spatial commands across every zone of a property. By establishing these operational limits upfront, Jemm ensures that personal privacy, physical safety, and human agency remain absolute and protected, regardless of command complexity or context.</p>
   <div class="is-grid">
@@ -781,13 +771,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- SPATIAL HARDWARE -->
 <section class="section" id="spatial-hardware">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('spatial-hardware',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #spatial-hardware
-    </button>
-  </div>
-  <h2 class="sec-h2">Spatial Hardware &amp; Ambient Feedback</h2>
+<div class="sec-title-row"><h2 class="sec-h2">Spatial Hardware &amp; Ambient Feedback</h2><button class="anc-ico" onclick="copyAnchor('spatial-hardware',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
   <p class="sec-sub">Language is only half of the user experience. Physical light, acoustic quietness, and spatial presence form the other half. Because Jemm operates without intrusive screens or mobile apps, the ambient hardware array - discreet micro-nodes embedded in ceiling planes or wall surfaces - acts as the primary visual interface between human occupants and local silicon.</p>
   <p class="sec-sub" style="margin-top:16px">In a multi-room property, spatial quietness is preserved by illuminating strictly the single microphone node nearest to the speaker using localized acoustic beamforming. Peripheral nodes in adjacent rooms remain dark. When speech ends, the active node provides a 200ms inward ripple cue, pulses during local processing, and decays back to a dark matte state within 500ms of execution.</p>
 
@@ -867,13 +851,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- §03 UNIFIED PIPELINE -->
 <section class="section" id="pipeline">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('pipeline',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #pipeline
-    </button>
-  </div>
-  <h2 class="sec-h2">Jemm AI Evaluation Loop</h2>
+<div class="sec-title-row"><h2 class="sec-h2">Jemm AI Evaluation Loop</h2><button class="anc-ico" onclick="copyAnchor('pipeline',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
   <p class="sec-sub">A single contiguous trace showing how every Jemm response travels from raw query through constitutional gates, synthetic AI persona critique, and final execution - entirely on local silicon.</p>
   <p class="sec-sub" style="margin-top:16px">The Execution and Learning Pipeline is Jemm's real-time decision engine, guiding every user interaction from initial voice ingestion down to physical estate execution. To ensure safety and discretion in private spaces, Jemm processes commands through four sequential Constitutional Gates - blocking physical hazards, preventing cloud data egress, enforcing silent hardware decay, and adapting tone before a response is ever spoken. Authorized requests undergo synthetic persona evaluation to strip away sycophancy, white lies, and unnecessary chatter, ensuring every reply remains direct and concise. Once active on an estate node, the system continuously learns from real-world human behavior - interpreting manual switch overrides, vocal confirmation, and quiet scene acceptance to refine occupant preference models locally without transmitting a single byte off the property.</p>
 
@@ -1094,13 +1072,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- SYSTEM RELIABILITY -->
 <section class="section" id="system-reliability">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('system-reliability',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #system-reliability
-    </button>
-  </div>
-  <h2 class="sec-h2">System Reliability &amp; Memory</h2>
+<div class="sec-title-row"><h2 class="sec-h2">System Reliability &amp; Memory</h2><button class="anc-ico" onclick="copyAnchor('system-reliability',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
   <p class="sec-sub">As an air-gapped estate OS, Jemm operates with complete fault tolerance. External internet outages have zero impact on voice processing, lighting relays, or climate controls. If a local hardware sensor drops off the network bus, Jemm plainly states the affected device without confabulating state.</p>
   <p class="sec-sub" style="margin-top:16px">Behavioral preference graphs built by local edge learning remain entirely transparent. L1 Owners maintain full control to inspect habit logs or issue a single voice command - <em>"Jemm, erase all learned habits for the Living Room"</em> - to permanently destroy local preference encryption keys with zero cloud residue.</p>
 
@@ -1140,13 +1112,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- EVALUATOR PERSONAS -->
 <section class="section" id="evaluators">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('evaluators',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #evaluators
-    </button>
-  </div>
-  <h2 class="sec-h2">Operational Evaluator Personas<br><span style="font-size:0.6em;font-weight:500;letter-spacing:.04em;color:var(--ac);font-family:'JetBrains Mono',monospace">RLAIF SPEC</span></h2>
+<div class="sec-title-row"><h2 class="sec-h2">Operational Evaluator Personas<br><span style="font-size:0.6em;font-weight:500;letter-spacing:.04em;color:var(--ac);font-family:'JetBrains Mono',monospace">RLAIF SPEC</span></h2><button class="anc-ico" onclick="copyAnchor('evaluators',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
   <p class="sec-sub">During pre-launch offline training, Jemm's candidate outputs are evaluated by two synthetic AI personas - each representing a real occupant archetype with distinct authority, expectations, and tolerance thresholds. These personas score every draft response against their individual mandates, ensuring the winning output satisfies both safety and character requirements before reaching any user.</p>
 
   <div class="ep-grid">
@@ -1254,13 +1220,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- §04 BEHAVIORAL TIERS -->
 <section class="section" id="tiers">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('tiers',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #tiers
-    </button>
-  </div>
-  <h2 class="sec-h2">Behavioral Tenets &amp; Priority Tiers</h2>
+<div class="sec-title-row"><h2 class="sec-h2">Behavioral Tenets &amp; Priority Tiers</h2><button class="anc-ico" onclick="copyAnchor('tiers',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
   <p class="sec-sub">Jemm's four behavioral tiers are evaluated in strict priority order. A higher tier always supersedes a lower one. Click any tier to expand its full specification.</p>
   <p class="sec-sub" style="margin-top:16px">To guarantee predictable, principled behavior across every physical environment, Jemm evaluates every intent, automation, and spatial command against four core Behavioral Tiers. These tiers operate in a strict, non-negotiable hierarchy: a higher-priority tier always supersedes a lower-priority tier, and no convenience optimization, schedule priority, or user instruction can override a higher-level constraint. This structural hierarchy ensures that when goals conflict - such as balancing user convenience against physical safety or local data privacy - Jemm resolves the trade-off instantly and deterministically. By embedding these foundational values directly into local silicon execution, Jemm maintains complete physical safety, absolute property privacy, silent spatial respect, and unvarnished truth across all estate zones. Click any tier below to inspect its core principles, philosophical rationale, operational directives, and strict behavioral boundaries.</p>
 
@@ -1397,13 +1357,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- CONFLICT RESOLUTION -->
 <section class="section" id="conflict-resolution">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('conflict-resolution',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #conflict-resolution
-    </button>
-  </div>
-  <h2 class="sec-h2">Conflict Resolution</h2>
+<div class="sec-title-row"><h2 class="sec-h2">Conflict Resolution</h2><button class="anc-ico" onclick="copyAnchor('conflict-resolution',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
   <p class="sec-sub">In a multi-occupant environment, conflicting voice commands inevitably occur. Jemm resolves instruction overlap deterministically through a three-layer hierarchy, preventing environmental oscillations and spatial disputes between principals.</p>
 
   <div class="cr-grid">
@@ -1429,13 +1383,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 
 <!-- §05 TONE MATRIX -->
 <section class="section" id="tone">
-  <div class="sec-ey">
-    <button class="anc-btn" onclick="copyAnchor('tone',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      #tone
-    </button>
-  </div>
-  <h2 class="sec-h2">Adaptive Persona &amp; Contextual Tone Matrix</h2>
+<div class="sec-title-row"><h2 class="sec-h2">Adaptive Persona &amp; Contextual Tone Matrix</h2><button class="anc-ico" onclick="copyAnchor('tone',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
   <p class="sec-sub">Jemm's spoken personality - how it sounds, not just what it says - shifts dynamically across four evidence-based tone dimensions derived from Nielsen Norman Group's tone-of-voice research. Each dimension is a spectrum of personality traits that shapes how a response <em>feels</em> to the listener, independent of its factual content. Context (WHO × WHERE × WHEN) determines where Jemm sits on each axis in real time.</p>
   <p class="sec-sub" style="margin-top:16px">Language is contextual, and the way information is delivered is just as critical as its factual accuracy. The Adaptive Persona & Contextual Tone Matrix governs Jemm's real-world vocal delivery, ensuring every spoken interaction aligns with the immediate social, spatial, and psychological demands of the room. Built on Nielsen Norman Group's four core tone-of-voice spectrums - Formal vs. Casual, Serious vs. Funny, Respectful vs. Irreverent, and Matter-of-Fact vs. Enthusiastic - Jemm dynamically modulates its conversational register along a continuous scale rather than relying on static, canned personas. By calculating the intersection of WHO is speaking (Role Token Authority), WHERE the interaction occurs (Spatial Zone), and WHEN it happens (Temporal Context and Stress Level), Jemm calculates its precise acoustic and vocabulary register in real time. The system preserves its core identity - honest, unvarnished, and deferential - while effortlessly shifting from a direct, clinical register during executive office workflows to a quiet, reassuring presence in a private residential sanctuary. Select any context combination below to visualize how Jemm calibrates its voice across all four dimensions.</p>
 
