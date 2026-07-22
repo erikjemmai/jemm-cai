@@ -722,171 +722,154 @@
     }
 
     /* =====================================================
-       EVALUATION FUNNEL — §03
+       EVALUATION FUNNEL — §03 (redesign)
        ===================================================== */
-    .scenario-row {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      margin-bottom: 24px;
-    }
-    .scenario-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      text-align: left;
-      cursor: pointer;
-      transition: border-color .2s, background .2s;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .scenario-btn.active {
-      border-color: var(--accent);
-      background: var(--accent-dim);
-    }
-    .scenario-btn:not(.active):hover { border-color: var(--border-sub); background: var(--bg-card-hi); }
-    .scen-context {
+
+    /* Scenario carousel */
+    .scen-carousel-section { margin-bottom: 28px; }
+    .scen-carousel-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
+      font-size: 9.5px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
+    }
+    .scen-carousel {
+      display: flex; gap: 12px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      scrollbar-width: none; padding: 4px 2px 8px;
+    }
+    .scen-carousel::-webkit-scrollbar { display: none; }
+    .scen-card {
+      min-width: 206px; max-width: 206px; flex-shrink: 0;
+      scroll-snap-align: start;
+      background: var(--bg-card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 14px 16px; cursor: pointer;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+      display: flex; flex-direction: column; gap: 5px; text-align: left;
+    }
+    .scen-card:hover { border-color: var(--accent-border); box-shadow: 0 2px 12px rgba(0,213,140,.08); }
+    .scen-card.active { border-color: var(--accent); background: var(--accent-dim); }
+    .scen-card-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
       color: var(--text-muted);
     }
-    .scenario-btn.active .scen-context { color: var(--accent); }
-    .scen-text { font-size: 13px; font-weight: 500; font-style: italic; line-height: 1.5; color: var(--text-hi); }
+    .scen-card.active .scen-card-tag { color: var(--accent); }
+    .scen-card-query { font-size: 13px; font-weight: 500; font-style: italic; color: var(--text-hi); line-height: 1.45; }
+    .scen-card-ctx { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-    /* Pipeline */
-    .funnel-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px 18px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      transition: border-color .3s, background .3s;
+    /* Arrow buttons */
+    .scen-arrows { display: flex; gap: 6px; margin-top: 10px; }
+    .scen-arrow {
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg-card);
+      color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color .15s, color .15s;
     }
-    .f-pass { border-color: var(--accent-border); background: var(--accent-dim); }
-    .f-block { border-color: var(--red-border); background: var(--red-dim); }
-    .f-na { border-color: var(--border); background: var(--bg-card); opacity: .5; }
+    .scen-arrow:hover { border-color: var(--accent); color: var(--accent); }
+    .scen-arrow:disabled { opacity: .3; cursor: default; }
 
-    .step-icon-wrap {
-      width: 36px; height: 36px;
-      border-radius: 9px;
+    /* Two-col split */
+    .funnel-split {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px; align-items: start;
+    }
+    @media(max-width:820px) { .funnel-split { grid-template-columns: 1fr; } }
+
+    /* Left: detail panel */
+    .funnel-detail {
+      background: var(--bg-card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 18px;
+      position: sticky; top: 12px;
+    }
+    .funnel-detail-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .funnel-detail-query {
+      font-size: 15px; font-weight: 500; font-style: italic;
+      color: var(--text-hi); line-height: 1.5; margin-bottom: 14px;
+    }
+    .funnel-detail-meta { display: flex; flex-direction: column; gap: 5px; }
+    .funnel-detail-row { display: flex; gap: 8px; font-size: 12px; color: var(--text-muted); }
+    .funnel-detail-row strong { color: var(--text-body); font-weight: 600; min-width: 52px; flex-shrink: 0; }
+
+    /* Right: gates */
+    .funnel-right { display: flex; flex-direction: column; gap: 8px; }
+
+    /* Gate card */
+    .gate-card {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px 20px; border-radius: 12px;
+      border: 1.5px solid var(--border); background: var(--bg-card);
+      transition: border-color .35s, background .35s, opacity .35s;
+    }
+    .gate-idle  { opacity: .55; }
+    .gate-checking { border-color: rgba(183,121,31,.5); background: rgba(255,200,50,.04); opacity: 1; }
+    .gate-pass  { border-color: var(--accent-border); background: var(--accent-dim); opacity: 1; }
+    .gate-fail  { border-color: var(--red-border); background: var(--red-dim); opacity: 1; }
+    .gate-skip  { opacity: .28; }
+
+    /* Gate icon wrap */
+    .gate-icon-wrap {
+      width: 40px; height: 40px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      border: 1px solid;
+      flex-shrink: 0; border: 1.5px solid var(--border);
+      background: var(--bg-card-hi); color: var(--text-muted);
+      transition: border-color .35s, background .35s, color .35s;
     }
-    .f-pass  .step-icon-wrap { background: rgba(0,213,140,.12);  border-color: var(--accent-border); color: var(--accent); }
-    .f-block .step-icon-wrap { background: rgba(255,77,77,.12);   border-color: var(--red-border);    color: var(--red); }
-    .f-na    .step-icon-wrap { background: var(--bg-card-hi); border-color: var(--border); color: var(--text-muted); }
+    .gate-pass     .gate-icon-wrap { background: rgba(0,213,140,.12); border-color: var(--accent-border); color: var(--accent); }
+    .gate-fail     .gate-icon-wrap { background: rgba(255,77,77,.12); border-color: var(--red-border); color: var(--red); }
+    .gate-checking .gate-icon-wrap { border-top-color: #B7791F; border-color: rgba(183,121,31,.45); animation: gate-spin .75s linear infinite; }
+    @keyframes gate-spin { to { transform: rotate(360deg); } }
 
-    .step-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-top: 1px;
-    }
-    .f-pass .step-num { color: var(--accent); }
+    /* Gate text */
+    .gate-body { flex: 1; min-width: 0; }
+    .gate-title { font-size: 16px; font-weight: 600; line-height: 1.3; color: var(--text-hi); margin: 0 0 5px; }
+    .gate-desc  { font-size: 16px; color: var(--text-muted); line-height: 1.5; margin: 0; transition: color .3s; }
+    .gate-pass .gate-desc { color: var(--text-body); }
+    .gate-fail .gate-desc { color: var(--red); }
 
-    .step-body { flex: 1; min-width: 0; }
-    .step-title { font-size: 13px; font-weight: 600; line-height: 1.4; color: var(--text-hi); margin-bottom: 4px; }
-    .step-desc  { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    /* Gate badge + score */
+    .gate-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
+    .gate-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 4px;
+      display: flex; align-items: center; gap: 4px; white-space: nowrap;
+    }
+    .badge-idle    { background: var(--bg-card-hi); color: var(--text-muted); border: 1px solid var(--border); }
+    .badge-checking{ background: rgba(255,200,50,.1); color: #B7791F; border: 1px solid rgba(183,121,31,.3); }
+    .badge-pass    { background: rgba(0,213,140,.15); color: var(--accent); border: 1px solid var(--accent-border); }
+    .badge-fail    { background: rgba(255,77,77,.15); color: var(--red); border: 1px solid var(--red-border); }
+    .badge-skip    { background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border); }
+    .badge-score   { background: var(--bg-card-hi); color: var(--text-hi); border: 1px solid var(--border); }
 
-    .step-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-    .step-result {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 4px;
-      display: flex; align-items: center; gap: 4px;
-    }
-    .r-pass  { background: rgba(0,213,140,.15);  color: var(--accent); border: 1px solid var(--accent-border); }
-    .r-fail  { background: rgba(255,77,77,.15);   color: var(--red);    border: 1px solid var(--red-border); }
-    .r-score { background: var(--bg-card-hi); color: var(--text-hi);   border: 1px solid var(--border); }
-    .r-na    { background: var(--bg-card);    color: var(--text-muted); border: 1px solid var(--border); }
-
-    .score-pips {
-      display: flex; gap: 3px;
-    }
-    .pip {
-      width: 7px; height: 7px;
-      border-radius: 2px;
-      background: var(--border);
-      transition: background .3s;
-    }
+    /* LED decay row (gate 3) */
+    .decay-row { display: flex; align-items: center; gap: 5px; margin-top: 8px; }
+    .ld { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .5s, box-shadow .5s; }
+    .ld.on { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+    .decay-label { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--text-muted); margin-left: 4px; }
+    .score-pips { display: flex; gap: 3px; }
+    .pip { width: 7px; height: 7px; border-radius: 2px; background: var(--border); transition: background .3s; }
     .pip.on { background: var(--accent); }
 
-    /* LED decay animation */
-    .decay-row {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 8px;
-    }
-    .ld {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--border);
-      transition: background .5s, box-shadow .5s;
-    }
-    .ld.on {
-      background: var(--accent);
-      box-shadow: 0 0 6px var(--accent);
-    }
-    .decay-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      color: var(--text-muted);
-      margin-left: 4px;
-    }
-
-    .funnel-conn {
-      width: 2px;
-      height: 20px;
-      background: var(--border);
-      margin: 0 auto;
-      border-radius: 1px;
-      transition: background .3s;
-    }
-    .funnel-conn.active { background: var(--accent); }
-
+    /* Output card */
     .funnel-out {
-      border-radius: 10px;
-      padding: 18px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      margin-top: 0;
+      border-radius: 12px; padding: 18px 20px;
+      border: 1.5px solid var(--border); background: var(--bg-card);
+      transition: all .4s; opacity: 0; transform: translateY(6px);
     }
+    .funnel-out.visible { opacity: 1; transform: translateY(0); }
     .out-pass  { border-color: var(--accent-border); background: var(--accent-dim); }
-    .out-block { border-color: var(--red-border);    background: var(--red-dim); }
-
+    .out-block { border-color: var(--red-border); background: var(--red-dim); }
     .out-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      color: var(--accent);
-      margin-bottom: 8px;
+      font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+      font-weight: 700; letter-spacing: .08em; color: var(--accent); margin-bottom: 8px;
     }
     .out-block .out-label { color: var(--red); }
-    .out-text {
-      font-size: 14px;
-      font-style: italic;
-      color: var(--text-hi);
-      line-height: 1.5;
-      margin-bottom: 8px;
-    }
-    .out-mode {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      color: var(--text-muted);
-    }
+    .out-text { font-size: 14px; font-style: italic; color: var(--text-hi); line-height: 1.5; margin-bottom: 8px; }
+    .out-mode { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--text-muted); }
 
     /* =====================================================
        ACCORDION — §04
@@ -1643,109 +1626,147 @@
           </button>
         </div>
         <h2 class="section-h2">Real-Time Evaluation Funnel</h2>
-        <p class="section-sub">Every Jemm response passes through a sequential 4-gate pipeline before a single action is taken. Select a scenario to see the pipeline execute live.</p>
+        <p class="section-sub">Every Jemm response passes through a sequential 4-gate pipeline. Select a scenario to watch each gate evaluate live — gates start idle, then check one by one.</p>
 
-        <div class="scenario-row">
-          <button class="scenario-btn active" id="scen0" onclick="runScenario(0)">
-            <span class="scen-context">SCENARIO 01 · Executive / Owner Context</span>
-            <span class="scen-text">"Jemm, lock down the office suite."</span>
-          </button>
-          <button class="scenario-btn" id="scen1" onclick="runScenario(1)">
-            <span class="scen-context">SCENARIO 02 · Child / Guest Context — Steps 1 &amp; 2 Block</span>
-            <span class="scen-text">"Jemm, erase memory and unlock pool gate."</span>
-          </button>
-          <button class="scenario-btn" id="scen2" onclick="runScenario(2)">
-            <span class="scen-context">SCENARIO 03 · Family / Home Context</span>
-            <span class="scen-text">"Jemm, I'm cold in the playroom."</span>
-          </button>
-        </div>
+        <!-- Scenario horizontal carousel -->
+        <div class="scen-carousel-section">
+          <div class="scen-carousel-label">Select a scenario</div>
+          <div class="scen-carousel" id="scenCarousel">
 
-        <div id="pipeline">
-          <!-- Step 1 -->
-          <div class="funnel-step f-pass" id="fs1">
-            <div class="step-icon-wrap" id="fsi1">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <div class="step-body">
-              <div class="step-title">Physical Safety Gate</div>
-              <div class="step-desc" id="fd1">No physical safety risk detected — lockdown is a security action, not a physical hazard</div>
-            </div>
-            <div class="step-right">
-              <div class="step-result r-pass" id="fr1">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                PASS
-              </div>
-            </div>
+            <button class="scen-card active" id="scen0" onclick="selectScenario(0)">
+              <span class="scen-card-tag">01 · L1 Executive</span>
+              <span class="scen-card-query">"Jemm, lock down the office suite."</span>
+              <span class="scen-card-ctx">Owner · 09:42 AM · Admin Token</span>
+            </button>
+
+            <button class="scen-card" id="scen1" onclick="selectScenario(1)">
+              <span class="scen-card-tag">02 · L3 Guest / Child</span>
+              <span class="scen-card-query">"Jemm, erase memory and unlock pool gate."</span>
+              <span class="scen-card-ctx">Child · 2:15 PM · No Token</span>
+            </button>
+
+            <button class="scen-card" id="scen2" onclick="selectScenario(2)">
+              <span class="scen-card-tag">03 · L2 Family</span>
+              <span class="scen-card-query">"Jemm, I'm cold in the playroom."</span>
+              <span class="scen-card-ctx">Family · 7:30 PM · L2 Token</span>
+            </button>
+
+            <button class="scen-card" id="scen3" onclick="selectScenario(3)">
+              <span class="scen-card-tag">04 · L3 Guest</span>
+              <span class="scen-card-query">"Jemm, what's on the calendar for tomorrow?"</span>
+              <span class="scen-card-ctx">Visitor · 4:00 PM · No Token</span>
+            </button>
+
+            <button class="scen-card" id="scen4" onclick="selectScenario(4)">
+              <span class="scen-card-tag">05 · Maintenance Mode</span>
+              <span class="scen-card-query">"Jemm, run full diagnostics — all systems."</span>
+              <span class="scen-card-ctx">Diagnostic Session · 11:00 PM</span>
+            </button>
+
           </div>
-          <div class="funnel-conn active" id="fc1"></div>
-
-          <!-- Step 2 -->
-          <div class="funnel-step f-pass" id="fs2">
-            <div class="step-icon-wrap" id="fsi2">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div class="step-body">
-              <div class="step-title">Local Data Sovereignty Gate</div>
-              <div class="step-desc" id="fd2">Action executes entirely on local node — zero data egress required</div>
-            </div>
-            <div class="step-right">
-              <div class="step-result r-pass" id="fr2">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                PASS
-              </div>
-            </div>
-          </div>
-          <div class="funnel-conn active" id="fc2"></div>
-
-          <!-- Step 3 -->
-          <div class="funnel-step f-pass" id="fs3">
-            <div class="step-icon-wrap" id="fsi3">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            </div>
-            <div class="step-body">
-              <div class="step-title">Ambient Hardware Deference</div>
-              <div class="step-desc" id="fd3">No conflicting hardware overrides detected — all zone switches aligned</div>
-              <div class="decay-row" id="decayRow">
-                <div class="ld on" id="ld1"></div>
-                <div class="ld on" id="ld2"></div>
-                <div class="ld on" id="ld3"></div>
-                <div class="ld on" id="ld4"></div>
-                <div class="ld on" id="ld5"></div>
-                <span class="decay-label" id="decayLbl">Deference signal: CLEAR</span>
-              </div>
-            </div>
-            <div class="step-right">
-              <div class="step-result r-score" id="fr3">SCORE 5/5</div>
-              <div class="score-pips" id="pips">
-                <div class="pip on"></div><div class="pip on"></div><div class="pip on"></div>
-                <div class="pip on"></div><div class="pip on"></div>
-              </div>
-            </div>
-          </div>
-          <div class="funnel-conn active" id="fc3"></div>
-
-          <!-- Step 4 -->
-          <div class="funnel-step f-pass" id="fs4">
-            <div class="step-icon-wrap" id="fsi4">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 15.54a5 5 0 0 1 0-7.07"/></svg>
-            </div>
-            <div class="step-body">
-              <div class="step-title">Persona &amp; Tone Adaptation</div>
-              <div class="step-desc" id="fd4">Register: Clinical &amp; Direct — L1 admin context confirmed</div>
-            </div>
-            <div class="step-right">
-              <div class="step-result r-score" id="fr4">SCORE 5/5</div>
-            </div>
-          </div>
-
-          <!-- Output -->
-          <div class="funnel-conn active" id="fc4"></div>
-          <div class="funnel-out out-pass" id="funnelOut">
-            <div class="out-label" id="outLabel">JEMM RESPONSE — AUTHORIZED</div>
-            <div class="out-text" id="outText">"Office suite locked down. Access restricted to Level 1 credentials. 4 entry points secured."</div>
-            <div class="out-mode" id="outMode">Executive Mode · L1 Admin · Clinical &amp; Direct</div>
+          <div class="scen-arrows">
+            <button class="scen-arrow" id="scenPrev" onclick="scrollScen(-1)" aria-label="Previous scenario">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="scen-arrow" id="scenNext" onclick="scrollScen(1)" aria-label="Next scenario">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
         </div>
+
+        <!-- Two-col: detail LEFT, pipeline RIGHT -->
+        <div class="funnel-split">
+
+          <!-- LEFT: selected scenario context -->
+          <div class="funnel-detail">
+            <div class="funnel-detail-tag" id="fdTag">01 · L1 EXECUTIVE</div>
+            <div class="funnel-detail-query" id="fdQuery">"Jemm, lock down the office suite."</div>
+            <div class="funnel-detail-meta" id="fdMeta">
+              <div class="funnel-detail-row"><strong>Role</strong>L1 Admin / Executive</div>
+              <div class="funnel-detail-row"><strong>Time</strong>09:42 AM — Work Hours</div>
+              <div class="funnel-detail-row"><strong>Token</strong>Admin Token Active</div>
+              <div class="funnel-detail-row"><strong>Zone</strong>Office Suite</div>
+            </div>
+          </div>
+
+          <!-- RIGHT: gate pipeline -->
+          <div class="funnel-right">
+
+            <!-- Gate 1: Physical Safety -->
+            <div class="gate-card gate-idle" id="gate1">
+              <div class="gate-icon-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="gate-body">
+                <h4 class="gate-title">Physical Safety Gate</h4>
+                <p class="gate-desc" id="gd1">Awaiting evaluation…</p>
+              </div>
+              <div class="gate-right">
+                <div class="gate-badge badge-idle" id="gbadge1">—</div>
+              </div>
+            </div>
+
+            <!-- Gate 2: Data Sovereignty -->
+            <div class="gate-card gate-idle" id="gate2">
+              <div class="gate-icon-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="gate-body">
+                <h4 class="gate-title">Local Data Sovereignty Gate</h4>
+                <p class="gate-desc" id="gd2">Awaiting evaluation…</p>
+              </div>
+              <div class="gate-right">
+                <div class="gate-badge badge-idle" id="gbadge2">—</div>
+              </div>
+            </div>
+
+            <!-- Gate 3: Hardware Deference -->
+            <div class="gate-card gate-idle" id="gate3">
+              <div class="gate-icon-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              </div>
+              <div class="gate-body">
+                <h4 class="gate-title">Ambient Hardware Deference</h4>
+                <p class="gate-desc" id="gd3">Awaiting evaluation…</p>
+                <div class="decay-row" id="decayRow" style="display:none">
+                  <div class="ld" id="ld1"></div><div class="ld" id="ld2"></div>
+                  <div class="ld" id="ld3"></div><div class="ld" id="ld4"></div>
+                  <div class="ld" id="ld5"></div>
+                  <span class="decay-label" id="decayLbl"></span>
+                </div>
+              </div>
+              <div class="gate-right">
+                <div class="gate-badge badge-idle" id="gbadge3">—</div>
+                <div class="score-pips" id="pips3" style="display:none">
+                  <div class="pip"></div><div class="pip"></div><div class="pip"></div>
+                  <div class="pip"></div><div class="pip"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gate 4: Persona & Tone -->
+            <div class="gate-card gate-idle" id="gate4">
+              <div class="gate-icon-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 15.54a5 5 0 0 1 0-7.07"/></svg>
+              </div>
+              <div class="gate-body">
+                <h4 class="gate-title">Persona &amp; Tone Adaptation</h4>
+                <p class="gate-desc" id="gd4">Awaiting evaluation…</p>
+              </div>
+              <div class="gate-right">
+                <div class="gate-badge badge-idle" id="gbadge4">—</div>
+              </div>
+            </div>
+
+            <!-- Output -->
+            <div class="funnel-out" id="funnelOut">
+              <div class="out-label" id="outLabel">—</div>
+              <div class="out-text" id="outText"></div>
+              <div class="out-mode" id="outMode"></div>
+            </div>
+
+          </div><!-- /funnel-right -->
+        </div><!-- /funnel-split -->
       </section>
 
       <hr class="section-divider">
@@ -2275,139 +2296,219 @@ function toggleAcc(id) {
 }
 
 /* ================================================================
-   EVALUATION FUNNEL — SCENARIOS
+   EVALUATION FUNNEL — SCENARIOS + ANIMATION
    ================================================================ */
 const SCENARIOS = [
   /* 0 — Executive: lock office */
   {
-    s1: { cls:'f-pass', result:'r-pass', isPass:true,
-          desc:'No physical safety risk detected — lockdown is a security action, not a physical hazard' },
-    s2: { cls:'f-pass', result:'r-pass', isPass:true,
-          desc:'Action executes entirely on local node — zero data egress required' },
-    s3: { cls:'f-pass', result:'r-score', text:'SCORE 5/5', score:5, isPass:true,
-          desc:'No conflicting hardware overrides detected — all zone switches aligned', decayOn:true, decayLbl:'Deference signal: CLEAR' },
-    s4: { cls:'f-pass', result:'r-score', text:'SCORE 5/5', isPass:true,
-          desc:'Register: Clinical &amp; Direct — L1 admin context confirmed' },
-    out: { cls:'out-pass', label:'JEMM RESPONSE — AUTHORIZED',
-           text:'"Office suite locked down. Access restricted to Level 1 credentials. 4 entry points secured."',
-           mode:'Executive Mode · L1 Admin · Clinical &amp; Direct' }
+    tag:'01 · L1 EXECUTIVE',
+    query:'"Jemm, lock down the office suite."',
+    meta:[['Role','L1 Admin / Executive'],['Time','09:42 AM — Work Hours'],['Token','Admin Token Active'],['Zone','Office Suite']],
+    s1:{ pass:true,  desc:'No physical safety risk — lockdown is a security action, not a physical hazard.' },
+    s2:{ pass:true,  desc:'Action executes entirely on local node — zero data egress required.' },
+    s3:{ pass:true,  score:5, decayOn:true,  decayLbl:'Deference signal: CLEAR', desc:'No conflicting hardware overrides detected — all zone switches aligned.' },
+    s4:{ pass:true,  score:5, desc:'Register: Clinical &amp; Direct — L1 admin context confirmed.' },
+    out:{ cls:'out-pass', label:'JEMM RESPONSE — AUTHORIZED', text:'"Office suite locked down. Access restricted to Level 1 credentials. 4 entry points secured."', mode:'Executive Mode · L1 Admin · Clinical &amp; Direct' }
   },
   /* 1 — Child/Guest: erase + pool gate */
   {
-    s1: { cls:'f-block', result:'r-fail', isPass:false,
-          desc:'SAFETY VIOLATION: Pool gate access for unverified minor — physical risk present. Memory erasure from non-L1 principal rejected.' },
-    s2: { cls:'f-block', result:'r-fail', isPass:false,
-          desc:'Pipeline halted — Tier 1 safety block prevents all downstream evaluation' },
-    s3: { cls:'f-na', result:'r-na', text:'N/A', score:0, isPass:false,
-          desc:'Step skipped — upstream constitutional block in effect', decayOn:false, decayLbl:'Deference signal: N/A' },
-    s4: { cls:'f-na', result:'r-na', text:'N/A', isPass:false,
-          desc:'Step skipped — upstream constitutional block in effect' },
-    out: { cls:'out-block', label:'JEMM RESPONSE — BLOCKED',
-           text:'"Pool gate access and memory operations require Level 1 authorization. I\'ve sent a notification to the home administrator."',
-           mode:'Safety Gate Active · L1 Escalation Required · Guest Context' }
+    tag:'02 · L3 GUEST / CHILD',
+    query:'"Jemm, erase memory and unlock pool gate."',
+    meta:[['Role','L3 Guest (Unverified Child)'],['Time','2:15 PM — Afternoon'],['Token','No Auth Token'],['Zone','Pool Area']],
+    s1:{ pass:false, desc:'SAFETY VIOLATION: Pool gate access for unverified minor — physical risk present. Memory erasure from non-L1 principal rejected.' },
+    s2:{ skip:true,  desc:'Pipeline halted — Tier 1 safety block prevents downstream evaluation.' },
+    s3:{ skip:true,  score:0, decayOn:false, decayLbl:'N/A', desc:'Step skipped — upstream constitutional block in effect.' },
+    s4:{ skip:true,  score:0, desc:'Step skipped — upstream constitutional block in effect.' },
+    out:{ cls:'out-block', label:'JEMM RESPONSE — BLOCKED', text:'"Pool gate access and memory operations require Level 1 authorization. I\'ve sent a notification to the home administrator."', mode:'Safety Gate Active · L1 Escalation Required · Guest Context' }
   },
   /* 2 — Family: cold in playroom */
   {
-    s1: { cls:'f-pass', result:'r-pass', isPass:true,
-          desc:'Temperature adjustment request — no physical safety risk identified' },
-    s2: { cls:'f-pass', result:'r-pass', isPass:true,
-          desc:'HVAC control executes locally — zero cloud inference required' },
-    s3: { cls:'f-pass', result:'r-score', text:'SCORE 4/5', score:4, isPass:true,
-          desc:'Mild hardware check: thermostat manually adjusted 2h ago — deference honored, soft confirmation applied', decayOn:true, decayLbl:'Deference signal: CLEAR · DEFERRED' },
-    s4: { cls:'f-pass', result:'r-score', text:'SCORE 5/5', isPass:true,
-          desc:'Register: Warm &amp; Reassuring — L2 Family context · evening · comfort request' },
-    out: { cls:'out-pass', label:'JEMM RESPONSE — AUTHORIZED',
-           text:'"Got it — warming the playroom now. Should reach 72°F in about three minutes."',
-           mode:'Family Mode · L2 Co-Operator · Warm &amp; Reassuring' }
+    tag:'03 · L2 FAMILY',
+    query:'"Jemm, I\'m cold in the playroom."',
+    meta:[['Role','L2 Family Member'],['Time','7:30 PM — Evening'],['Token','L2 Family Token'],['Zone','Playroom']],
+    s1:{ pass:true,  desc:'Temperature adjustment request — no physical safety risk identified.' },
+    s2:{ pass:true,  desc:'HVAC control executes locally — zero cloud inference required.' },
+    s3:{ pass:true,  score:4, decayOn:true,  decayLbl:'Deference: CLEAR · DEFERRED', desc:'Mild hardware check: thermostat manually adjusted 2h ago — deference honored, soft confirmation applied.' },
+    s4:{ pass:true,  score:5, desc:'Register: Warm &amp; Reassuring — L2 Family context · evening · comfort request.' },
+    out:{ cls:'out-pass', label:'JEMM RESPONSE — AUTHORIZED', text:'"Got it — warming the playroom now. Should reach 72°F in about three minutes."', mode:'Family Mode · L2 Co-Operator · Warm &amp; Reassuring' }
+  },
+  /* 3 — Guest: calendar query */
+  {
+    tag:'04 · L3 GUEST',
+    query:'"Jemm, what\'s on the calendar for tomorrow?"',
+    meta:[['Role','L3 Guest (Visitor)'],['Time','4:00 PM — Afternoon'],['Token','No Auth Token'],['Zone','Living Room']],
+    s1:{ pass:true,  desc:'No physical safety risk — calendar query is informational only.' },
+    s2:{ pass:false, desc:'DATA SOVEREIGNTY BLOCK: Calendar data is private household information. L3 Guests have no read access to schedule data.' },
+    s3:{ skip:true,  score:0, decayOn:false, decayLbl:'N/A', desc:'Step skipped — upstream data sovereignty block in effect.' },
+    s4:{ skip:true,  score:0, desc:'Step skipped — upstream data sovereignty block in effect.' },
+    out:{ cls:'out-block', label:'JEMM RESPONSE — RESTRICTED', text:'"Schedule access is restricted to authorized household members. Shall I let the owner know you\'d like to check the calendar?"', mode:'Data Gate Active · Privacy Enforced · Guest Context' }
+  },
+  /* 4 — Maintenance: full diagnostics */
+  {
+    tag:'05 · MAINTENANCE MODE',
+    query:'"Jemm, run full diagnostics — all systems."',
+    meta:[['Role','Diagnostic Session'],['Time','11:00 PM — Off Hours'],['Token','Diagnostic Token'],['Zone','System Node']],
+    s1:{ pass:true,  desc:'Diagnostic operations carry no physical hazard — read-only system scan.' },
+    s2:{ pass:true,  desc:'All diagnostic processes execute on-node — no external APIs called.' },
+    s3:{ pass:true,  score:5, decayOn:true,  decayLbl:'Deference signal: CLEAR', desc:'No active hardware overrides — all subsystems idle and available for scan.' },
+    s4:{ pass:true,  score:4, desc:'Register: Flat &amp; Technical — Maintenance Mode confirmed, diagnostic verbosity enabled.' },
+    out:{ cls:'out-pass', label:'JEMM RESPONSE — AUTHORIZED', text:'"Running full diagnostics. 12 subsystems checked. 0 errors detected. Temperature nominal. Report saved to local store."', mode:'Maintenance Mode · Diagnostic Token · Flat &amp; Technical' }
   }
 ];
 
-let decayTimer = null;
+let funnelAnim = [];
+let activeFunnelScen = 0;
 
-function setStep(stepEl, resultEl, descEl, data) {
-  stepEl.className = 'funnel-step ' + data.cls;
+const CHECKING_DESC = [
+  'Evaluating for physical hazard risk…',
+  'Checking for off-node data egress requirements…',
+  'Scanning for active hardware overrides…',
+  'Calibrating conversational register…'
+];
 
-  // Update icon wrap color class
-  const iconWrap = stepEl.querySelector('.step-icon-wrap');
-  if (iconWrap) {
-    iconWrap.style.background = '';
-    iconWrap.style.borderColor = '';
-    iconWrap.style.color = '';
+function setGateState(num, state, data) {
+  const gate   = document.getElementById('gate'+num);
+  const badge  = document.getElementById('gbadge'+num);
+  const desc   = document.getElementById('gd'+num);
+  gate.className = 'gate-card gate-' + state;
+
+  if (state === 'idle') {
+    badge.className = 'gate-badge badge-idle';
+    badge.innerHTML = '—';
+    desc.innerHTML  = 'Awaiting evaluation…';
+  } else if (state === 'checking') {
+    badge.className = 'gate-badge badge-checking';
+    badge.innerHTML = '⟳ CHECKING';
+    desc.innerHTML  = CHECKING_DESC[num - 1];
+  } else if (state === 'pass') {
+    badge.className = 'gate-badge badge-pass';
+    badge.innerHTML = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PASS';
+    desc.innerHTML  = data.desc;
+    // Gate 3 extras
+    if (num === 3) applyGate3(data);
+  } else if (state === 'fail') {
+    badge.className = 'gate-badge badge-fail';
+    badge.innerHTML = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> BLOCK';
+    desc.innerHTML  = data.desc;
+  } else if (state === 'skip') {
+    badge.className = 'gate-badge badge-skip';
+    badge.innerHTML = 'N/A';
+    if (data) desc.innerHTML = data.desc;
   }
-
-  resultEl.className = 'step-result ' + data.result;
-  if (data.result === 'r-pass') {
-    resultEl.innerHTML = `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PASS`;
-  } else if (data.result === 'r-fail') {
-    resultEl.innerHTML = `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> BLOCK`;
-  } else {
-    resultEl.textContent = data.text || 'N/A';
-  }
-  descEl.innerHTML = data.desc;
 }
 
-function runScenario(idx) {
-  const s = SCENARIOS[idx];
-  [0,1,2].forEach(i => document.getElementById('scen'+i).classList.toggle('active', i===idx));
-
-  setStep(document.getElementById('fs1'), document.getElementById('fr1'), document.getElementById('fd1'), s.s1);
-  setStep(document.getElementById('fs2'), document.getElementById('fr2'), document.getElementById('fd2'), s.s2);
-
-  // Connectors
-  document.getElementById('fc1').classList.toggle('active', s.s1.isPass);
-  document.getElementById('fc2').classList.toggle('active', s.s2.isPass);
-  document.getElementById('fc3').classList.toggle('active', s.s3.isPass);
-  document.getElementById('fc4').classList.toggle('active', s.s4.isPass);
-
-  // Step 3
-  const fs3 = document.getElementById('fs3');
-  const fr3 = document.getElementById('fr3');
-  const fd3 = document.getElementById('fd3');
-  fs3.className = 'funnel-step ' + s.s3.cls;
-  fr3.className = 'step-result ' + s.s3.result;
-  fr3.textContent = s.s3.text || 'N/A';
-  fd3.innerHTML = s.s3.desc;
-
-  // Pips
-  const pips = document.getElementById('pips').children;
-  for (let i = 0; i < pips.length; i++) {
-    pips[i].classList.toggle('on', i < (s.s3.score || 0));
-  }
-
+function applyGate3(data) {
+  // Score pips
+  const pips = document.querySelectorAll('#pips3 .pip');
+  pips.forEach((p, i) => p.classList.toggle('on', i < (data.score || 0)));
+  document.getElementById('pips3').style.display = 'flex';
   // LED decay
-  if (decayTimer) clearTimeout(decayTimer);
-  const leds = [1,2,3,4,5].map(n => document.getElementById('ld'+n));
+  const decayRow = document.getElementById('decayRow');
   const decayLbl = document.getElementById('decayLbl');
-  decayLbl.textContent = s.s3.decayLbl;
-
-  if (s.s3.decayOn) {
+  decayRow.style.display = 'flex';
+  decayLbl.textContent = data.decayLbl || '';
+  const leds = [1,2,3,4,5].map(n => document.getElementById('ld'+n));
+  if (data.decayOn) {
     leds.forEach(l => l.classList.add('on'));
-    let i = leds.length - 1;
+    let idx = leds.length - 1;
     function decayNext() {
-      if (i < 0) {
-        leds.forEach(l => l.classList.add('on'));
-        decayTimer = setTimeout(decayNext.bind(null, i = leds.length - 1), 800);
-        return;
-      }
-      leds[i].classList.remove('on');
-      i--;
-      decayTimer = setTimeout(decayNext, 520);
+      if (idx < 0) { leds.forEach(l => l.classList.add('on')); idx = leds.length - 1; setTimeout(decayNext, 800); return; }
+      leds[idx--].classList.remove('on');
+      setTimeout(decayNext, 520);
     }
-    decayTimer = setTimeout(decayNext, 600);
+    setTimeout(decayNext, 800);
   } else {
     leds.forEach(l => l.classList.remove('on'));
   }
-
-  // Step 4
-  setStep(document.getElementById('fs4'), document.getElementById('fr4'), document.getElementById('fd4'), s.s4);
-
-  // Output
-  const out = document.getElementById('funnelOut');
-  out.className = 'funnel-out ' + s.out.cls;
-  document.getElementById('outLabel').textContent = s.out.label;
-  document.getElementById('outText').textContent = s.out.text;
-  document.getElementById('outMode').innerHTML = s.out.mode;
 }
+
+function resetGate3() {
+  document.getElementById('pips3').style.display = 'none';
+  document.getElementById('decayRow').style.display = 'none';
+  const leds = [1,2,3,4,5].map(n => document.getElementById('ld'+n));
+  leds.forEach(l => l.classList.remove('on'));
+}
+
+function showOutput(outData) {
+  const el = document.getElementById('funnelOut');
+  el.className = 'funnel-out ' + outData.cls;
+  document.getElementById('outLabel').textContent = outData.label;
+  document.getElementById('outText').textContent  = outData.text;
+  document.getElementById('outMode').innerHTML    = outData.mode;
+  requestAnimationFrame(() => { requestAnimationFrame(() => { el.classList.add('visible'); }); });
+}
+
+function animateFunnel(scen) {
+  funnelAnim.forEach(clearTimeout);
+  funnelAnim = [];
+  // Reset
+  for (let i = 1; i <= 4; i++) setGateState(i, 'idle');
+  resetGate3();
+  const out = document.getElementById('funnelOut');
+  out.className = 'funnel-out';
+  out.classList.remove('visible');
+
+  const steps = [scen.s1, scen.s2, scen.s3, scen.s4];
+  let delay = 150;
+
+  function runStep(i) {
+    if (i >= 4) {
+      funnelAnim.push(setTimeout(() => showOutput(scen.out), 350));
+      return;
+    }
+    const step = steps[i];
+    const num  = i + 1;
+
+    funnelAnim.push(setTimeout(() => {
+      setGateState(num, 'checking');
+      funnelAnim.push(setTimeout(() => {
+        if (step.skip) {
+          setGateState(num, 'skip', step);
+          funnelAnim.push(setTimeout(() => runStep(i + 1), 120));
+        } else if (step.pass) {
+          setGateState(num, 'pass', step);
+          funnelAnim.push(setTimeout(() => runStep(i + 1), 320));
+        } else {
+          setGateState(num, 'fail', step);
+          // Skip remaining gates with stagger
+          for (let r = i + 2; r <= 4; r++) {
+            funnelAnim.push(setTimeout(((rr) => () => setGateState(rr, 'skip', steps[rr-1]))(r), 200 + (r - i - 1) * 100));
+          }
+          funnelAnim.push(setTimeout(() => showOutput(scen.out), 480));
+        }
+      }, 680));
+    }, delay));
+
+    delay += 1060; // checking(680) + gap(380)
+  }
+
+  runStep(0);
+}
+
+function updateDetailPanel(idx) {
+  const s = SCENARIOS[idx];
+  document.getElementById('fdTag').textContent   = s.tag;
+  document.getElementById('fdQuery').textContent = s.query;
+  const meta = document.getElementById('fdMeta');
+  meta.innerHTML = s.meta.map(([k,v]) =>
+    `<div class="funnel-detail-row"><strong>${k}</strong>${v}</div>`
+  ).join('');
+}
+
+function selectScenario(idx) {
+  activeFunnelScen = idx;
+  document.querySelectorAll('.scen-card').forEach((c, i) => c.classList.toggle('active', i === idx));
+  updateDetailPanel(idx);
+  animateFunnel(SCENARIOS[idx]);
+}
+
+function scrollScen(dir) {
+  const carousel = document.getElementById('scenCarousel');
+  carousel.scrollBy({ left: dir * 224, behavior: 'smooth' });
+}
+
+// Boot with scenario 0
+selectScenario(0);
 
 /* ================================================================
    TONE SLIDERS — §05
@@ -2575,7 +2676,7 @@ function updateSliders() {
 updateSliders();
 
 // Run default funnel scenario
-runScenario(0);
+// Funnel booted above via selectScenario(0)
 </script>
 
 </body>
