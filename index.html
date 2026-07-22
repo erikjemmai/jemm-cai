@@ -129,6 +129,11 @@ ul{list-style:none}
 :root[data-theme=dark] .ovd-lbl{color:rgba(96,165,250,.9)}
 .ov-sub-block{padding-top:24px;border-top:1px solid var(--bd);margin-top:24px}
 .ov-sub-block:first-of-type{padding-top:0;border-top:none;margin-top:0}
+.ov-twin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){.ov-twin-grid{grid-template-columns:1fr}}
+.ov-twin-card{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:14px;padding:22px 22px}
+.ov-twin-card-not{border-color:rgba(255,159,104,.25)}
+.ov-sub-h3-amber{color:#FF9F68}
 .ov-sub-h3{font-size:clamp(18px,2.5vw,22px);font-weight:600;color:var(--th);margin-bottom:14px;letter-spacing:-.01em}
 .ov-list{padding-left:20px;display:flex;flex-direction:column;gap:10px;margin-top:12px}
 .ov-list li{font-size:15px;font-weight:400;color:var(--tb);line-height:1.625;list-style:disc}
@@ -165,6 +170,10 @@ ul{list-style:none}
 .sh-node-title-r{color:var(--red)}
 .sh-node-title-a{color:#FF9F68}
 .sh-node-sub{font-size:11.5px;color:var(--tm);line-height:1.55}
+.sh-logo-img{width:36px;height:36px;object-fit:contain}
+.sh-logo-dim{filter:grayscale(1) brightness(.25)}
+.sh-logo-glow-g{filter:drop-shadow(0 0 6px rgba(0,213,140,.7)) brightness(1.1)}
+.sh-logo-glow-a{filter:drop-shadow(0 0 6px rgba(255,159,104,.7)) sepia(1) saturate(3) hue-rotate(340deg) brightness(1.1)}
 .sh-table{width:100%;border-collapse:collapse;font-size:13.5px;color:var(--tb)}
 .sh-table thead tr{border-bottom:1px solid var(--bd);background:var(--bg-ch)}
 .sh-table th{padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--th);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
@@ -643,11 +652,19 @@ ul{list-style:none}
   <div style="margin-top:0">
     <h2 class="sec-h2" style="margin-bottom:32px">Executive Intent &amp; Alignment Architecture</h2>
 
-    <!-- What This Document Is -->
+    <!-- What This Document Is / Is Not -->
     <div class="ov-sub-block">
-      <h3 class="ov-sub-h3">What This Document Is</h3>
-      <p class="pc-body">This specification is the primary behavioral contract, UX architecture, and training blueprint for <strong>Jemm Arc</strong> - the world's first 100% locally owned, air-gapped estate and office butler. It bridges human-centered experience design and frontier AI engineering by establishing the non-negotiable principles, authority boundaries, and conversational registers governing how Jemm reasons, speaks, and acts inside physical human spaces.</p>
-      <p class="pc-body" style="margin-top:12px">While traditional product specifications define static features, this document defines <strong>character, judgment, and physical boundaries</strong>. It serves as an active alignment contract for our AI engineers, system architects, and prompt designers to ensure every action executed on local silicon reflects the highest standards of safety, privacy, and utility for estate owners and enterprise executives.</p>
+      <div class="ov-twin-grid">
+        <div class="ov-twin-card">
+          <h3 class="ov-sub-h3">What This Document Is</h3>
+          <p class="pc-body">This specification serves as the primary behavioral contract, UX architecture, and alignment blueprint for <strong>Jemm Arc</strong> - the world's first 100% locally owned, air-gapped estate and office steward. It bridges human-centered experience design and frontier AI safety by defining the non-negotiable principles, authority boundaries, ambient hardware feedback, and conversational registers governing how Jemm reasons, speaks, and acts inside physical human spaces.</p>
+        </div>
+        <div class="ov-twin-card ov-twin-card-not">
+          <h3 class="ov-sub-h3 ov-sub-h3-amber">What This Document Is NOT</h3>
+          <p class="pc-body">This document defines character judgment, human-AI interaction rules, and physical estate boundaries - it is <strong>not a low-level technical or mathematical engineering manual</strong>. It deliberately omits backend code implementations, loss function equations, neural network hyperparameter tuning, model weight distribution algorithms, and hardware circuit schematics.</p>
+          <p class="pc-body" style="margin-top:12px">By keeping scope strictly focused on user experience, behavioral alignment, and training specifications, this document provides a clear behavioral target for AI engineering teams without burdening leadership, product managers, or design stakeholders with specialized machine learning math.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Internal Purpose -->
@@ -736,10 +753,7 @@ ul{list-style:none}
 
     <div class="sh-node-card">
       <div class="sh-node-circle sh-node-idle">
-        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" opacity=".35">
-          <polygon points="50,22 80,42 80,58 50,78 20,58 20,42" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="34" y1="50" x2="66" y2="50" stroke-linecap="round"/>
-        </svg>
+        <img src="jemm-logo-white.png" alt="Jemm" class="sh-logo-img sh-logo-dim">
       </div>
       <h3 class="sh-node-title">Idle State</h3>
       <p class="sh-node-sub">Dark Matte (#000000). 0% luminance. Hardware remains visually invisible in the room. Background edge updates run here silently.</p>
@@ -747,10 +761,7 @@ ul{list-style:none}
 
     <div class="sh-node-card">
       <div class="sh-node-circle sh-node-active">
-        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" stroke="#00D58C" stroke-width="4">
-          <polygon points="50,22 80,42 80,58 50,78 20,58 20,42" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="34" y1="50" x2="66" y2="50" stroke-linecap="round"/>
-        </svg>
+        <img src="jemm-logo-white.png" alt="Jemm" class="sh-logo-img sh-logo-glow-g">
       </div>
       <h3 class="sh-node-title sh-node-title-g">Active Operation</h3>
       <p class="sh-node-sub">Neon Emerald (#00D58C). Illuminates the single nearest node during voice listening and local execution. Decays back to dark matte within 500ms.</p>
@@ -758,10 +769,7 @@ ul{list-style:none}
 
     <div class="sh-node-card">
       <div class="sh-node-circle sh-node-amber">
-        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" stroke="#FF9F68" stroke-width="4">
-          <polygon points="50,22 80,42 80,58 50,78 20,58 20,42" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="34" y1="50" x2="66" y2="50" stroke-linecap="round"/>
-        </svg>
+        <img src="jemm-logo-white.png" alt="Jemm" class="sh-logo-img sh-logo-glow-a">
       </div>
       <h3 class="sh-node-title sh-node-title-a">Constitutional Refusal</h3>
       <p class="sh-node-sub">Warm Amber (#FF9F68). Gentle, non-punitive 1.0s soft pulse when an action is blocked due to physical safety, permissions, or local data sovereignty rules.</p>
