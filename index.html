@@ -62,24 +62,31 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 :root[data-theme=dark] .tp-pip{transform:translateX(20px)}
 :root[data-theme=light] .tp-pip{transform:translateX(0)}
 /* ============================================================ SIDEBAR (PUSH) */
-:root{--sb-exp:170px;--sb-col:56px}
-.nav-sidebar{position:fixed;top:var(--topbar);left:0;bottom:0;z-index:90;width:var(--sb-exp);background:var(--bg-nav);border-right:1px solid var(--bd);display:flex;flex-direction:column;transition:width .26s cubic-bezier(.4,0,.2,1);overflow:hidden}
+:root{--sb-exp:170px;--sb-col:44px}
+.nav-sidebar{position:fixed;top:var(--topbar);left:0;bottom:0;z-index:90;width:var(--sb-exp);background:var(--bg-nav);border-right:.25px solid #707070;display:flex;flex-direction:column;transition:width .26s cubic-bezier(.4,0,.2,1);overflow:hidden}
+:root[data-theme=dark] .nav-sidebar{border-right-color:var(--bd)}
 .nav-sidebar.collapsed{width:var(--sb-col)}
 /* Header row inside sidebar */
-.sb-header{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 14px 16px;border-bottom:1px solid var(--bd);flex-shrink:0;min-height:52px}
+.sb-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:.5px solid #707070;flex-shrink:0;min-height:48px}
+:root[data-theme=dark] .sb-header{border-bottom-color:var(--bd)}
 .nav-sidebar.collapsed .sb-header{justify-content:center;padding:14px 0}
-.sb-nav-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--tm);text-transform:uppercase;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .18s}
+.sb-nav-lbl{font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:var(--th);white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .18s}
 .nav-sidebar.collapsed .sb-nav-lbl{opacity:0;width:0}
 .sb-toggle{width:32px;height:32px;border-radius:7px;background:transparent;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tm);transition:border-color .2s,color .2s;flex-shrink:0}
 .sb-toggle:hover{border-color:var(--ac-bd);color:var(--ac)}
 /* Scrollable body */
-.sb-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:8px 0}
-.sb-slbl{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--tm);padding:14px 16px 3px;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .15s}
+.sb-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px;display:flex;flex-direction:column;gap:32px}
+.sb-slbl{font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:#707070;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .15s}
+:root[data-theme=dark] .sb-slbl{color:var(--tm)}
 .nav-sidebar.collapsed .sb-slbl{opacity:0}
-.drawer-link{display:flex;align-items:center;padding:11px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--tb);transition:color .15s,background .15s;border-left:2px solid transparent;white-space:nowrap;overflow:hidden;gap:10px}
-.drawer-link:hover{color:var(--th);background:var(--ac-dim)}
-.drawer-link.active{color:var(--ac);font-weight:500;border-left-color:var(--ac);background:var(--ac-dim)}
-.nav-sidebar.collapsed .drawer-link{padding:10px 0;justify-content:center;border-left:none}
+/* Sidebar nav groups */
+.sb-group{display:flex;flex-direction:column;gap:16px}
+.drawer-link{display:flex;align-items:center;padding:2px 0;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:#121212;transition:color .15s;white-space:nowrap;overflow:hidden;gap:8px;text-decoration:none;border:none;background:none}
+:root[data-theme=dark] .drawer-link{color:var(--tb)}
+.drawer-link:hover{color:var(--ac)}
+.drawer-link.active{color:#059161;font-weight:500}
+:root[data-theme=dark] .drawer-link.active{color:var(--ac)}
+.nav-sidebar.collapsed .drawer-link{padding:6px 0;justify-content:center;border-left:none}
 .dl-txt{overflow:hidden;white-space:nowrap;opacity:1;transition:opacity .15s;font-size:13px}
 .nav-sidebar.collapsed .dl-txt{opacity:0;width:0;pointer-events:none}
 /* Mini icon pills for collapsed state - removed */
@@ -662,27 +669,33 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 <!-- PUSH SIDEBAR -->
 <nav class="nav-sidebar" id="navSidebar">
   <div class="sb-header">
-    <span class="sb-nav-lbl">NAVIGATION</span>
+    <span class="sb-nav-lbl">Navigation</span>
     <button class="sb-toggle" id="sbToggle" aria-label="Toggle navigation">
-      <!-- X icon (shown when expanded) -->
       <svg class="ico-x" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      <!-- ☰ icon (shown when collapsed) -->
       <svg class="ico-ham" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:none"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
     </button>
   </div>
   <div class="sb-body">
-    <span class="sb-slbl">Overview</span>
-    <a href="#overview"  class="drawer-link active" data-sec="overview"><span class="dl-txt">Overview</span></a>
-    <span class="sb-slbl">Specification</span>
-    <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-txt">Jemm Is / Jemm Is Not</span></a>
-    <a href="#spatial-hardware" class="drawer-link" data-sec="spatial-hardware"><span class="dl-txt">Spatial Hardware</span></a>
-    <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-txt">Evaluation Loop</span></a>
-    <a href="#system-reliability" class="drawer-link" data-sec="system-reliability"><span class="dl-txt">System Reliability &amp; Memory</span></a>
-    <a href="#evaluators" class="drawer-link" data-sec="evaluators"><span class="dl-txt">Evaluator Personas (RLAIF)</span></a>
-    <span class="sb-slbl">Alignment Framework</span>
-    <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-txt">Priority Tiers &amp; Tenets</span></a>
-    <a href="#conflict-resolution" class="drawer-link" data-sec="conflict-resolution"><span class="dl-txt">Conflict Resolution</span></a>
-    <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-txt">Adaptive Persona &amp; Tone Matrix</span></a>
+    <!-- Group: standalone -->
+    <div class="sb-group">
+      <a href="#overview"  class="drawer-link active" data-sec="overview"><span class="dl-txt">Overview</span></a>
+    </div>
+    <!-- Group: Specifications -->
+    <div class="sb-group">
+      <span class="sb-slbl">Specifications</span>
+      <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-txt">Jemm Is / Jemm Is Not</span></a>
+      <a href="#spatial-hardware" class="drawer-link" data-sec="spatial-hardware"><span class="dl-txt">Spatial Hardware</span></a>
+      <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-txt">Evaluation Loop</span></a>
+      <a href="#system-reliability" class="drawer-link" data-sec="system-reliability"><span class="dl-txt">System Memory</span></a>
+      <a href="#evaluators" class="drawer-link" data-sec="evaluators"><span class="dl-txt">AI Personas (RLAIF)</span></a>
+    </div>
+    <!-- Group: Alignment Framework -->
+    <div class="sb-group">
+      <span class="sb-slbl">Alignment Framework</span>
+      <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-txt">Behavior Principles</span></a>
+      <a href="#conflict-resolution" class="drawer-link" data-sec="conflict-resolution"><span class="dl-txt">Conflict Resolution</span></a>
+      <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-txt">Jemm Tone of Voice</span></a>
+    </div>
   </div>
   <div class="sb-foot">
     <div class="sb-copy">© 2026 Copyright Jemm Tec, LLC<br>All rights reserved.</div>
