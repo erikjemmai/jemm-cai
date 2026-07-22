@@ -379,14 +379,12 @@ ul{list-style:none}
 .tone-response-card{border-color:var(--ac-bd)}
 .tone-avatar-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 /* Jemm pulsing avatar */
-.jemm-avatar{position:relative;width:52px;height:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.jemm-pulse-ring{position:absolute;border-radius:50%;border:2px solid var(--ac);opacity:0;animation:jemm-pulse 2.4s ease-out infinite}
-.jemm-pulse-ring.r1{width:52px;height:52px;animation-delay:0s}
-.jemm-pulse-ring.r2{width:52px;height:52px;animation-delay:1.2s}
-@keyframes jemm-pulse{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.55);opacity:0}}
-.jemm-avatar-core{width:36px;height:36px;border-radius:50%;background:var(--ac-dim);border:2px solid var(--ac);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:1}
-.jemm-avatar-img{width:22px;height:22px;object-fit:contain;filter:brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(100deg)}
-:root[data-theme=light] .jemm-avatar-img{filter:none}
+/* ── §05 Tone avatar — ink circle, no radar rings ── */
+.jemm-avatar{width:48px;height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.jemm-avatar-core{width:48px;height:48px;border-radius:50%;background:#121212;border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden;transition:border-color .45s,box-shadow .45s}
+.jemm-avatar-img{width:28px;height:28px;object-fit:contain;transition:filter .45s ease;filter:grayscale(1) brightness(0.3)}
+.jemm-avatar-core.lit{border-color:var(--ac);box-shadow:0 0 10px rgba(0,213,140,.55),0 0 22px rgba(0,213,140,.25)}
+.jemm-avatar-core.lit .jemm-avatar-img{filter:grayscale(0) brightness(1)}
 /* Query + response text */
 .tone-query-wrap{flex:1}
 .tone-query-lbl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.1em;color:var(--tm);margin-bottom:4px}
@@ -406,15 +404,11 @@ ul{list-style:none}
 .copy-toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--ac);color:#0B0F0D;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;padding:8px 16px;border-radius:8px;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
 .copy-toast.v{opacity:1;transform:none}
 /* ============================================================ JEMM RESPONDING AVATAR */
-.jemm-resp-avatar{width:44px;height:44px;border-radius:50%;overflow:visible;flex-shrink:0;transition:filter .4s ease,transform .3s ease}
-/* Idle: desaturated, dim */
-.jemm-resp-avatar img{width:44px;height:44px;object-fit:contain;display:block;
-  filter:grayscale(1) brightness(0.35);
-  transition:filter .5s ease}
-/* Active: full neon green glow */
-.jemm-resp-avatar.active img{
-  filter:grayscale(0) brightness(1) drop-shadow(0 0 6px #00D58C) drop-shadow(0 0 14px rgba(0,213,140,.5));
-}
+/* ── §03 Response avatar — ink circle, glow on active ── */
+.jemm-resp-avatar{width:48px;height:48px;border-radius:50%;background:#121212;border:2px solid var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:border-color .45s,box-shadow .45s}
+.jemm-resp-avatar img{width:28px;height:28px;object-fit:contain;transition:filter .45s ease;filter:grayscale(1) brightness(0.3)}
+.jemm-resp-avatar.active{border-color:var(--ac);box-shadow:0 0 10px rgba(0,213,140,.55),0 0 22px rgba(0,213,140,.25)}
+.jemm-resp-avatar.active img{filter:grayscale(0) brightness(1)}
 /* Glisten / shimmer on Jemm's spoken response text */
 @keyframes jemm-glisten{
   0%  {background-position:-300% center}
@@ -434,7 +428,7 @@ ul{list-style:none}
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-  animation:jemm-glisten 3.5s linear infinite;
+  animation:jemm-glisten 9s linear infinite;
 }
 /* Light mode glisten: dark ink → emerald sweep */
 :root[data-theme=light] .jemm-glisten{
@@ -1078,10 +1072,8 @@ ul{list-style:none}
         <div class="tone-box-title">Live Jemm Response</div>
         <div class="tone-avatar-row">
           <div class="jemm-avatar">
-            <div class="jemm-pulse-ring r1"></div>
-            <div class="jemm-pulse-ring r2"></div>
-            <div class="jemm-avatar-core">
-              <img src="jemm-mark.png" id="toneAvatar" alt="Jemm logomark" style="width:28px;height:28px;object-fit:contain;filter:brightness(0) invert(1) sepia(1) saturate(6) hue-rotate(115deg)">
+            <div class="jemm-avatar-core" id="toneAvatarCore">
+              <img src="jemm-mark.png" id="toneAvatar" alt="Jemm logomark" class="jemm-avatar-img">
             </div>
           </div>
           <div class="tone-query-wrap">
@@ -1569,11 +1561,11 @@ function updateSliders(){
     badgeEl.className='tone-meta-badge'+(DANGER_WHEN.includes(tCtx.when)?' danger':'');
   }
   /* Flash §05 avatar: active → idle */
-  const tav=document.getElementById('toneAvatar');
-  if(tav){
-    tav.style.filter='brightness(0) invert(1) sepia(1) saturate(6) hue-rotate(115deg) drop-shadow(0 0 6px #00D58C)';
-    clearTimeout(tav._t);
-    tav._t=setTimeout(()=>{tav.style.filter='brightness(0) invert(1) sepia(1) saturate(6) hue-rotate(115deg)';},2000);
+  const tcore=document.getElementById('toneAvatarCore');
+  if(tcore){
+    tcore.classList.add('lit');
+    clearTimeout(tcore._t);
+    tcore._t=setTimeout(()=>tcore.classList.remove('lit'),2000);
   }
 }
 
