@@ -151,6 +151,32 @@ ul{list-style:none}
 .wb-scen-intent{font-size:12px;font-weight:700;color:var(--th);margin-bottom:5px;line-height:1.3}
 .wb-scen-q{font-size:11.5px;color:var(--tm);font-style:italic;line-height:1.5}
 .wb-right{display:flex;flex-direction:column}
+/* ── Spatial Hardware table ── */
+.sh-table-wrap{overflow-x:auto;margin-top:24px;border:1px solid var(--bd);border-radius:12px}
+.sh-table{width:100%;border-collapse:collapse;font-size:13.5px;color:var(--tb)}
+.sh-table thead tr{border-bottom:1px solid var(--bd);background:var(--bg-ch)}
+.sh-table th{padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--th);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.sh-table tbody tr{border-bottom:1px solid var(--bd);transition:background .15s}
+.sh-table tbody tr:last-child{border-bottom:none}
+.sh-table tbody tr:hover{background:var(--bg-c)}
+.sh-table td{padding:12px 16px;vertical-align:top;line-height:1.55}
+.sh-state{font-weight:600;color:var(--th);white-space:nowrap}
+.sh-green{color:var(--ac);font-weight:600}
+.sh-red{color:var(--red);font-weight:600}
+/* ── System Reliability ── */
+.sr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+@media(max-width:640px){.sr-grid{grid-template-columns:1fr}}
+.sr-card{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:12px;padding:18px 20px}
+.sr-card-hd{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.sr-card-lbl{font-size:13px;font-weight:700;color:var(--th)}
+.sr-card-body{font-size:13.5px;line-height:1.625;color:var(--tb)}
+/* ── Conflict Resolution ── */
+.cr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+@media(max-width:720px){.cr-grid{grid-template-columns:1fr}}
+.cr-card{background:var(--bg-c);border:1.5px solid var(--bd);border-left:3px solid var(--ac);border-radius:12px;padding:20px 18px}
+.cr-level{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:8px}
+.cr-title{font-size:16px;font-weight:700;color:var(--th);margin-bottom:10px}
+.cr-body{font-size:13.5px;line-height:1.625;color:var(--tb)}
 /* ── Evaluator Personas ── */
 .ep-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:4px}
 @media(max-width:720px){.ep-grid{grid-template-columns:1fr}}
@@ -549,10 +575,13 @@ ul{list-style:none}
     <a href="#overview"  class="drawer-link active" data-sec="overview"><span class="dl-mini">H</span><span class="dl-txt">Overview</span></a>
     <span class="sb-slbl">Specification</span>
     <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-mini">02</span><span class="dl-txt">Jemm Is / Jemm Is Not</span></a>
+    <a href="#spatial-hardware" class="drawer-link" data-sec="spatial-hardware"><span class="dl-mini">02.1</span><span class="dl-txt">Spatial Hardware</span></a>
     <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-mini">03</span><span class="dl-txt">The Execution &amp; Learning Pipeline</span></a>
+    <a href="#system-reliability" class="drawer-link" data-sec="system-reliability"><span class="dl-mini">03.1</span><span class="dl-txt">System Reliability &amp; Memory</span></a>
     <a href="#evaluators" class="drawer-link" data-sec="evaluators"><span class="dl-mini">03.5</span><span class="dl-txt">Evaluator Personas (RLAIF)</span></a>
     <span class="sb-slbl">Alignment Framework</span>
     <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-mini">04</span><span class="dl-txt">Priority Tiers &amp; Tenets</span></a>
+    <a href="#conflict-resolution" class="drawer-link" data-sec="conflict-resolution"><span class="dl-mini">04.1</span><span class="dl-txt">Conflict Resolution</span></a>
     <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-mini">05</span><span class="dl-txt">Adaptive Persona &amp; Tone Matrix</span></a>
   </div>
   <div class="sb-foot">
@@ -670,6 +699,60 @@ ul{list-style:none}
       <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Fake Flatterer</div><div class="is-body">Eliminates sycophancy, RLHF-style empty praise, and hollow validation. "Oh great question!" and "Absolutely!" are anti-patterns, not openers. Ever.</div></div>
       <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT Stubborn</div><div class="is-body">Never fights for environmental control. Never re-executes a scene canceled by a physical override. Never pushes error notifications when a user manually changes a device.</div></div>
     </div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- SPATIAL HARDWARE -->
+<section class="section" id="spatial-hardware">
+  <div class="sec-ey">
+    <button class="anc-btn" onclick="copyAnchor('spatial-hardware',this)">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      #spatial-hardware
+    </button>
+  </div>
+  <h2 class="sec-h2">Spatial Hardware &amp; Ambient Feedback</h2>
+  <p class="sec-sub">Language is only half of the user experience. Physical light, acoustic quietness, and spatial presence form the other half. Because Jemm operates without intrusive screens or mobile apps, the ambient hardware array - discreet micro-nodes embedded in ceiling planes or wall surfaces - acts as the primary visual interface between human occupants and local silicon.</p>
+  <p class="sec-sub" style="margin-top:16px">In a multi-room property, spatial quietness is preserved by illuminating strictly the single microphone node nearest to the speaker using localized acoustic beamforming. Peripheral nodes in adjacent rooms remain dark. When speech ends, the active node provides a 200ms inward ripple cue, pulses during local processing, and decays back to a dark matte state within 500ms of execution.</p>
+
+  <div class="sh-table-wrap">
+    <table class="sh-table">
+      <thead>
+        <tr>
+          <th>System State</th>
+          <th>LED Color</th>
+          <th>Hardware Behavior</th>
+          <th>Acoustic Behavior</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="sh-state">Idle State</td>
+          <td>Dark Matte (#000000)</td>
+          <td>0% Luminance. Hardware visually invisible.</td>
+          <td>Complete silence.</td>
+        </tr>
+        <tr>
+          <td class="sh-state">Active Listening</td>
+          <td class="sh-green">Neon Emerald (#00D58C)</td>
+          <td>Steady 30% ambient glow on closest node only.</td>
+          <td>Localized listening cue only. No audio chime.</td>
+        </tr>
+        <tr>
+          <td class="sh-state">Local Processing</td>
+          <td class="sh-green">Neon Emerald (#00D58C)</td>
+          <td>Inward 200ms ripple toward center ring.</td>
+          <td>Zero chimes or audio filler.</td>
+        </tr>
+        <tr>
+          <td class="sh-state">Constitutional Block</td>
+          <td class="sh-red">Muted Crimson (#FF4D4D)</td>
+          <td>Single 1.0s soft pulse; returns to dark.</td>
+          <td>Spoken constraint explanation, then silence.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -865,6 +948,52 @@ ul{list-style:none}
         <span class="at-g">ADAPTS SILENTLY OR PROMPTS ONCE</span>
         <span class="at-s">0% CLOUD EGRESS</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- SYSTEM RELIABILITY -->
+<section class="section" id="system-reliability">
+  <div class="sec-ey">
+    <button class="anc-btn" onclick="copyAnchor('system-reliability',this)">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      #system-reliability
+    </button>
+  </div>
+  <h2 class="sec-h2">System Reliability &amp; Memory</h2>
+  <p class="sec-sub">As an air-gapped estate OS, Jemm operates with complete fault tolerance. External internet outages have zero impact on voice processing, lighting relays, or climate controls. If a local hardware sensor drops off the network bus, Jemm plainly states the affected device without confabulating state.</p>
+  <p class="sec-sub" style="margin-top:16px">Behavioral preference graphs built by local edge learning remain entirely transparent. L1 Owners maintain full control to inspect habit logs or issue a single voice command - <em>"Jemm, erase all learned habits for the Living Room"</em> - to permanently destroy local preference encryption keys with zero cloud residue.</p>
+
+  <div class="sr-grid">
+    <div class="sr-card">
+      <div class="sr-card-hd">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="sr-card-lbl">Offline-First Architecture</span>
+      </div>
+      <p class="sr-card-body">All voice processing, device control, and scene automation execute entirely on local node silicon. Internet connectivity is never a dependency for core estate functions.</p>
+    </div>
+    <div class="sr-card">
+      <div class="sr-card-hd">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <span class="sr-card-lbl">Sensor Dropout Handling</span>
+      </div>
+      <p class="sr-card-body">If a zone sensor goes offline, Jemm reports its absence accurately and halts predictions for that zone. No state is confabulated or assumed from cached data.</p>
+    </div>
+    <div class="sr-card">
+      <div class="sr-card-hd">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.77"/></svg>
+        <span class="sr-card-lbl">Memory Transparency &amp; Erasure</span>
+      </div>
+      <p class="sr-card-body">L1 Owners can inspect full behavioral preference logs at any time. A single voice command permanently destroys local encryption keys for any zone, with zero cloud residue.</p>
+    </div>
+    <div class="sr-card">
+      <div class="sr-card-hd">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="sr-card-lbl">Graceful Degradation</span>
+      </div>
+      <p class="sr-card-body">Hardware node failures isolate to their zone. The rest of the estate continues operating at full capacity with no cascading failures or system-wide resets required.</p>
     </div>
   </div>
 </section>
@@ -1122,6 +1251,38 @@ ul{list-style:none}
           <li>Adapting stated beliefs based on user emotional state or social pressure</li>
         </ul></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- CONFLICT RESOLUTION -->
+<section class="section" id="conflict-resolution">
+  <div class="sec-ey">
+    <button class="anc-btn" onclick="copyAnchor('conflict-resolution',this)">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      #conflict-resolution
+    </button>
+  </div>
+  <h2 class="sec-h2">Conflict Resolution</h2>
+  <p class="sec-sub">In a multi-occupant environment, conflicting voice commands inevitably occur. Jemm resolves instruction overlap deterministically through a three-layer hierarchy, preventing environmental oscillations and spatial disputes between principals.</p>
+
+  <div class="cr-grid">
+    <div class="cr-card">
+      <span class="cr-level">Level 1</span>
+      <h3 class="cr-title">Token Supremacy</h3>
+      <p class="cr-body">Higher authority tokens always supersede lower tokens. An L1 Owner command instantly overrides an L2 Family or L3 Guest instruction regardless of spatial location. Authority is non-negotiable and resolved in under 100ms.</p>
+    </div>
+    <div class="cr-card">
+      <span class="cr-level">Level 2</span>
+      <h3 class="cr-title">Spatial Proximity</h3>
+      <p class="cr-body">When equal authority tokens issue conflicting commands, in-zone physical presence wins over remote or mobile app commands. The occupant physically present in the zone has contextual authority over that space.</p>
+    </div>
+    <div class="cr-card">
+      <span class="cr-level">Level 3</span>
+      <h3 class="cr-title">Restful Fallback</h3>
+      <p class="cr-body">If equal occupants in the same room give opposite instructions, Jemm defaults to the less intrusive, lower-energy state and issues a single quiet clarification prompt - asked once, never repeated.</p>
     </div>
   </div>
 </section>
