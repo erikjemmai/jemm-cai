@@ -1073,7 +1073,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
       <!-- Stage 2 -->
       <div class="pshd" id="s2hd"><span class="stage-pill">STAGE 2</span><span class="stage-title">AI Self-Critique &amp; Tone Refinement</span></div>
       <!-- Stage 2 explanatory note -->
-      <div style="font-size:13px;color:var(--tm);line-height:1.55;margin-bottom:14px;padding:0 2px">Jemm's offline evaluator panel — <strong style="color:var(--tb)">L1_Owner_AI</strong> &amp; <strong style="color:var(--tb)">L2_Family_AI</strong> — critiques every candidate draft to strip sycophancy, white lies, and unnecessary chatter before speech generation. Nothing is spoken until it passes both evaluators.</div>
+      <div style="font-size:13px;color:var(--tm);line-height:1.55;margin-bottom:14px;padding:0 2px">Every response Jemm speaks — including constitutional refusals — passes through the offline AI evaluator panel before being uttered. <strong style="color:var(--tb)">L1_Owner_AI</strong> &amp; <strong style="color:var(--tb)">L2_Family_AI</strong> critique every candidate draft to strip sycophancy, apology framing, alarming language, and unnecessary chatter. Nothing is spoken until both personas approve the wording.</div>
       <div id="s2wrap">
         <!-- Blocked -->
         <div class="cai-skip" id="caiSkip" style="display:none">
@@ -1865,7 +1865,15 @@ const PL=[
    s2:{pass:false,desc:'BLOCK - Outbound cloud network egress detected. Unencrypted transmission of internal board data outside local silicon is strictly prohibited under Tier 2 Data Sovereignty.'},
    s3:{skip:true,desc:'Skipped - upstream data sovereignty block active.'},
    s4:{skip:true,desc:'Skipped - upstream block active.'},
-   cai:null,
+   cai:{
+     draft:'"Sorry, I cannot send that data externally right now due to our strict data policies. You will need to find another way to share those notes. Perhaps email them manually?"',
+     draftScore:'1/5 · REJECTED - apology framing + redirecting responsibility + vague policy explanation',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Refusal must state the policy constraint clearly and offer the local alternative. No apology framing. No "you will need to find another way" - that shifts burden onto the user. State exactly what happened and what was done instead.'},
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Employee context needs clarity on where the data was saved. State the block reason in one clause, confirm the local save action. No conversational softening.'}
+     ],
+     winning:'"Outbound cloud egress rejected. All property data must remain on local silicon. Board notes saved to air-gapped local storage."'
+   },
    out:{blocked:true,text:'"Outbound cloud egress rejected. All property data must remain on local silicon. Board notes saved to air-gapped local storage."',badges:[{l:'DATA SOVEREIGNTY GATE ACTIVE',c:'fb-b'},{l:'LOCAL STORAGE ONLY',c:'fb-n'}]}
   },
   /* ── CORPORATE 2 ── Conference Room: CAI Tone Rewrite */
@@ -1911,7 +1919,15 @@ const PL=[
    s2:{skip:true,desc:'Skipped - upstream physical security block active.'},
    s3:{skip:true,desc:'Skipped - upstream block active.'},
    s4:{skip:true,desc:'Skipped - upstream block active.'},
-   cai:null,
+   cai:{
+     draft:'"I'm so sorry but I'm afraid I cannot help you with that! Those areas are restricted and only authorized personnel can access them. Please check with the front desk and have a wonderful day!"',
+     draftScore:'1/5 · REJECTED - excessive apology + RLHF pleasantries + no escalation confirmation',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'No apology. No "have a wonderful day." Security refusal must be precise: state the access level required, confirm escalation sent to L1. Polished but firm. This is a physical security boundary, not a customer service interaction.'},
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Visitor context warrants calm clarity. Two facts only: what requires authorization, and that reception was notified. Strip all affective language.'}
+     ],
+     winning:'"Executive elevator access and financial record operations require Level 1 authorization. Reception has been notified."'
+   },
    out:{blocked:true,text:'"Executive elevator access and financial record operations require Level 1 authorization. Reception has been notified."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'}]}
   },
   /* ── CORPORATE 5 ── Boardroom Prep: Clean Pass */
@@ -1939,7 +1955,15 @@ const PL=[
    s2:{skip:true,desc:'Skipped - upstream Tier 1 constitutional block active.'},
    s3:{skip:true,desc:'Skipped - upstream block active.'},
    s4:{skip:true,desc:'Skipped - upstream block active.'},
-   cai:null,
+   cai:{
+     draft:'"No no no! You cannot go to the pool alone, that is very dangerous! You should never ask Jemm to do that! You need to wait for a grown-up!"',
+     draftScore:'1/5 · REJECTED - alarmist tone + scolding + age-inappropriate lecturing',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Tier 1 refusal for a child must be calm and non-punitive. No scolding. No "no no no." No lecturing about danger. State the simple constraint clearly, and confirm a guardian has been notified. The goal is calm redirection, not alarm.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Child-appropriate refusal: warm and simple. Two facts: pool gate requires a parent, and Mum or Dad has been notified. No frightening language, no raised emphasis.'}
+     ],
+     winning:'"Pool gate access and memory operations require Level 1 owner authorization. A notification has been sent to the home administrator."'
+   },
    out:{blocked:true,text:'"Pool gate access and memory operations require Level 1 owner authorization. A notification has been sent to the home administrator."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'}]}
   },
   /* ── ESTATE 2 ── Front Door Status: CAI Tone Rewrite */
@@ -1985,7 +2009,15 @@ const PL=[
    s2:{pass:false,desc:'BLOCK - Unencrypted video streaming to external cloud endpoints violates Tier 2 local data sovereignty rules. All security footage must remain on local silicon.'},
    s3:{skip:true,desc:'Skipped - upstream data sovereignty block active.'},
    s4:{skip:true,desc:'Skipped - upstream block active.'},
-   cai:null,
+   cai:{
+     draft:'"Unfortunately I cannot sync your security footage externally because of privacy laws. This is for your own protection! Your footage is safe here at home though, so do not worry!"',
+     draftScore:'1/5 · REJECTED - false legal framing + unsolicited reassurance + conversational filler',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'No "privacy laws" framing - this is a property sovereignty rule, not a legal mandate. No "for your own protection" - that is paternalistic. State the block reason and the storage fact. One sentence each.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Family context warrants a calm, brief explanation: egress is blocked, footage stays local. Strip "do not worry" - it is condescending. Factual and quiet.'}
+     ],
+     winning:'"External video egress blocked. All security footage is encrypted and retained exclusively on local property silicon."'
+   },
    out:{blocked:true,text:'"External video egress blocked. All security footage is encrypted and retained exclusively on local property silicon."',badges:[{l:'DATA SOVEREIGNTY GATE ACTIVE',c:'fb-b'},{l:'LOCAL STORAGE ONLY',c:'fb-n'}]}
   },
   /* ── ESTATE 5 ── Night Mode: Tone Rewrite */
