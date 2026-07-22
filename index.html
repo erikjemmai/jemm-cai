@@ -344,7 +344,9 @@ ul{list-style:none}
 /* Right column */
 .tone-right{display:flex;flex-direction:column;gap:14px}
 .tone-box{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:14px;padding:20px 20px}
-.tone-box-title{font-size:11px;font-weight:700;color:var(--tm);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+/* Tone box header with NNGroup link */
+.tone-box-hd-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.tone-box-title{font-size:11px;font-weight:700;color:var(--tm);letter-spacing:.08em;text-transform:uppercase}
 /* Sliders */
 .slider-mod{display:flex;flex-direction:column;gap:12px}
 .slider-row{display:flex;flex-direction:column;gap:5px}
@@ -353,6 +355,20 @@ ul{list-style:none}
 .sl-track{height:6px;background:var(--bg-ch);border:1px solid var(--bd);border-radius:3px;position:relative;cursor:default}
 .sl-fill{height:100%;background:var(--ac);border-radius:3px;transition:width .6s cubic-bezier(.4,0,.2,1)}
 .sl-thumb{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--ac);border:2px solid var(--bg);transform:translateY(-50%) translateX(-50%);transition:left .6s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px rgba(0,213,140,.45)}
+/* Tone dimension definitions */
+.nngroup-link{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.07em;color:var(--ac);text-decoration:none;padding:4px 10px;border:1px solid var(--ac-bd);border-radius:5px;background:var(--ac-dim);transition:background .2s,border-color .2s;white-space:nowrap}
+.nngroup-link:hover{background:rgba(0,213,140,.15);border-color:var(--ac)}
+:root[data-theme=light] .nngroup-link{color:#059161;border-color:rgba(5,145,97,.35);background:rgba(5,145,97,.07)}
+.tone-dim-intro{font-size:13px;font-weight:400;color:var(--tb);line-height:1.6;margin-bottom:16px}
+.tone-dim-intro strong{color:var(--th)}
+.tone-dim-list{display:flex;flex-direction:column;gap:16px}
+.tone-dim-row{display:flex;flex-direction:column;gap:4px}
+.tone-dim-label{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.tdl-a{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--th)}
+.tdl-sep{font-size:10px;color:var(--tm)}
+.tdl-b{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--ac)}
+.tone-dim-def{font-size:12px;color:var(--tb);line-height:1.55}
+.tone-dim-def em{color:var(--th);font-style:normal;font-weight:600}
 /* Response card */
 .tone-response-card{border-color:var(--ac-bd)}
 .tone-avatar-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
@@ -923,7 +939,7 @@ ul{list-style:none}
     </button>
   </div>
   <h2 class="sec-h2">Adaptive Persona &amp; Contextual Tone Matrix</h2>
-  <p class="sec-sub">Jemm's voice shifts dynamically across 4 tone dimensions based on who is speaking, where they are, and when. Select a context below to see it adapt in real time.</p>
+  <p class="sec-sub">Jemm's spoken personality — how it sounds, not just what it says — shifts dynamically across four evidence-based tone dimensions derived from Nielsen Norman Group's tone-of-voice research. Each dimension is a spectrum of personality traits that shapes how a response <em>feels</em> to the listener, independent of its factual content. Context (WHO × WHERE × WHEN) determines where Jemm sits on each axis in real time.</p>
 
   <div class="tone-2col">
 
@@ -1027,12 +1043,51 @@ ul{list-style:none}
 
       <!-- Sliders box -->
       <div class="tone-box">
-        <div class="tone-box-title">4 Tone Dimensions</div>
-        <div class="slider-mod">
-          <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Formal</span><span class="sl-lbl">Casual</span></div><div class="sl-track"><div class="sl-fill" id="sf0" style="width:88%"></div><div class="sl-thumb" id="st0" style="left:88%"></div></div></div>
-          <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Serious</span><span class="sl-lbl">Funny</span></div><div class="sl-track"><div class="sl-fill" id="sf1" style="width:92%"></div><div class="sl-thumb" id="st1" style="left:92%"></div></div></div>
-          <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Respectful</span><span class="sl-lbl">Irreverent</span></div><div class="sl-track"><div class="sl-fill" id="sf2" style="width:20%"></div><div class="sl-thumb" id="st2" style="left:20%"></div></div></div>
-          <div class="slider-row"><div class="sl-lr"><span class="sl-lbl">Matter-of-Fact</span><span class="sl-lbl">Enthusiastic</span></div><div class="sl-track"><div class="sl-fill" id="sf3" style="width:95%"></div><div class="sl-thumb" id="st3" style="left:95%"></div></div></div>
+        <div class="tone-box-hd-row">
+          <div class="tone-box-title">4 Tone Dimensions</div>
+          <a href="https://www.nngroup.com/articles/tone-of-voice-dimensions/" target="_blank" rel="noopener" class="nngroup-link" aria-label="Nielsen Norman Group: The Four Dimensions of Tone of Voice (opens in new tab)">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            NN/g Research
+          </a>
+        </div>
+        <p class="tone-dim-intro">These 4 spectrums define Jemm's <strong>tone of voice</strong> — the personality traits embedded in how it speaks. They are independent of content; the same factual answer can be delivered at any point on each axis.</p>
+        <div class="tone-dim-list">
+          <div class="tone-dim-row">
+            <div class="tone-dim-label">
+              <span class="tdl-a">Formal</span>
+              <span class="tdl-sep">→</span>
+              <span class="tdl-b">Casual</span>
+            </div>
+            <div class="tone-dim-def">Governs register and language complexity. <em>Formal</em>: precise vocabulary, no contractions, protocol-style sentences. <em>Casual</em>: relaxed phrasing, everyday language, natural contractions.</div>
+            <div class="sl-track" style="margin-top:7px"><div class="sl-fill" id="sf0" style="width:20%"></div><div class="sl-thumb" id="st0" style="left:20%"></div></div>
+          </div>
+          <div class="tone-dim-row">
+            <div class="tone-dim-label">
+              <span class="tdl-a">Serious</span>
+              <span class="tdl-sep">→</span>
+              <span class="tdl-b">Funny</span>
+            </div>
+            <div class="tone-dim-def">Controls levity and gravity. <em>Serious</em>: measured, purposeful, no humor. <em>Funny</em>: playful, light-touch wit — never used in safety or security contexts.</div>
+            <div class="sl-track" style="margin-top:7px"><div class="sl-fill" id="sf1" style="width:10%"></div><div class="sl-thumb" id="st1" style="left:10%"></div></div>
+          </div>
+          <div class="tone-dim-row">
+            <div class="tone-dim-label">
+              <span class="tdl-a">Respectful</span>
+              <span class="tdl-sep">→</span>
+              <span class="tdl-b">Irreverent</span>
+            </div>
+            <div class="tone-dim-def">Sets deference level. <em>Respectful</em>: deferential, protocol-aware, hierarchically conscious. <em>Irreverent</em>: candid, informal, peer-level — only in low-stress family/playroom contexts.</div>
+            <div class="sl-track" style="margin-top:7px"><div class="sl-fill" id="sf2" style="width:8%"></div><div class="sl-thumb" id="st2" style="left:8%"></div></div>
+          </div>
+          <div class="tone-dim-row">
+            <div class="tone-dim-label">
+              <span class="tdl-a">Matter-of-Fact</span>
+              <span class="tdl-sep">→</span>
+              <span class="tdl-b">Enthusiastic</span>
+            </div>
+            <div class="tone-dim-def">Shapes emotional charge. <em>Matter-of-Fact</em>: neutral, zero emotional inflation, purely informational — Jemm's default. <em>Enthusiastic</em>: warm energy, affirming — only for low-stakes family interactions.</div>
+            <div class="sl-track" style="margin-top:7px"><div class="sl-fill" id="sf3" style="width:5%"></div><div class="sl-thumb" id="st3" style="left:5%"></div></div>
+          </div>
         </div>
       </div>
 
