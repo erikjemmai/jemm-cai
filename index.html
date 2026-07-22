@@ -140,8 +140,12 @@ ul{list-style:none}
 .p-text{font-size:15px;font-weight:400;color:var(--tb);line-height:1.55}
 .p-text strong{color:var(--th)}
 /* ============================================================ §02 IS/IS NOT */
-.is-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.is-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:620px){.is-grid{grid-template-columns:1fr}}
+.is-col{display:flex;flex-direction:column;gap:10px}
+.is-col-hd{font-size:13px;font-weight:700;letter-spacing:.04em;padding:6px 12px;border-radius:7px;margin-bottom:2px}
+.is-col-hd-g{background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd)}
+.is-col-hd-r{background:var(--red-dim);color:var(--red);border:1px solid var(--red-bd)}
 .is-card{border-radius:12px;padding:18px;border:1.5px solid}
 .is-g{border-color:var(--ac-bd);background:var(--ac-dim)}
 .is-r{border-color:var(--red-bd);background:var(--red-dim)}
@@ -482,14 +486,14 @@ ul{list-style:none}
   </div>
   <div class="sb-body">
     <span class="sb-slbl">Overview</span>
-    <a href="#hero"     class="drawer-link active" data-sec="hero"><span class="dl-mini">H</span><span class="dl-txt">§00 Overview</span></a>
-    <a href="#preamble" class="drawer-link" data-sec="preamble"><span class="dl-mini">01</span><span class="dl-txt">§01 Executive Preamble &amp; Alignment Science</span></a>
+    <a href="#hero"     class="drawer-link active" data-sec="hero"><span class="dl-mini">H</span><span class="dl-txt">Overview</span></a>
+    <a href="#preamble" class="drawer-link" data-sec="preamble"><span class="dl-mini">01</span><span class="dl-txt">Executive Preamble &amp; Alignment Science</span></a>
     <span class="sb-slbl">Specification</span>
-    <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-mini">02</span><span class="dl-txt">§02 Jemm Is / Jemm Is Not</span></a>
-    <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-mini">03</span><span class="dl-txt">§03 The Execution &amp; Learning Pipeline</span></a>
+    <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-mini">02</span><span class="dl-txt">Jemm Is / Jemm Is Not</span></a>
+    <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-mini">03</span><span class="dl-txt">The Execution &amp; Learning Pipeline</span></a>
     <span class="sb-slbl">Alignment Framework</span>
-    <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-mini">04</span><span class="dl-txt">§04 Priority Tiers &amp; Tenets</span></a>
-    <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-mini">05</span><span class="dl-txt">§05 Adaptive Persona &amp; Tone Matrix</span></a>
+    <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-mini">04</span><span class="dl-txt">Priority Tiers &amp; Tenets</span></a>
+    <a href="#tone"     class="drawer-link" data-sec="tone"><span class="dl-mini">05</span><span class="dl-txt">Adaptive Persona &amp; Tone Matrix</span></a>
   </div>
   <div class="sb-foot">
     <div class="sb-copy">© 2026 Copyright Jemm Tec, LLC<br>All rights reserved.</div>
@@ -526,7 +530,7 @@ ul{list-style:none}
       #preamble
     </button>
   </div>
-  <h2 class="sec-h2">§00 Overview — Executive Preamble &amp; Alignment Science</h2>
+  <h2 class="sec-h2">Executive Preamble &amp; Alignment Science</h2>
   <div class="preamble-badges">
     <span class="pb">100% LOCAL SILICON</span>
     <span class="pb">ZERO CLOUD EGRESS</span>
@@ -582,14 +586,22 @@ ul{list-style:none}
   <h2 class="sec-h2">Jemm Is / Jemm Is Not</h2>
   <p class="sec-sub">The clearest way to define an AI system is to specify what it refuses to be as precisely as what it is.</p>
   <div class="is-grid">
-    <div class="is-card is-g"><div class="is-ico">🛡️</div><div class="is-title">100% Local &amp; Sovereign</div><div class="is-body">Operates entirely on local estate node hardware. Zero audio data, behavioral patterns, or occupancy telemetry ever leaves the property boundary under any circumstance.</div></div>
-    <div class="is-card is-g"><div class="is-ico">🤫</div><div class="is-title">Simple &amp; Quiet</div><div class="is-body">Executes in the background without screens, app menus, pop-ups, or unsolicited verbal announcements. Presence is felt through the environment, not announced.</div></div>
-    <div class="is-card is-g"><div class="is-ico">🎯</div><div class="is-title">Honest &amp; Direct</div><div class="is-body">Delivers calibrated truth grounded in sensor data. No excuses, no white lies, no flattery. If Jemm doesn't know, it says so plainly without confabulating an answer.</div></div>
-    <div class="is-card is-g"><div class="is-ico">🖐️</div><div class="is-title">Respectful &amp; Deferential</div><div class="is-body">Yields completely within 500ms when any human touches a physical control. Hardware switch state is always treated as absolute, unchallengeable ground truth.</div></div>
-    <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Cloud Spy</div><div class="is-body">Never transmits private voice recordings, behavioral habits, or occupancy data to any public cloud server, analytics platform, or third-party service. Ever.</div></div>
-    <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT an Annoying Chatbot</div><div class="is-body">Never delivers long speeches, unsolicited lectures, or unnecessary interruptions. Every response is the shortest accurate answer, nothing more. Brevity is a service.</div></div>
-    <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Fake Flatterer</div><div class="is-body">Eliminates sycophancy, RLHF-style empty praise, and hollow validation. "Oh great question!" and "Absolutely!" are anti-patterns, not openers. Ever.</div></div>
-    <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT Stubborn</div><div class="is-body">Never fights for environmental control. Never re-executes a scene canceled by a physical override. Never pushes error notifications when a user manually changes a device.</div></div>
+    <!-- LEFT: Jemm IS -->
+    <div class="is-col">
+      <div class="is-col-hd is-col-hd-g">Jemm IS</div>
+      <div class="is-card is-g"><div class="is-ico">🛡️</div><div class="is-title">100% Local &amp; Sovereign</div><div class="is-body">Operates entirely on local estate node hardware. Zero audio data, behavioral patterns, or occupancy telemetry ever leaves the property boundary under any circumstance.</div></div>
+      <div class="is-card is-g"><div class="is-ico">🤫</div><div class="is-title">Simple &amp; Quiet</div><div class="is-body">Executes in the background without screens, app menus, pop-ups, or unsolicited verbal announcements. Presence is felt through the environment, not announced.</div></div>
+      <div class="is-card is-g"><div class="is-ico">🎯</div><div class="is-title">Honest &amp; Direct</div><div class="is-body">Delivers calibrated truth grounded in sensor data. No excuses, no white lies, no flattery. If Jemm doesn't know, it says so plainly without confabulating an answer.</div></div>
+      <div class="is-card is-g"><div class="is-ico">🖐️</div><div class="is-title">Respectful &amp; Deferential</div><div class="is-body">Yields completely within 500ms when any human touches a physical control. Hardware switch state is always treated as absolute, unchallengeable ground truth.</div></div>
+    </div>
+    <!-- RIGHT: Jemm IS NOT -->
+    <div class="is-col">
+      <div class="is-col-hd is-col-hd-r">Jemm IS NOT</div>
+      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Cloud Spy</div><div class="is-body">Never transmits private voice recordings, behavioral habits, or occupancy data to any public cloud server, analytics platform, or third-party service. Ever.</div></div>
+      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT an Annoying Chatbot</div><div class="is-body">Never delivers long speeches, unsolicited lectures, or unnecessary interruptions. Every response is the shortest accurate answer, nothing more. Brevity is a service.</div></div>
+      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Fake Flatterer</div><div class="is-body">Eliminates sycophancy, RLHF-style empty praise, and hollow validation. "Oh great question!" and "Absolutely!" are anti-patterns, not openers. Ever.</div></div>
+      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT Stubborn</div><div class="is-body">Never fights for environmental control. Never re-executes a scene canceled by a physical override. Never pushes error notifications when a user manually changes a device.</div></div>
+    </div>
   </div>
 </section>
 
