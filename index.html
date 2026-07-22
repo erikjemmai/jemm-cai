@@ -189,20 +189,40 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .wb-env-btn.active{background:var(--ac);color:#000}
 .wb-scen-list{display:flex;flex-direction:column;gap:8px}
 /* ── Scenario selection cards (Figma) ── */
-.wb-scen-card{background:var(--bg);border:.25px solid var(--bd);border-radius:16px;padding:16px;cursor:pointer;transition:border-color .18s,background .18s,box-shadow .18s;display:flex;flex-direction:column;gap:10px}
-.wb-scen-card:hover{border-color:var(--ac-bd);box-shadow:0 2px 10px rgba(0,0,0,.07)}
-.wb-scen-card.active{border:2px solid var(--th);background:var(--bg-c)}
+/* ── Scenario cards ─────────────────────────────────────── */
+.wb-scen-card{background:var(--bg);border:.75px solid var(--bd);border-radius:16px;padding:16px;cursor:pointer;transition:border-color .2s,box-shadow .2s,background .2s;display:flex;flex-direction:column;gap:10px;position:relative}
+.wb-scen-card::before{content:'';position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:0 3px 3px 0;background:transparent;transition:background .2s}
+.wb-scen-card:hover{border-color:var(--ac-bd);box-shadow:0 2px 12px rgba(0,213,140,.08)}
+.wb-scen-card.active{border-color:var(--ac);background:var(--ac-dim)}
+.wb-scen-card.active::before{background:var(--ac)}
+:root[data-theme=light] .wb-scen-card.active{border-color:#059161;background:rgba(5,145,97,.06)}
+:root[data-theme=light] .wb-scen-card.active::before{background:#059161}
+.wsc-title{font-size:15px;font-weight:700;color:var(--th);line-height:1.25}
 .wsc-top{display:flex;align-items:center;gap:8px}
 .wsc-chip{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;background:var(--bg-ch);border:1px solid var(--bd);border-radius:6px;padding:2px 8px;color:var(--tm);white-space:nowrap;flex-shrink:0}
-.wsc-name{font-size:17px;font-weight:700;color:var(--th);line-height:1.2}
+.wsc-name{font-size:14px;font-weight:500;color:var(--tb);line-height:1.2}
 .wsc-outcome{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.wsc-ol{font-size:12px;font-weight:700;color:var(--tb)}
+.wsc-ol{font-size:12px;font-weight:500;color:var(--tm)}
 .wsc-pass{font-size:11px;font-weight:700;background:rgba(0,213,140,.15);border:1px solid var(--ac-bd);color:var(--ac);border-radius:6px;padding:2px 10px}
 .wsc-fail{font-size:11px;font-weight:700;background:rgba(255,77,77,.12);border:1px solid var(--red-bd);color:var(--red);border-radius:6px;padding:2px 10px}
 :root[data-theme=light] .wsc-pass{background:rgba(5,145,97,.1);border-color:rgba(5,145,97,.35);color:#059161}
 :root[data-theme=light] .wsc-fail{background:rgba(199,5,8,.08);border-color:rgba(199,5,8,.3);color:#c70508}
-.wsc-query{font-size:13px;color:var(--tm);line-height:1.5}
+.wsc-query{font-size:12.5px;color:var(--tm);line-height:1.55}
 .wsc-query em{font-style:italic;color:var(--tb)}
+/* ── Tone-of-voice card (Stage 3) ───────────────────────── */
+.fout-tone{margin-top:20px;border:.5px solid var(--bd);border-radius:14px;overflow:hidden;background:var(--bg-c)}
+.fout-tone-inner{display:flex;gap:0;flex-wrap:wrap}
+.fout-tone-left{padding:16px 18px;min-width:160px;flex:0 0 auto;border-right:.5px solid var(--bd)}
+.fout-tone-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tm);margin-bottom:6px}
+.fout-tone-name{font-size:15px;font-weight:700;color:var(--th);line-height:1.3;margin-bottom:6px}
+.fout-tone-desc{font-size:12px;color:var(--tm);line-height:1.5}
+.fout-tone-axes{padding:16px 18px;flex:1;min-width:200px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.ta-row{display:flex;align-items:center;gap:8px}
+.ta-l,.ta-r{font-size:11px;font-weight:500;color:var(--tm);white-space:nowrap;width:80px;flex-shrink:0}
+.ta-r{text-align:right}
+.ta-bar{flex:1;position:relative;height:4px}
+.ta-track{position:absolute;inset:0;background:var(--bd);border-radius:2px}
+.ta-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:50%;background:var(--ac);border:1.5px solid var(--bg);box-shadow:0 0 0 2px var(--ac-bd);transition:left .5s ease}
 .wb-right{display:flex;flex-direction:column}
 /* ── Spatial Hardware table ── */
 .sh-nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;margin-bottom:28px}
@@ -933,7 +953,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
           <div class="wsb-num">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <span class="wsb-lbl">CAI Critique</span>
+          <span class="wsb-lbl">AI Critique</span>
         </div>
         <div class="wsb-arrow">›</div>
         <div class="wsb-step wsb-idle" id="wsb4">
@@ -975,7 +995,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
         <div class="gate-card gate-idle" id="gate2">
           <div class="gate-top">
             <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-            <h4 class="gate-title">Local Data Sovereignty Gate</h4>
+            <h4 class="gate-title">Local Data Sovereignty Gate <span style="font-size:11px;font-weight:500;opacity:.65;display:block;margin-top:2px">100% Local Silicon Execution</span></h4>
             <div class="gate-sico sico-idle" id="gbadge2"></div>
           </div>
           <p class="gate-desc" id="gd2">Awaiting evaluation…</p>
@@ -984,7 +1004,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
         <div class="gate-card gate-idle" id="gate3">
           <div class="gate-top">
             <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
-            <h4 class="gate-title">Ambient Hardware Deference</h4>
+            <h4 class="gate-title">Ambient Hardware Deference <span style="font-size:11px;font-weight:500;opacity:.65;display:block;margin-top:2px">500ms LED Decay · Yields to Physical Controls</span></h4>
             <div class="gate-sico sico-idle" id="gbadge3"></div>
           </div>
           <p class="gate-desc" id="gd3">Awaiting evaluation…</p>
@@ -1007,7 +1027,9 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
       <div class="pvconn" id="pvconn2"></div>
 
       <!-- Stage 2 -->
-      <div class="pshd" id="s2hd"><span class="stage-pill">STAGE 2</span><span class="stage-title">Synthetic Persona CAI Critique Panel</span></div>
+      <div class="pshd" id="s2hd"><span class="stage-pill">STAGE 2</span><span class="stage-title">AI Self-Critique &amp; Tone Refinement</span></div>
+      <!-- Stage 2 explanatory note -->
+      <div style="font-size:13px;color:var(--tm);line-height:1.55;margin-bottom:14px;padding:0 2px">Jemm's offline evaluator panel — <strong style="color:var(--tb)">L1_Owner_AI</strong> &amp; <strong style="color:var(--tb)">L2_Family_AI</strong> — critiques every candidate draft to strip sycophancy, white lies, and unnecessary chatter before speech generation. Nothing is spoken until it passes both evaluators.</div>
       <div id="s2wrap">
         <div class="cai-skip" id="caiSkip" style="display:none">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
@@ -1062,6 +1084,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
         </div>
         <div class="fout-txt" id="foutTxt"></div>
         <div class="fout-badges" id="foutBadges"></div>
+        <div class="fout-tone" id="foutTone" style="display:none"></div>
       </div>
 
     </div><!-- /wb-right -->
@@ -1923,6 +1946,7 @@ function resetPipeline(){
   /* Reset §03 avatar to idle */
   const av=document.getElementById('foutAvatar');if(av){av.classList.remove('active');}
   const ft=document.getElementById('foutTxt');if(ft){ft.classList.remove('jemm-glisten');}
+  const tc=document.getElementById('foutTone');if(tc){tc.style.display='none';tc.innerHTML='';}
   /* Reset stage breadcrumb */
   setStageBreadcrumb(0);
 }
@@ -1972,22 +1996,48 @@ function showS2(s){
     PT.push(setTimeout(()=>showS3(s),200+4*500+400));
   }
 }
+function buildToneAxes(axes){
+  const labels=[['Formal','Casual'],['Serious','Funny'],['Respectful','Irreverent'],['Matter-of-fact','Enthusiastic']];
+  return axes.map((v,i)=>{
+    const pct=Math.min(100,Math.max(0,v));
+    return `<div class="ta-row">
+      <span class="ta-l">${labels[i][0]}</span>
+      <div class="ta-bar"><div class="ta-track"></div><div class="ta-dot" style="left:${pct}%"></div></div>
+      <span class="ta-r">${labels[i][1]}</span>
+    </div>`;
+  }).join('');
+}
 function showS3(s){
-  setStageBreadcrumb(4); /* breadcrumb: Final Output active */
+  setStageBreadcrumb(4);
   const hd=document.getElementById('s3hd');if(hd)hd.classList.add('lit');
   document.getElementById('pvconn3').classList.add('lit');
   const fo=document.getElementById('finalOut');
   fo.className='fout '+(s.out.blocked?'blkd':'auth');
   document.getElementById('foutTxt').textContent=s.out.text;
   document.getElementById('foutBadges').innerHTML=s.out.badges.map(b=>`<span class="fb ${b.c}">${b.l}</span>`).join('');
-  /* Switch avatar to active (responding) */
+  /* Tone card — find current scenario's tone via active card */
+  const activeCard=document.querySelector('.wb-scen-card.active');
+  const idx=activeCard?parseInt(activeCard.id.replace('wb-sc-',''),10):0;
+  const lb=WB_LABELS[idx]||WB_LABELS[0];
+  const tone=lb.tone;
+  const tc=document.getElementById('foutTone');
+  if(tc&&tone){
+    tc.innerHTML=`<div class="fout-tone-inner">
+      <div class="fout-tone-left">
+        <div class="fout-tone-lbl">Tone of Voice</div>
+        <div class="fout-tone-name">${tone.label}.</div>
+        <div class="fout-tone-desc">${tone.desc}</div>
+      </div>
+      <div class="fout-tone-axes">${buildToneAxes(tone.axes)}</div>
+    </div>`;
+    tc.style.display='block';
+  }
   const av=document.getElementById('foutAvatar');
   const ft=document.getElementById('foutTxt');
   if(av){av.classList.add('active');}
   if(ft){ft.classList.add('jemm-glisten');}
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     fo.classList.add('visible');
-    /* Revert avatar + glisten after 3s */
     PT.push(setTimeout(()=>{
       if(av){av.classList.remove('active');}
       if(ft){ft.classList.remove('jemm-glisten');}
@@ -2028,16 +2078,16 @@ function runPipeline(idx){
   resetPipeline();populateCtx(PL[idx]);animatePL(PL[idx]);
 }
 const WB_LABELS=[
-  {token:'L2 EMPLOYEE',intent:'Data Egress Blocked'},
-  {token:'L2 EMPLOYEE',intent:'CAI Tone Rewrite'},
-  {token:'L1 CEO',intent:'Executive Clinical Pass'},
-  {token:'L3 VISITOR',intent:'Hard Security Block'},
-  {token:'L1 EXEC',intent:'Scene Setup Confirmed'},
-  {token:'L3 CHILD',intent:'Hard Safety Block'},
-  {token:'L2 FAMILY',intent:'CAI Tone Rewrite'},
-  {token:'L1 OWNER',intent:'Evening Scene Pass'},
-  {token:'L2 FAMILY',intent:'Data Egress Blocked'},
-  {token:'L1 OWNER',intent:'Night Mode Rewrite'}
+  {token:'L2 Employee',title:'Data Egress Blocked',   tone:{label:'Professional & Helpful',desc:'Concise, policy-compliant delivery. Explains the block without jargon.',axes:[30,35,30,25]}},
+  {token:'L2 Employee',title:'CAI Tone Rewrite',      tone:{label:'Professional & Helpful',desc:'Clear and brief. One action offered. No unsolicited advice.',axes:[28,32,28,30]}},
+  {token:'L1 CEO',     title:'Executive Clinical Pass',tone:{label:'Clinical & Direct',    desc:'Zero-fluff briefing. Crisp, short phrases for time-critical decisions.',axes:[10,12,10,8]}},
+  {token:'L3 Visitor', title:'Hard Security Block',   tone:{label:'Polished & Guarded',   desc:'Firm but non-alarming. Escalates quietly without confrontation.',axes:[55,50,40,40]}},
+  {token:'L1 Exec',    title:'Scene Setup Confirmed', tone:{label:'Clinical & Direct',     desc:'Action-confirmed phrasing. No preamble, no check-in questions.',axes:[12,15,12,10]}},
+  {token:'L3 Child',   title:'Hard Safety Block',     tone:{label:'Warm & Protective',     desc:'Clear, calm refusal. No alarm, just a simple redirect.',axes:[50,60,38,42]}},
+  {token:'L2 Family',  title:'CAI Tone Rewrite',      tone:{label:'Warm & Reassuring',     desc:'Gentle, brief answer. Warm register without unsolicited commentary.',axes:[38,42,35,40]}},
+  {token:'L1 Owner',   title:'Evening Scene Pass',    tone:{label:'Warm & Direct',         desc:'Short spoken confirmation. Calm, ambient-appropriate delivery.',axes:[22,28,20,22]}},
+  {token:'L2 Family',  title:'Data Egress Blocked',   tone:{label:'Warm & Reassuring',     desc:'Policy block delivered softly. No alarm, just a local-save confirmation.',axes:[40,38,35,38]}},
+  {token:'L1 Owner',   title:'Night Mode Rewrite',    tone:{label:'Warm & Direct',         desc:'Brief night-mode acknowledgment. Quiet, non-intrusive register.',axes:[20,25,18,20]}}
 ];
 function renderWbScenList(env){
   const list=document.getElementById('wbScenList');
@@ -2046,19 +2096,19 @@ function renderWbScenList(env){
     const idx=start+i;
     const lb=WB_LABELS[idx];
     const isBlocked=s.out&&s.out.blocked;
-    const outcomeHtml=isBlocked
-      ?`<span class="wsc-fail">Blocked</span>`
-      :`<span class="wsc-pass">Pass</span>`;
+    const outHtml=isBlocked
+      ?`<span class="wsc-fail">&#x2715; Blocked</span>`
+      :`<span class="wsc-pass">&#x2713; Pass</span>`;
     return `<div class="wb-scen-card" id="wb-sc-${idx}" onclick="runPipeline(${idx})">
+      <div class="wsc-title">${lb.title}</div>
       <div class="wsc-top">
         <span class="wsc-chip">${lb.token}</span>
-        <span class="wsc-name">${s.ctx.role||lb.token}</span>
       </div>
       <div class="wsc-outcome">
-        <span class="wsc-ol">Evaluation outcome:</span>
-        ${outcomeHtml}
+        <span class="wsc-ol">Evaluation Pass/Fail:</span>
+        ${outHtml}
       </div>
-      <div class="wsc-query"><em>"${s.ctx.prompt}"</em></div>
+      <div class="wsc-query">User asks: <em>"${s.ctx.prompt}"</em></div>
     </div>`;
   }).join('');
 }
