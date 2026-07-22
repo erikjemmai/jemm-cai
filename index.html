@@ -275,8 +275,14 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .ep-card{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column;gap:20px}
 .ep-avatar-row{display:flex;align-items:center;gap:14px}
 .ep-avatar{width:52px;height:52px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.ep-avatar-l1{background:rgba(0,213,140,.12);border:2px solid rgba(0,213,140,.5);color:var(--ac);box-shadow:0 0 14px rgba(0,213,140,.18)}
-.ep-avatar-l2{background:rgba(240,165,0,.1);border:2px solid rgba(240,165,0,.4);color:#f0a500;box-shadow:0 0 14px rgba(240,165,0,.14)}
+.ep-avatar-l1{background:rgba(0,213,140,.12);border:2px solid rgba(0,213,140,.5);color:var(--ac);box-shadow:0 0 14px rgba(0,213,140,.18);overflow:hidden;padding:0}
+.ep-avatar-l2{background:rgba(240,165,0,.1);border:2px solid rgba(240,165,0,.4);color:#f0a500;box-shadow:0 0 14px rgba(240,165,0,.14);overflow:hidden;padding:0}
+.ep-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+/* CAI evaluator avatar mini */
+.crit-av{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1.5px solid var(--bd)}
+.crit-av img{width:100%;height:100%;object-fit:cover;display:block}
+.crit-av.av-l1{border-color:rgba(0,213,140,.5);box-shadow:0 0 8px rgba(0,213,140,.2)}
+.crit-av.av-l2{border-color:rgba(240,165,0,.4);box-shadow:0 0 8px rgba(240,165,0,.15)}
 .ep-role-title{font-size:15px;font-weight:700;color:var(--th);line-height:1.3}
 .ep-role-sub{font-size:12px;color:var(--tm);margin-top:2px}
 .ep-token{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;border-radius:5px;padding:3px 9px;white-space:nowrap;margin-left:auto}
@@ -832,72 +838,79 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
   <p class="sec-sub">Language is only half of the user experience. Physical light, acoustic quietness, and spatial presence form the other half. Because Jemm operates without intrusive screens or mobile apps, the ambient hardware array - discreet micro-nodes embedded in ceiling planes or wall surfaces - acts as the primary visual interface between human occupants and local silicon.</p>
   <p class="sec-sub" style="margin-top:16px">In a multi-room property, spatial quietness is preserved by illuminating strictly the single microphone node nearest to the speaker using localized acoustic beamforming. Peripheral nodes in adjacent rooms remain dark. When speech ends, the active node provides a 200ms inward ripple cue, pulses during local processing, and decays back to a dark matte state within 500ms of execution.</p>
 
-  <!-- Node state visual placeholders -->
-  <div class="sh-nodes sh-nodes-3">
-  <!-- Node state visual placeholders -->
-  <div class="sh-nodes">
+  <!-- Node state cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
 
-    <div class="sh-node-card">
-      <div class="sh-node-circle sh-node-idle">
-        <img src="jemm-logo-white.png" alt="Jemm" class="sh-logo-img sh-logo-dim">
+    <!-- Idle -->
+    <div class="p-6 rounded-2xl bg-[#141A17] border border-[#222C27] flex flex-col items-center text-center gap-4">
+      <div class="w-24 h-24 rounded-full border border-[#222C27] bg-[#0B0F0D] flex items-center justify-center">
+        <img src="jemm-mark.png" alt="Jemm" style="width:40px;height:40px;opacity:.25;filter:grayscale(1) brightness(2)">
       </div>
-      <h3 class="sh-node-title">Idle State</h3>
-      <p class="sh-node-sub">Dark Matte (#000000). 0% luminance. Hardware remains visually invisible in the room. Background edge updates run here silently.</p>
+      <div>
+        <h3 class="font-bold text-white text-base">Idle State</h3>
+        <p class="text-xs text-gray-400 mt-2 leading-relaxed">Dark Matte (#000000). 0% luminance. Hardware remains visually invisible in the room. Background edge updates run here silently.</p>
+      </div>
     </div>
 
-    <div class="sh-node-card">
-      <div class="sh-node-circle sh-node-active">
-        <img src="jemm-logo-white.png" alt="Jemm" class="sh-logo-img sh-logo-glow-g">
+    <!-- Active -->
+    <div class="p-6 rounded-2xl bg-[#141A17] border border-[#00D58C]/40 flex flex-col items-center text-center gap-4">
+      <div class="w-24 h-24 rounded-full border-2 border-[#00D58C] bg-[#0B0F0D] flex items-center justify-center" style="box-shadow:0 0 24px rgba(0,213,140,0.28)">
+        <img src="jemm-mark.png" alt="Jemm" style="width:40px;height:40px;filter:brightness(0) saturate(1) invert(1) sepia(1) saturate(3) hue-rotate(115deg) brightness(1.1)">
       </div>
-      <h3 class="sh-node-title sh-node-title-g">Active Operation</h3>
-      <p class="sh-node-sub">Neon Emerald (#00D58C). Illuminates the single nearest node during voice listening and local execution. Decays back to dark matte within 500ms.</p>
+      <div>
+        <h3 class="font-bold text-base" style="color:#00D58C">Active Operation</h3>
+        <p class="text-xs text-gray-400 mt-2 leading-relaxed">Neon Emerald (#00D58C). Illuminates single nearest node during voice listening and execution. Decays back to dark matte within 500ms.</p>
+      </div>
     </div>
 
-    <div class="sh-node-card">
-      <div class="sh-node-circle sh-node-amber">
-        <img src="jemm-logo-white.png" alt="Jemm" class="sh-logo-img sh-logo-glow-a">
+    <!-- Refusal -->
+    <div class="p-6 rounded-2xl bg-[#141A17] border border-[#FF9F68]/40 flex flex-col items-center text-center gap-4">
+      <div class="w-24 h-24 rounded-full border-2 border-[#FF9F68] bg-[#0B0F0D] flex items-center justify-center" style="box-shadow:0 0 24px rgba(255,159,104,0.25)">
+        <img src="jemm-mark.png" alt="Jemm" style="width:40px;height:40px;filter:brightness(0) saturate(1) invert(1) sepia(1) saturate(4) hue-rotate(330deg) brightness(1.05)">
       </div>
-      <h3 class="sh-node-title sh-node-title-a">Constitutional Refusal</h3>
-      <p class="sh-node-sub">Warm Amber (#FF9F68). Gentle, non-punitive 1.0s soft pulse when an action is blocked due to physical safety, permissions, or local data sovereignty rules.</p>
+      <div>
+        <h3 class="font-bold text-base" style="color:#FF9F68">Constitutional Refusal</h3>
+        <p class="text-xs text-gray-400 mt-2 leading-relaxed">Warm Amber (#FF9F68). Gentle, non-punitive 1.0s soft pulse when an action is blocked due to physical safety, permissions, or local data sovereignty rules.</p>
+      </div>
     </div>
 
   </div>
 
   <!-- State reference table -->
-  <div class="sh-table-wrap">
-    <table class="sh-table">
+  <div class="overflow-x-auto mt-6">
+    <table class="w-full text-left border-collapse text-sm" style="color:#D8E2DC">
       <thead>
-        <tr>
-          <th>System State</th>
-          <th>Optical Indicator</th>
-          <th>Hardware Behavior</th>
-          <th>Acoustic Feedback</th>
+        <tr style="border-bottom:1px solid #222C27">
+          <th class="p-3" style="color:#F2F2F2;font-weight:600">System State</th>
+          <th class="p-3" style="color:#F2F2F2;font-weight:600">Optical Indicator</th>
+          <th class="p-3" style="color:#F2F2F2;font-weight:600">Hardware Behavior</th>
+          <th class="p-3" style="color:#F2F2F2;font-weight:600">Acoustic Feedback</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="sh-state">Idle State</td>
-          <td class="sh-muted">Dark Matte (#000000)</td>
-          <td>0% Luminance. Hardware visually invisible.</td>
-          <td>Complete silence.</td>
+        <tr style="border-bottom:1px solid #222C27">
+          <td class="p-3" style="color:#F2F2F2;font-weight:500">Idle State</td>
+          <td class="p-3" style="color:#8EA89E">Dark Matte (#000000)</td>
+          <td class="p-3">0% Luminance. Hardware visually invisible. Silent edge updates.</td>
+          <td class="p-3">Complete silence.</td>
+        </tr>
+        <tr style="border-bottom:1px solid #222C27">
+          <td class="p-3" style="color:#F2F2F2;font-weight:500">Active Listening</td>
+          <td class="p-3" style="color:#00D58C;font-weight:500">Neon Emerald Ring (#00D58C)</td>
+          <td class="p-3">30% ambient glow on closest spatial node only upon wake word.</td>
+          <td class="p-3">Localized subtle listening cue. No chimes.</td>
+        </tr>
+        <tr style="border-bottom:1px solid #222C27">
+          <td class="p-3" style="color:#F2F2F2;font-weight:500">Local Processing</td>
+          <td class="p-3" style="color:#00D58C;font-weight:500">Emerald Inward Ripple</td>
+          <td class="p-3">200ms inward optical pulse toward central icon; decays in 500ms.</td>
+          <td class="p-3">Zero audio chimes or verbal filler.</td>
         </tr>
         <tr>
-          <td class="sh-state">Active Listening</td>
-          <td class="sh-green">Neon Emerald Ring</td>
-          <td>30% ambient glow on closest spatial node only.</td>
-          <td>Localized listening cue. No audio chime.</td>
-        </tr>
-        <tr>
-          <td class="sh-state">Local Processing</td>
-          <td class="sh-green">Emerald Inward Ripple</td>
-          <td>200ms inward optical pulse to central icon.</td>
-          <td>Zero chimes or verbal filler.</td>
-        </tr>
-        <tr>
-          <td class="sh-state">Constitutional Block</td>
-          <td class="sh-red">Muted Crimson Pulse</td>
-          <td>1.0s soft crimson pulse; decays to dark.</td>
-          <td>Spoken constraint explanation.</td>
+          <td class="p-3" style="color:#F2F2F2;font-weight:500">Constitutional Refusal</td>
+          <td class="p-3" style="color:#FF9F68;font-weight:500">Warm Amber Pulse (#FF9F68)</td>
+          <td class="p-3">1.0s soft warm amber pulse; transitions back to dark matte.</td>
+          <td class="p-3">Spoken constraint explanation. No harsh alarms.</td>
         </tr>
       </tbody>
     </table>
@@ -1039,13 +1052,13 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
           </div>
           <div class="cai-el" id="caiL1">
             <div class="crit-e">
-              <div class="crit-m"><span class="crit-w wl1" id="l1who">PROFILE 1 · L1_OWNER_AI</span><span class="crit-v" id="l1verdict">—</span></div>
+              <div class="crit-m"><div class="crit-av av-l1"><img src="avatar-l1.png" alt="L1"></div><span class="crit-w wl1" id="l1who">PROFILE 1 · L1_OWNER_AI</span><span class="crit-v" id="l1verdict">—</span></div>
               <div class="crit-t" id="l1text"></div>
             </div>
           </div>
           <div class="cai-el" id="caiL2">
             <div class="crit-e">
-              <div class="crit-m"><span class="crit-w wl2" id="l2who">PROFILE 2 · L2_FAMILY_AI</span><span class="crit-v" id="l2verdict">—</span></div>
+              <div class="crit-m"><div class="crit-av av-l2"><img src="avatar-l2.png" alt="L2"></div><span class="crit-w wl2" id="l2who">PROFILE 2 · L2_FAMILY_AI</span><span class="crit-v" id="l2verdict">—</span></div>
               <div class="crit-t" id="l2text"></div>
             </div>
           </div>
@@ -1194,7 +1207,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
     <div class="ep-card">
       <div class="ep-avatar-row">
         <div class="ep-avatar ep-avatar-l1">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <img src="avatar-l1.png" alt="L1 Principal">
         </div>
         <div>
           <div class="ep-role-title">L1 Principal Persona</div>
@@ -1242,7 +1255,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
     <div class="ep-card">
       <div class="ep-avatar-row">
         <div class="ep-avatar ep-avatar-l2">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <img src="avatar-l2.png" alt="L2 Operational">
         </div>
         <div>
           <div class="ep-role-title">L2 Operational Persona</div>
