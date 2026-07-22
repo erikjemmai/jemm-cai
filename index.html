@@ -740,7 +740,7 @@ ul{list-style:none}
           <div class="fout-avatar-lbl">JEMM RESPONSE</div>
         </div>
       </div>
-      <div class="fout-txt jemm-glisten" id="foutTxt"></div>
+      <div class="fout-txt" id="foutTxt"></div>
       <div class="fout-badges" id="foutBadges"></div>
     </div>
 
@@ -1093,7 +1093,7 @@ ul{list-style:none}
             <div class="tone-query-text" id="tpQ">"Jemm, status on all locks."</div>
           </div>
         </div>
-        <div class="tone-response-text jemm-glisten" id="tpA">"All 6 locks secured. No anomalies detected."</div>
+        <div class="tone-response-text" id="tpA">"All 6 locks secured. No anomalies detected."</div>
         <div class="tone-meta-badge" id="tpBadge">REGISTER: CLINICAL &amp; DIRECT · L1 OWNER · OFFICE · WORK HOURS</div>
       </div>
 
@@ -1263,6 +1263,7 @@ function resetPipeline(){
   const fo=document.getElementById('finalOut');if(fo){fo.className='fout';fo.classList.remove('visible');}
   /* Reset §03 avatar to idle */
   const av=document.getElementById('foutAvatar');if(av){av.classList.remove('active');}
+  const ft=document.getElementById('foutTxt');if(ft){ft.classList.remove('jemm-glisten');}
 }
 function populateCtx(s){
   const c=s.ctx;
@@ -1304,11 +1305,16 @@ function showS3(s){
   document.getElementById('foutBadges').innerHTML=s.out.badges.map(b=>`<span class="fb ${b.c}">${b.l}</span>`).join('');
   /* Switch avatar to active (responding) */
   const av=document.getElementById('foutAvatar');
+  const ft=document.getElementById('foutTxt');
   if(av){av.classList.add('active');}
+  if(ft){ft.classList.add('jemm-glisten');}
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     fo.classList.add('visible');
-    /* Revert to idle after 3s */
-    PT.push(setTimeout(()=>{if(av){av.classList.remove('active');}},3000));
+    /* Revert avatar + glisten after 3s */
+    PT.push(setTimeout(()=>{
+      if(av){av.classList.remove('active');}
+      if(ft){ft.classList.remove('jemm-glisten');}
+    },3000));
   }));
 }
 function animatePL(s){
@@ -1574,10 +1580,15 @@ function updateSliders(){
   }
   /* Flash §05 avatar: active → idle */
   const tcore=document.getElementById('toneAvatarCore');
+  const tpAEl=document.getElementById('tpA');
   if(tcore){
     tcore.classList.add('lit');
+    if(tpAEl)tpAEl.classList.add('jemm-glisten');
     clearTimeout(tcore._t);
-    tcore._t=setTimeout(()=>tcore.classList.remove('lit'),2000);
+    tcore._t=setTimeout(()=>{
+      tcore.classList.remove('lit');
+      if(tpAEl)tpAEl.classList.remove('jemm-glisten');
+    },2000);
   }
 }
 
