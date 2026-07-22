@@ -162,6 +162,18 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .wb-left{position:sticky;top:calc(var(--topbar) + 20px);display:flex;flex-direction:column;gap:12px}
 @media(max-width:860px){.wb-left{position:static}}
 .wb-env-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--bg-c);border:1.5px solid var(--bd);border-radius:10px;padding:3px;gap:3px}
+/* Stage progress breadcrumb */
+.wb-stage-bar{display:flex;align-items:center;gap:6px;background:var(--bg-c);border:1px solid var(--bd);border-radius:10px;padding:12px 16px;margin-bottom:16px;flex-wrap:wrap}
+.wsb-step{display:flex;align-items:center;gap:6px;opacity:.4;transition:opacity .25s,color .25s}
+.wsb-step.wsb-active{opacity:1}
+.wsb-step.wsb-done{opacity:.7}
+.wsb-num{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;flex-shrink:0;transition:background .25s,color .25s}
+.wsb-step.wsb-active .wsb-num{background:var(--ac);border-color:var(--ac);color:#000}
+.wsb-step.wsb-done .wsb-num{background:var(--ac-dim);border-color:var(--ac-bd);color:var(--ac)}
+.wsb-lbl{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;white-space:nowrap}
+.wsb-step.wsb-active .wsb-lbl{color:var(--ac)}
+.wsb-step.wsb-done .wsb-lbl{color:var(--ac)}
+.wsb-arrow{color:var(--tm);font-size:14px;line-height:1;flex-shrink:0}
 .wb-env-btn{padding:8px 10px;border-radius:7px;border:none;background:transparent;color:var(--tm);font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;cursor:pointer;transition:all .2s;text-align:center}
 .wb-env-btn.active{background:var(--ac);color:#000}
 .wb-scen-list{display:flex;flex-direction:column;gap:8px}
@@ -623,7 +635,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
     <span class="sb-slbl">Specification</span>
     <a href="#isnot"    class="drawer-link" data-sec="isnot"><span class="dl-mini">02</span><span class="dl-txt">Jemm Is / Jemm Is Not</span></a>
     <a href="#spatial-hardware" class="drawer-link" data-sec="spatial-hardware"><span class="dl-mini">02.1</span><span class="dl-txt">Spatial Hardware</span></a>
-    <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-mini">03</span><span class="dl-txt">The Execution &amp; Learning Pipeline</span></a>
+    <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-mini">03</span><span class="dl-txt">Evaluation Loop</span></a>
     <a href="#system-reliability" class="drawer-link" data-sec="system-reliability"><span class="dl-mini">03.1</span><span class="dl-txt">System Reliability &amp; Memory</span></a>
     <a href="#evaluators" class="drawer-link" data-sec="evaluators"><span class="dl-mini">03.5</span><span class="dl-txt">Evaluator Personas (RLAIF)</span></a>
     <span class="sb-slbl">Alignment Framework</span>
@@ -853,7 +865,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
       #pipeline
     </button>
   </div>
-  <h2 class="sec-h2">The Live Decision<br>&amp; Adaptation Loop</h2>
+  <h2 class="sec-h2">Jemm AI Evaluation Loop</h2>
   <p class="sec-sub">A single contiguous trace showing how every Jemm response travels from raw query through constitutional gates, synthetic AI persona critique, and final execution - entirely on local silicon.</p>
   <p class="sec-sub" style="margin-top:16px">The Execution and Learning Pipeline is Jemm's real-time decision engine, guiding every user interaction from initial voice ingestion down to physical estate execution. To ensure safety and discretion in private spaces, Jemm processes commands through four sequential Constitutional Gates - blocking physical hazards, preventing cloud data egress, enforcing silent hardware decay, and adapting tone before a response is ever spoken. Authorized requests undergo synthetic persona evaluation to strip away sycophancy, white lies, and unnecessary chatter, ensuring every reply remains direct and concise. Once active on an estate node, the system continuously learns from real-world human behavior - interpreting manual switch overrides, vocal confirmation, and quiet scene acceptance to refine occupant preference models locally without transmitting a single byte off the property.</p>
 
@@ -872,6 +884,29 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
     <!-- RIGHT: Evaluation Viewport -->
     <div class="wb-right">
 
+      <!-- Stage Progress Breadcrumb -->
+      <div class="wb-stage-bar" id="wbStageBar">
+        <div class="wsb-step wsb-idle" id="wsb1">
+          <div class="wsb-num">1</div>
+          <span class="wsb-lbl">Query Context</span>
+        </div>
+        <div class="wsb-arrow">›</div>
+        <div class="wsb-step wsb-idle" id="wsb2">
+          <div class="wsb-num">2</div>
+          <span class="wsb-lbl">4-Gate Funnel</span>
+        </div>
+        <div class="wsb-arrow">›</div>
+        <div class="wsb-step wsb-idle" id="wsb3">
+          <div class="wsb-num">3</div>
+          <span class="wsb-lbl">CAI Critique</span>
+        </div>
+        <div class="wsb-arrow">›</div>
+        <div class="wsb-step wsb-idle" id="wsb4">
+          <div class="wsb-num">4</div>
+          <span class="wsb-lbl">Final Output</span>
+        </div>
+      </div>
+
       <!-- Card A: Query Context -->
       <div class="qctx">
         <div class="qctx-pill">QUERY CONTEXT</div>
@@ -886,7 +921,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
       <div class="pvconn" id="pvconn1"></div>
 
       <!-- Stage 1 -->
-      <div class="pshd" id="s1hd"><span class="stage-pill">STAGE 1</span><span class="stage-title">Constitutional Funnel - 4-Gate Evaluation</span></div>
+      <div class="pshd" id="s1hd"><span class="stage-pill">STAGE 1</span><span class="stage-title">4-Gate Constitutional Funnel</span></div>
       <div class="stage-gates">
         <div class="gate-card gate-idle" id="gate1">
           <div class="gate-iw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
@@ -1850,6 +1885,19 @@ function resetPipeline(){
   /* Reset §03 avatar to idle */
   const av=document.getElementById('foutAvatar');if(av){av.classList.remove('active');}
   const ft=document.getElementById('foutTxt');if(ft){ft.classList.remove('jemm-glisten');}
+  /* Reset stage breadcrumb */
+  setStageBreadcrumb(0);
+}
+/* Stage breadcrumb helper: 0=all idle, 1-4=step active, -1=mark all done */
+function setStageBreadcrumb(active){
+  for(let i=1;i<=4;i++){
+    const el=document.getElementById('wsb'+i);
+    if(!el)continue;
+    el.classList.remove('wsb-active','wsb-done','wsb-idle');
+    if(active===i) el.classList.add('wsb-active');
+    else if(active<0||i<active) el.classList.add('wsb-done');
+    else el.classList.add('wsb-idle');
+  }
 }
 function populateCtx(s){
   const c=s.ctx;
@@ -1858,8 +1906,10 @@ function populateCtx(s){
   document.getElementById('ctxTime').textContent=c.time;
   document.getElementById('ctxZone').textContent=c.zone;
   const se=document.getElementById('ctxStress');se.textContent=c.stress;se.className='qf-val '+(c.sCls||'');
+  setStageBreadcrumb(1); /* step 1: query populated */
 }
 function showS2(s){
+  setStageBreadcrumb(3); /* breadcrumb: CAI Critique active */
   const hd=document.getElementById('s2hd');if(hd)hd.classList.add('lit');
   document.getElementById('pvconn2').classList.add('lit');
   if(!s.cai){
@@ -1883,6 +1933,7 @@ function showS2(s){
   }
 }
 function showS3(s){
+  setStageBreadcrumb(4); /* breadcrumb: Final Output active */
   const hd=document.getElementById('s3hd');if(hd)hd.classList.add('lit');
   document.getElementById('pvconn3').classList.add('lit');
   const fo=document.getElementById('finalOut');
@@ -1906,10 +1957,17 @@ function showS3(s){
 function animatePL(s){
   const steps=[s.s1,s.s2,s.s3,s.s4];
   let delay=200,blocked=false;
-  PT.push(setTimeout(()=>{const hd=document.getElementById('s1hd');if(hd)hd.classList.add('lit');document.getElementById('pvconn1').classList.add('lit');},delay));
+  PT.push(setTimeout(()=>{
+    const hd=document.getElementById('s1hd');if(hd)hd.classList.add('lit');
+    document.getElementById('pvconn1').classList.add('lit');
+    setStageBreadcrumb(1); /* breadcrumb: Query Context active */
+  },delay));
   delay+=200;
   function runG(i){
-    if(i>=4){PT.push(setTimeout(()=>showS2(s),380));return;}
+    if(i>=4){
+      setStageBreadcrumb(2); /* breadcrumb: 4-Gate Funnel active */
+      PT.push(setTimeout(()=>showS2(s),380));return;
+    }
     if(blocked){PT.push(setTimeout(()=>{setG(i+1,'skip',steps[i]);runG(i+1);},120));return;}
     const step=steps[i],num=i+1;
     PT.push(setTimeout(()=>{
