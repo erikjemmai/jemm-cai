@@ -59,19 +59,20 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .ld{display:block}.ll{display:none}
 :root[data-theme=light] .ld{display:none}
 :root[data-theme=light] .ll{display:block}
-.theme-pill{height:28px;width:48px;border-radius:14px;padding:0 4px;background:var(--ac);border:none;display:flex;align-items:center;cursor:pointer;transition:background .2s;position:relative}
-:root[data-theme=light] .theme-pill{background:#059161}
-.theme-pill:hover{opacity:.9}
-.tp-pip{width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.theme-pill{height:28px;width:48px;border-radius:14px;padding:0 4px;background:#B0B8C1;border:none;display:flex;align-items:center;cursor:pointer;transition:background .2s;position:relative}
+:root[data-theme=dark] .theme-pill{background:#00D58C}
+:root[data-theme=light] .theme-pill{background:#B0B8C1}
+.theme-pill:hover{opacity:.85}
+.tp-pip{width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 :root[data-theme=dark] .tp-pip{transform:translateX(20px)}
 :root[data-theme=light] .tp-pip{transform:translateX(0)}
 /* ============================================================ SIDEBAR (PUSH) */
 :root{--sb-exp:170px;--sb-col:44px}
-.nav-sidebar{position:fixed;top:var(--topbar);left:0;bottom:0;z-index:90;width:var(--sb-exp);background:var(--bg-nav);border-right:.5px solid #707070;display:flex;flex-direction:column;transition:width .26s cubic-bezier(.4,0,.2,1);overflow:hidden}
-:root[data-theme=dark] .nav-sidebar{border-right-color:#707070}
+.nav-sidebar{position:fixed;top:var(--topbar);left:0;bottom:0;z-index:90;width:var(--sb-exp);background:var(--bg-nav);border-right:.5px solid var(--bd);display:flex;flex-direction:column;transition:width .26s cubic-bezier(.4,0,.2,1);overflow:hidden}
+:root[data-theme=dark] .nav-sidebar{border-right-color:var(--bd)}
 .nav-sidebar.collapsed{width:var(--sb-col)}
 /* Header row inside sidebar */
-.sb-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:.5px solid #707070;flex-shrink:0;min-height:48px}
+.sb-header{display:flex;align-items:center;justify-content:space-between;padding:16px 12px;border-bottom:.5px solid var(--bd);flex-shrink:0;min-height:48px}
 :root[data-theme=dark] .sb-header{border-bottom-color:var(--bd)}
 .nav-sidebar.collapsed .sb-header{justify-content:center;padding:14px 0}
 .sb-nav-lbl{font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:var(--th);white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .18s}
@@ -79,7 +80,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .sb-toggle{width:32px;height:32px;border-radius:7px;background:transparent;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tm);transition:border-color .2s,color .2s;flex-shrink:0}
 .sb-toggle:hover{border-color:var(--ac-bd);color:var(--ac)}
 /* Scrollable body */
-.sb-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px;display:flex;flex-direction:column;gap:32px}
+.sb-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 12px;display:flex;flex-direction:column;gap:32px}
 .sb-slbl{font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:#707070;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .15s}
 :root[data-theme=dark] .sb-slbl{color:var(--tm)}
 .nav-sidebar.collapsed .sb-slbl{opacity:0}
@@ -96,7 +97,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 /* Mini icon pills for collapsed state - removed */
 .dl-mini{display:none!important}
 /* Footer */
-.sb-foot{padding:14px 16px;border-top:1px solid var(--bd);flex-shrink:0;overflow:hidden}
+.sb-foot{padding:14px 12px;border-top:.5px solid var(--bd);flex-shrink:0;overflow:hidden}
 .sb-copy{font-family:'Inter',sans-serif;font-size:9px;color:var(--tm);line-height:1.55;white-space:nowrap;overflow:hidden;opacity:1;transition:opacity .15s}
 .nav-sidebar.collapsed .sb-copy{opacity:0}
 /* Main area shifts right to match sidebar */
@@ -805,51 +806,45 @@ window.onerror=function(msg,src,line,col,err){
 
 <!-- OVERVIEW -->
 <section class="section" id="overview">
-<!-- Main overview card -->
   <div style="margin-top:0">
     <h2 class="sec-h2" style="margin-bottom:32px">Executive Intent &amp; Alignment Architecture</h2>
 
-    <!-- What This Document Is / Is Not -->
-    <div class="ov-sub-block">
-      <div class="ov-twin-grid">
-        <div class="ov-twin-card">
-          <p class="pc-body"><strong style="color:var(--th);font-weight:700">What This Document Is — </strong>This specification serves as the primary behavioral contract, UX architecture, and alignment blueprint for <strong>Jemm Arc</strong> - the world's first 100% locally owned, air-gapped estate and office steward. It bridges human-centered experience design and frontier AI safety by defining the non-negotiable principles, authority boundaries, ambient hardware feedback, and conversational registers governing how Jemm reasons, speaks, and acts inside physical human spaces.</p>
-        </div>
-        <div class="ov-twin-card ov-twin-card-not">
-          <p class="pc-body"><strong style="color:var(--th);font-weight:700">What This Document Is Not — </strong>This document defines character judgment, human-AI interaction rules, and physical estate boundaries - it is <strong>not a low-level technical or mathematical engineering manual</strong>. It deliberately omits backend code implementations, loss function equations, neural network hyperparameter tuning, model weight distribution algorithms, and hardware circuit schematics.</p>
-          <p class="pc-body" style="margin-top:12px">By keeping scope strictly focused on user experience, behavioral alignment, and training specifications, this document provides a clear behavioral target for AI engineering teams without burdening leadership, product managers, or design stakeholders with specialized machine learning math.</p>
-        </div>
-      </div>
-    </div>
+    <h3 class="ov-sub-h3">What This Document Is</h3>
+    <p class="pc-body">This specification serves as the primary behavioral contract, UX architecture, and alignment blueprint for Jemm, an air-gapped daily life assistant designed to execute tasks, manage environments, and integrate seamlessly across private homes, corporate offices, and personal spaces. It bridges human-centered experience design and frontier AI safety by defining the non-negotiable principles, authority boundaries, ambient light feedback, and conversational registers governing how Jemm reasons, speaks, and acts inside physical human spaces.</p>
 
-    <!-- Internal Purpose -->
-    <div class="ov-sub-block">
-      <h3 class="ov-sub-h3">Internal Purpose: Continuous Alignment &amp; Scalable Training</h3>
-      <p class="pc-body">Jemm cannot rely on brittle rulebooks or rigid lookup tables. Physical environments are dynamic, unpredictable, and high-stakes. A system that follows rules mechanically will inevitably fail when it encounters an unscripted edge case.</p>
-      <p class="pc-body" style="margin-top:12px">This document establishes a foundational reasoning framework to train Jemm across three core development phases:</p>
-      <ul class="ov-list">
-        <li><strong>Pre-Launch Synthetic Self-Critique (RLAIF):</strong> Before deployment, Jemm undergoes offline self-training cycles where candidate responses are critiqued against these core tenets by synthetic AI evaluator panels - such as L1_Owner_AI and L2_Family_AI - to eliminate sycophancy, white lies, and verbal overflow.</li>
-        <li><strong>Post-Launch On-Device Edge Learning:</strong> Once deployed, Jemm adapts continuously to occupant habits using implicit signals (accepting a predicted scene), explicit vocal feedback ("Thanks Jemm"), and manual switch interactions - refining individual preferences locally with zero cloud egress.</li>
-        <li><strong>Collaborative Refinement:</strong> This specification is designed as a living document, open to continuous cross-functional feedback between UX Design, AI Engineering, and Product Leadership as real-world evaluation data matures.</li>
-      </ul>
-    </div>
+    <h3 class="ov-sub-h3" style="margin-top:40px">What This Document Is Not</h3>
+    <p class="pc-body">This document defines character judgment, human-AI interaction rules, and physical space boundaries; it is <strong>not a low-level mathematical or code implementation manual</strong>. It deliberately omits backend database scripts, hardware circuit schematics, loss function equations, and neural network hyperparameter tuning. By keeping the scope strictly focused on user experience, behavioral alignment, and training specifications, this document provides a clear behavioral target for AI engineering teams without burdening leadership, product managers, or design stakeholders with specialized machine learning math.</p>
 
-    <!-- Research Lineage -->
-    <div class="ov-sub-block">
-      <h3 class="ov-sub-h3">Research Lineage &amp; The Jemm Distinction</h3>
-      <p class="pc-body">Jemm's core alignment engine synthesizes insights from two foundational paradigms in frontier AI safety:</p>
-      <div class="ov-research-grid">
-        <div class="ov-research-card">
-          <h4 class="orc-title">Anthropic's Constitutional AI &nbsp;<a href="https://www.anthropic.com/research/constitutional-ai" target="_blank" rel="noopener" class="orc-link">Bai et al., 2022 ↗</a></h4>
-          <p class="orc-body">Anthropic proved that training models to critique their own drafts against written values produces vastly superior alignment compared to standard human feedback alone. Jemm adopts this self-critique mechanism during offline training, instilling the deep reasoning required to handle novel physical edge cases with sound judgment.</p>
-        </div>
-        <div class="ov-research-card">
-          <h4 class="orc-title">OpenAI's Model Spec &nbsp;<a href="https://model-spec.openai.com/2025-10-27.html#overview" target="_blank" rel="noopener" class="orc-link">OpenAI, 2025 ↗</a></h4>
-          <p class="orc-body">OpenAI established a clear chain of command and authority hierarchy to resolve instruction conflicts and prevent untrusted prompt injections. Jemm adapts this architecture into physical hardware space via Role-Based Access Control: Level 1 Owner → Level 2 Family/Operator → Level 3 Guest/Child → External Signals.</p>
-        </div>
-      </div>
-      <p class="pc-body" style="margin-top:16px"><strong>The Jemm Distinction:</strong> While Anthropic and OpenAI built their specs for cloud-hosted API models and web chatbots behind glass screens, Jemm is fundamentally unique as the first of its kind. It is not a web chatbot or cloud API - it is an <em>embodied, air-gapped physical estate steward</em>. In a digital chat, an alignment error produces awkward text; in a physical estate, an alignment error can unlock an exterior door or override a safety threshold. By bringing Constitutional AI and Instruction Hierarchy onto local estate silicon, Jemm delivers real-world physical safety, calibrated brevity, and absolute data sovereignty.</p>
-    </div>
+    <h3 class="ov-sub-h3" style="margin-top:40px">Internal Purpose: How Jemm Learns, Adapts, and Manages Access</h3>
+    <p class="pc-body">Real-world homes and offices are dynamic and unpredictable. Rather than following rigid, mechanical rules that break during unusual situations, Jemm relies on a flexible judgment framework designed to adapt across three key phases:</p>
+    <ul class="ov-list" style="margin-top:16px">
+      <li><strong>1. Before Launch (AI Self-Refinement):</strong> Before reaching any property, Jemm runs through simulated real-world scenarios. It evaluates its own draft responses against core guidelines to strip out fake flattery, unsolicited advice, and unnecessary chitchat before speaking.</li>
+      <li><strong>2. Daily Use (On-Device Adaptation):</strong> Once installed, Jemm learns your daily routine through subtle cues, like when you accept a suggested lighting scene, confirm a setting by voice, or flip a wall switch. It learns what you like locally on your property's hardware, with zero data ever leaving the building.</li>
+      <li><strong>3. Team Collaboration:</strong> This specification is an active, evolving blueprint shared between design, product, and engineering teams to continuously refine Jemm's real-world behavior as user feedback grows.</li>
+    </ul>
+
+    <h3 class="ov-sub-h3" style="margin-top:40px">Occupant Profiles: The Digital Blueprint</h3>
+    <p class="pc-body">Jemm recognizes who is speaking using <strong>local voice identification</strong>, linking each person to their own <strong>Occupant Profile</strong>. This profile acts as a digital blueprint that tells Jemm how to speak (<a href="#tone" class="orc-link">tone and brevity</a>), what preferences to apply (temperature and lighting defaults), and keeps all personal data strictly local with 100% user control to view or erase at any time.</p>
+
+    <h3 class="ov-sub-h3" style="margin-top:40px">Permission Levels (Home &amp; Office)</h3>
+    <p class="pc-body">To keep property operations safe and predictable, Jemm categorizes everyone into three clear permission tiers:</p>
+    <ul class="ov-list" style="margin-top:16px">
+      <li><strong>Primary Admin (Full Control):</strong> The primary owner, executive, or manager. Holds absolute administrative authority, can change system-wide settings, override automated schedules, grant access, and perform full data resets.</li>
+      <li><strong>Registered Resident / Daily Worker (Standard User):</strong> Regular occupants who interact with Jemm daily. Jemm learns their habits and remembers personal preferences, but they cannot alter core security settings or global property rules.</li>
+      <li><strong>Guest / Visitor (Temporary Access):</strong> Unregistered visitors, dinner guests, household contractors, or office clients. Jemm responds politely to basic, immediate requests (like adjusting room temperature or playing music), but strictly blocks access to private data, security locks, administrative functions, or personal profile histories.</li>
+    </ul>
+    <p class="pc-body" style="margin-top:12px;font-size:12px;color:var(--tm);font-style:italic">* Permission tiers are subject to change as Jemm's access model evolves through product development.</p>
+
+    <h3 class="ov-sub-h3" style="margin-top:40px">Research Lineage &amp; How Jemm Executes Safety Standards</h3>
+    <p class="pc-body">Jemm doesn't just read safety research as background context. It actively parses, understands, and enforces core principles derived from two foundational paradigms in frontier AI safety:</p>
+    <ul class="ov-list" style="margin-top:16px">
+      <li><strong>Anthropic's Constitutional AI (<a href="https://www.anthropic.com/research/constitutional-ai" target="_blank" rel="noopener" class="orc-link">Bai et al., 2022 ↗</a>):</strong> Jemm continuously parses a written set of non-negotiable rules (its "constitution"). Before speaking or taking action in a physical room, Jemm's internal reasoning engine runs candidate actions against these constitutional rules, critiquing its own drafts to ensure safety, eliminate fake flattery, and prevent risky commands.</li>
+      <li><strong>OpenAI's Model Spec (<a href="https://model-spec.openai.com/2025-10-27.html#overview" target="_blank" rel="noopener" class="orc-link">OpenAI, 2025 ↗</a>):</strong> Jemm understands a strict chain of command and instruction hierarchy to resolve conflicting requests. It evaluates every incoming voice command against the speaker's role token (Primary Admin vs. Registered User vs. Visitor) to prevent untrusted prompts or guests from overriding security settings.</li>
+    </ul>
+
+    <h3 class="ov-sub-h3" style="margin-top:40px">The Jemm Distinction: Real-World Physical Safety</h3>
+    <p class="pc-body">While Anthropic and OpenAI built their specifications for web chatbots behind glass screens, Jemm is fundamentally different: <strong>it is an embodied, air-gapped daily life assistant controlling real physical environments.</strong></p>
+    <p class="pc-body" style="margin-top:16px">In a digital chat, an AI mistake results in awkward text; in a physical estate or corporate office, an AI mistake can unlock an exterior door, alter server thermal limits, or override a safety threshold. By parsing Constitutional AI rules and Authority Hierarchies directly on local hardware, Jemm translates digital alignment principles into real-world physical safety, calibrated brevity, and absolute data privacy.</p>
 
   </div>
 </section>
@@ -1162,10 +1157,10 @@ window.onerror=function(msg,src,line,col,err){
       <!-- Card A: Query Context -->
       <div class="qctx" id="qctxCard">
         <div class="qctx-chips">
-          <div class="qctx-chip"><b>Time</b><strong id="ctxTime">—</strong></div>
-          <div class="qctx-chip"><b>Role</b><strong id="ctxRole">—</strong></div>
-          <div class="qctx-chip"><b>Zone</b><strong id="ctxZone">—</strong></div>
-          <div class="qctx-chip risk-lo" id="ctxStressChip"><b>Spatial Risk</b><strong id="ctxStress">—</strong></div>
+          <div class="qctx-chip"><b>Time</b><strong id="ctxTime">…</strong></div>
+          <div class="qctx-chip"><b>Role</b><strong id="ctxRole">…</strong></div>
+          <div class="qctx-chip"><b>Zone</b><strong id="ctxZone">…</strong></div>
+          <div class="qctx-chip risk-lo" id="ctxStressChip"><b>Spatial Risk</b><strong id="ctxStress">…</strong></div>
         </div>
         <div>
           <div class="qctx-query-lbl">Query:</div>
@@ -1224,12 +1219,12 @@ window.onerror=function(msg,src,line,col,err){
       <!-- Stage 2 -->
       <div class="pshd" id="s2hd"><span class="stage-pill">STAGE 2</span><span class="stage-title">AI Self-Critique &amp; Tone Refinement</span></div>
       <!-- Stage 2 explanatory note -->
-      <div style="font-size:13px;color:var(--tm);line-height:1.55;margin-bottom:14px;padding:0 2px">Every response Jemm speaks — including constitutional refusals — passes through the offline AI evaluator panel before being uttered. <strong style="color:var(--tb)">L1_Owner_AI</strong> &amp; <strong style="color:var(--tb)">L2_Family_AI</strong> critique every candidate draft to strip sycophancy, apology framing, alarming language, and unnecessary chatter. Nothing is spoken until both personas approve the wording.</div>
+      <div style="font-size:13px;color:var(--tm);line-height:1.55;margin-bottom:14px;padding:0 2px">Every response Jemm speaks, including constitutional refusals, passes through the offline AI evaluator panel before being uttered. <strong style="color:var(--tb)">L1_Owner_AI</strong> &amp; <strong style="color:var(--tb)">L2_Family_AI</strong> critique every candidate draft to strip sycophancy, apology framing, alarming language, and unnecessary chatter. Nothing is spoken until both personas approve the wording.</div>
       <div id="s2wrap">
         <!-- Blocked -->
         <div class="cai-skip" id="caiSkip" style="display:none">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-          AI Self-Critique Skipped — Constitutional Gate Block Active. No candidate output generated.
+          AI Self-Critique Skipped: Constitutional Gate Block Active. No candidate output generated.
         </div>
 
         <!-- Cyclic evaluation flow -->
@@ -1243,7 +1238,7 @@ window.onerror=function(msg,src,line,col,err){
             </div>
             <div class="cai-flow-body">
               <div class="cai-flow-card card-bad">
-                <div class="cai-flow-tag tag-bad">Candidate Draft — Unreviewed</div>
+                <div class="cai-flow-tag tag-bad">Candidate Draft: Unreviewed</div>
                 <div class="cai-flow-txt txt-bad" id="caiDraftText"></div>
                 <div class="cai-flow-score" id="caiDraftScore"></div>
               </div>
@@ -1258,7 +1253,7 @@ window.onerror=function(msg,src,line,col,err){
             </div>
             <div class="cai-flow-body">
               <div class="cai-flow-card">
-                <div class="cai-flow-tag tag-l1"><span id="l1who">L1_OWNER_AI</span> · <span class="crit-v" id="l1verdict">—</span></div>
+                <div class="cai-flow-tag tag-l1"><span id="l1who">L1_OWNER_AI</span> · <span class="crit-v" id="l1verdict">…</span></div>
                 <div class="crit-t" id="l1text"></div>
               </div>
             </div>
@@ -1285,7 +1280,7 @@ window.onerror=function(msg,src,line,col,err){
               </div>
               <div class="cai-flow-body">
                 <div class="cai-flow-card" style="border-color:var(--bd);background:var(--bg-ch)">
-                  <div class="cai-flow-tag" style="color:var(--tm)">Revised Draft — Submitted for Re-Review</div>
+                  <div class="cai-flow-tag" style="color:var(--tm)">Revised Draft: Submitted for Re-Review</div>
                   <div class="cai-flow-txt" id="caiRevDraftText"></div>
                 </div>
               </div>
@@ -1315,10 +1310,10 @@ window.onerror=function(msg,src,line,col,err){
             <div class="cai-flow-body">
               <div class="cai-both-ok">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                <span id="approvedLabel">AI Evaluator Approved — Ready for Speech</span>
+                <span id="approvedLabel">AI Evaluator Approved: Ready for Speech</span>
               </div>
               <div class="cai-flow-card card-win">
-                <div class="cai-flow-tag tag-win">Winning Output — Accepted into Behavioral Model</div>
+                <div class="cai-flow-tag tag-win">Winning Output: Accepted into Behavioral Model</div>
                 <div class="cai-flow-txt" id="caiWinText"></div>
               </div>
             </div>
@@ -2143,7 +2138,7 @@ function showS2(s){
   }
 
   const cai=s.cai;
-  /* Pick which evaluator to show — alternate by scenario to show variety */
+  /* Pick which evaluator to show, alternating by scenario to show variety */
   const activeIdx=document.querySelector('.wb-scen-card.active');
   const scIdx=activeIdx?parseInt(activeIdx.id.replace('wb-sc-',''),10):0;
   const useE1=(scIdx%2===1); /* odd indices show Profile 2 */
@@ -2176,7 +2171,7 @@ function showS2(s){
   const rTag=document.querySelector('#caiL1Reapprove .cai-flow-tag');
   if(rTag){rTag.innerHTML=profileLabel+' re-reviews · <span class="crit-v v-ok">PASS</span>';}
 
-  if(revEl('approvedLabel'))revEl('approvedLabel').textContent=profileLabel+' Approved — Ready for Speech';
+  if(revEl('approvedLabel'))revEl('approvedLabel').textContent=profileLabel+': Ready for Speech';
 
   /* ── Animate ── */
   let t=200;
@@ -2220,7 +2215,7 @@ function showS3(s){
   fo.className='fout '+(s.out.blocked?'blkd':'auth');
   document.getElementById('foutTxt').textContent=s.out.text;
   document.getElementById('foutBadges').innerHTML=s.out.badges.map(b=>`<span class="fb ${b.c}">${b.l}</span>`).join('');
-  /* Tone card — find current scenario's tone via active card */
+  /* Tone card: find current scenario's tone via active card */
   const activeCard=document.querySelector('.wb-scen-card.active');
   const idx=activeCard?parseInt(activeCard.id.replace('wb-sc-',''),10):0;
   const lb=WB_LABELS[idx]||WB_LABELS[0];
