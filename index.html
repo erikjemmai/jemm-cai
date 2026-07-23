@@ -133,6 +133,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .anc-ico:hover{color:var(--ac);background:var(--ac-dim)}
 /* H2: 44px / 600 - brand spec section heading */
 .sec-h2{font-size:clamp(28px,4vw,44px);font-weight:600;color:var(--th);letter-spacing:-.02em;line-height:1.15;margin-bottom:12px}
+.sec-h3{font-size:clamp(22px,3vw,32px);font-weight:500;color:var(--th);letter-spacing:-.01em;line-height:1.2;margin-bottom:12px}
 /* Subtitle / body: 16px / 400 */
 .sec-sub{font-size:16px;font-weight:400;color:var(--tb);line-height:1.625;max-width:860px;margin-bottom:28px}
 /* ============================================================ HERO */
@@ -331,9 +332,9 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .is-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:620px){.is-grid{grid-template-columns:1fr}}
 .is-col{display:flex;flex-direction:column;gap:10px}
-.is-col-hd{font-size:13px;font-weight:700;letter-spacing:.04em;padding:6px 12px;border-radius:7px;margin-bottom:2px}
-.is-col-hd-g{background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd)}
-.is-col-hd-r{background:var(--red-dim);color:var(--red);border:1px solid var(--red-bd)}
+.is-col-hd{font-size:1.375rem;font-weight:600;letter-spacing:-.01em;margin-bottom:16px;color:var(--th)}
+.is-col-hd-g{}
+.is-col-hd-r{}
 .is-card{border-radius:12px;padding:18px;border:1.5px solid}
 .is-g{border-color:var(--ac-bd);background:var(--ac-dim)}
 .is-r{border-color:var(--red-bd);background:var(--red-dim)}
@@ -860,18 +861,18 @@ window.onerror=function(msg,src,line,col,err){
     <!-- LEFT: Jemm IS -->
     <div class="is-col">
       <div class="is-col-hd is-col-hd-g">Jemm IS</div>
-      <div class="is-card is-g"><div class="is-ico">🛡️</div><div class="is-title">100% Local &amp; Sovereign</div><div class="is-body">Operates entirely on local estate node hardware. Zero audio data, behavioral patterns, or occupancy telemetry ever leaves the property boundary under any circumstance.</div></div>
-      <div class="is-card is-g"><div class="is-ico">🤫</div><div class="is-title">Simple &amp; Quiet</div><div class="is-body">Executes in the background without screens, app menus, pop-ups, or unsolicited verbal announcements. Presence is felt through the environment, not announced.</div></div>
-      <div class="is-card is-g"><div class="is-ico">🎯</div><div class="is-title">Honest &amp; Direct</div><div class="is-body">Delivers calibrated truth grounded in sensor data. No excuses, no white lies, no flattery. If Jemm doesn't know, it says so plainly without confabulating an answer.</div></div>
-      <div class="is-card is-g"><div class="is-ico">🖐️</div><div class="is-title">Respectful &amp; Deferential</div><div class="is-body">Yields completely within 500ms when any human touches a physical control. Hardware switch state is always treated as absolute, unchallengeable ground truth.</div></div>
+      <div class="is-card is-g"><div class="is-ico">🛡️</div><div class="is-title">100% Private &amp; Local</div><div class="is-body">Operates entirely on local hardware. Zero audio logs, habit graphs, or room signals leave your building unless an authorized admin explicitly requests a verified external data sync.</div></div>
+      <div class="is-card is-g"><div class="is-ico">🤫</div><div class="is-title">Voice-First &amp; Quiet</div><div class="is-body">Designed as a voice-first assistant without mandatory screens or app pop-ups. Executes quietly in the background while fully respecting physical wall switches and remote hardware controls.</div></div>
+      <div class="is-card is-g"><div class="is-ico">🎯</div><div class="is-title">Honest &amp; Direct</div><div class="is-body">Delivers factual truth grounded in real-time sensor data. No excuses, white lies, or guessing. If Jemm lacks verified sensor data, it states so plainly without making answers up.</div></div>
+      <div class="is-card is-g"><div class="is-ico">🖐️</div><div class="is-title">Respectful &amp; Deferential</div><div class="is-body">Yields completely within 500 milliseconds the moment a human touches a physical wall switch, thermostat dial, or shade pull. Physical switch state is always treated as unchallengeable ground truth.</div></div>
     </div>
     <!-- RIGHT: Jemm IS NOT -->
     <div class="is-col">
       <div class="is-col-hd is-col-hd-r">Jemm IS NOT</div>
-      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Cloud Spy</div><div class="is-body">Never transmits private voice recordings, behavioral habits, or occupancy data to any public cloud server, analytics platform, or third-party service. Ever.</div></div>
-      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT an Annoying Chatbot</div><div class="is-body">Never delivers long speeches, unsolicited lectures, or unnecessary interruptions. Every response is the shortest accurate answer, nothing more. Brevity is a service.</div></div>
-      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Fake Flatterer</div><div class="is-body">Eliminates sycophancy, RLHF-style empty praise, and hollow validation. "Oh great question!" and "Absolutely!" are anti-patterns, not openers. Ever.</div></div>
-      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT Stubborn</div><div class="is-body">Never fights for environmental control. Never re-executes a scene canceled by a physical override. Never pushes error notifications when a user manually changes a device.</div></div>
+      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Data Harvester</div><div class="is-body">Never harvests habits or background voice data for public clouds or analytics. Unapproved outbound cloud transfers are blocked, while intentional user exports undergo strict permission checks first.</div></div>
+      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT an Intrusive Chatbot</div><div class="is-body">Never delivers long speeches, unsolicited lectures, or unnecessary announcements. Every spoken response is calibrated to be the shortest accurate answer possible. Brevity is treated as a core service.</div></div>
+      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT a Fake Flatterer</div><div class="is-body">Eliminates sycophancy, empty praise, and hollow conversational openers like "Great question!" or "I'd love to help!". Every word carries purpose, direct clarity, and zero performative politeness.</div></div>
+      <div class="is-card is-r"><div class="is-ico">🚫</div><div class="is-title">NOT Stubborn</div><div class="is-body">Never fights humans for spatial control. Never re-runs an automated scene canceled by a manual switch flip, and never pushes nagging error notifications when you adjust a physical setting yourself.</div></div>
     </div>
   </div>
 </section>
@@ -885,7 +886,8 @@ window.onerror=function(msg,src,line,col,err){
   <p class="sec-sub" style="margin-top:16px">In a multi-room property, spatial quietness is preserved by illuminating strictly the single microphone node nearest to the speaker using localized acoustic beamforming. Peripheral nodes in adjacent rooms remain dark. When speech ends, the active node provides a 200ms inward ripple cue, pulses during local processing, and decays back to a dark matte state within 500ms of execution.</p>
 
   <!-- Node state cards -->
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+  <h3 class="sec-h3" style="margin-bottom:12px;margin-top:40px">Microphone &amp; Speaker Node Visual States</h3>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
 
     <!-- Idle -->
     <div class="p-6 rounded-2xl bg-[#141A17] border border-[#222C27] flex flex-col items-center text-center gap-4">
@@ -961,6 +963,113 @@ window.onerror=function(msg,src,line,col,err){
       </tbody>
     </table>
   </div>
+
+  <!-- ── Live Spatial Processing Trace ── -->
+  <div style="margin-top:40px;padding-top:32px;border-top:1px solid #222C27">
+    <h3 class="sec-h3" style="margin-bottom:8px">How a Voice Command Travels Through Jemm</h3>
+    <p class="pc-body" style="margin-bottom:28px;font-size:13px">From the moment you speak, this is the visual journey: your voice is picked up by the nearest room node, sent to the Jemm Arc for private on-device processing, and then delivered back through the same node as a spoken response. Nothing leaves the building.</p>
+
+    <!-- 4-step trace container -->
+    <div style="background:#F2F2F2;border-radius:20px;padding:24px 20px 28px;position:relative">
+
+      <!-- Run button top-center -->
+      <div style="text-align:center;margin-bottom:20px">
+        <button onclick="runArcTrace()" style="font-size:13px;font-weight:600;color:#fff;background:#059161;border:none;border-radius:8px;padding:9px 24px;cursor:pointer;transition:opacity .2s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">▶ Run Trace</button>
+      </div>
+
+      <!-- 4 column header labels -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:16px">
+        <div style="text-align:center;padding-bottom:12px;border-right:1px solid #D0D5D2">
+          <div style="font-size:17px;font-weight:700;color:#121212">①</div>
+          <div style="font-size:13px;font-weight:600;color:#121212;margin-top:3px">You Speak</div>
+          <div style="font-size:11px;color:#888;margin-top:1px">Voice query</div>
+        </div>
+        <div style="text-align:center;padding-bottom:12px;border-right:1px solid #D0D5D2">
+          <div style="font-size:17px;font-weight:700;color:#121212">②</div>
+          <div style="font-size:13px;font-weight:600;color:#121212;margin-top:3px">Mic Listens</div>
+          <div style="font-size:11px;color:#888;margin-top:1px">Node wakes up</div>
+        </div>
+        <div style="text-align:center;padding-bottom:12px;border-right:1px solid #D0D5D2">
+          <div style="font-size:17px;font-weight:700;color:#121212">③</div>
+          <div style="font-size:13px;font-weight:600;color:#121212;margin-top:3px">Arc Processes</div>
+          <div style="font-size:11px;color:#888;margin-top:1px">On-device only</div>
+        </div>
+        <div style="text-align:center;padding-bottom:12px;">
+          <div style="font-size:17px;font-weight:700;color:#121212">④</div>
+          <div style="font-size:13px;font-weight:600;color:#121212;margin-top:3px">Jemm Responds</div>
+          <div style="font-size:11px;color:#888;margin-top:1px">Spoken locally</div>
+        </div>
+      </div>
+
+      <!-- 4 column body -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;align-items:center;min-height:160px">
+
+        <!-- COL 1: speech bubble -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 16px 0 4px;border-right:1px solid #D0D5D2;height:100%">
+          <div id="arcSpeechBubble" style="background:#0B0F0D;border:1.5px solid #2A3530;border-radius:14px 14px 14px 2px;padding:16px;width:100%;transition:border-color .4s,box-shadow .4s">
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9CA8A0" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              <span style="font-size:10px;color:#9CA8A0;font-weight:600;letter-spacing:.05em;text-transform:uppercase">You</span>
+            </div>
+            <div id="arcUserText" style="font-size:15px;color:#F2F2F2;line-height:1.5;font-style:italic">"Hey Jemm, is Conference Room B free right now?"</div>
+          </div>
+        </div>
+
+        <!-- COL 2: Mic node (input) -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:0 12px;border-right:1px solid #D0D5D2;height:100%">
+          <div id="arcMicIn" style="width:76px;height:76px;border-radius:50%;background:#0B0F0D;border:2px solid #222C27;display:flex;align-items:center;justify-content:center;transition:border-color .4s,box-shadow .4s">
+            <img src="jemm-mark.png" id="arcMicInImg" alt="Mic node" style="width:30px;height:30px;opacity:.25;filter:grayscale(1) brightness(1.5);transition:opacity .4s,filter .4s">
+          </div>
+          <span id="arcMicStatus" style="font-size:11px;color:#888;text-align:center;transition:color .4s">Sleeping</span>
+        </div>
+
+        <!-- COL 3: Jemm Arc rectangle -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 12px;border-right:1px solid #D0D5D2;height:100%">
+          <!-- arrow in -->
+          <svg id="arcArrowIn" width="36" height="14" viewBox="0 0 36 14" fill="none" style="opacity:.25;transition:opacity .4s;transform:rotate(-90deg)">
+            <path d="M0 7h28M22 1l8 6-8 6" stroke="#00D58C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div id="arcBrainUnit" style="width:60px;height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;border-radius:8px;border:1.5px solid #2A3530;background:#0B0F0D;transition:border-color .4s,box-shadow .4s">
+            <img src="jemm-mark.png" id="arcBrainListen" alt="Jemm Arc" style="width:24px;height:24px;opacity:.25;filter:grayscale(1) brightness(1.5);transition:opacity .4s,filter .4s">
+            <div style="position:absolute;bottom:8px;width:55%;display:flex;flex-direction:column;gap:2px;opacity:.18">
+              <div style="height:1px;background:#4A5550"></div>
+              <div style="height:1px;background:#4A5550"></div>
+              <div style="height:1px;background:#4A5550"></div>
+            </div>
+          </div>
+          <!-- arrow out -->
+          <svg id="arcArrowOut" width="36" height="14" viewBox="0 0 36 14" fill="none" style="opacity:.25;transition:opacity .4s;transform:rotate(-90deg)">
+            <path d="M0 7h28M22 1l8 6-8 6" stroke="#00D58C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="arcStatus" style="font-size:10px;color:#888;text-align:center;transition:color .4s">Idle</span>
+        </div>
+
+        <!-- COL 4: Response bubble -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 4px 0 16px;height:100%">
+          <div id="arcResponse" style="background:#0B0F0D;border:1.5px solid #2A3530;border-radius:14px 14px 2px 14px;padding:16px;width:100%;transition:border-color .4s,box-shadow .4s,opacity .4s;opacity:.3">
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px">
+              <img src="jemm-mark.png" style="width:12px;height:12px;opacity:.5;filter:grayscale(1) brightness(2)">
+              <span style="font-size:10px;color:#9CA8A0;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Jemm</span>
+            </div>
+            <div id="arcRespText" style="font-size:15px;color:#F2F2F2;line-height:1.5;font-style:italic">"Conference Room B is available. No bookings until 3 PM."</div>
+            <div style="font-size:10px;color:#666;margin-top:8px">Tone: Clinical · 100% Local</div>
+          </div>
+        </div>
+
+      </div><!-- /4 col body -->
+    </div><!-- /outer container -->
+
+    <!-- Deep trace link -->
+    <div style="margin-top:20px;text-align:right">
+      <div style="font-size:11px;color:var(--tm)">How does Jemm train itself before speaking?</div>
+      <a href="#pipeline" style="font-size:12px;font-weight:700;color:var(--ac);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-top:2px">
+        Deep Trace: View Constitutional AI Funnel &amp; CAI Critique
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    </div>
+  </div>
+
 </section>
 
 <hr class="sec-div">
@@ -2567,6 +2676,103 @@ function updateSliders(){
     },2000);
   }
 }
+
+/* ── Spatial Hardware: Arc Processing Trace (4-step sequential) ── */
+(function(){
+  const timers=[];
+  function at(ms,fn){timers.push(setTimeout(fn,ms));}
+  const GLOW='brightness(0) invert(1) sepia(1) saturate(6) hue-rotate(110deg) brightness(1.3) drop-shadow(0 0 8px #00D58C)';
+  const DIM='grayscale(1) brightness(1.5)';
+
+  window.runArcTrace=function(){
+    // cancel previous run
+    timers.forEach(clearTimeout); timers.length=0;
+
+    // grab elements
+    const speechBubble=document.getElementById('arcSpeechBubble');
+    const userTxt=document.getElementById('arcUserText');
+    const micIn=document.getElementById('arcMicIn');
+    const micInImg=document.getElementById('arcMicInImg');
+    const micStatus=document.getElementById('arcMicStatus');
+    const arcBrainL=document.getElementById('arcBrainListen');
+    const arcUnit=document.getElementById('arcBrainUnit');
+    const arcArrowIn=document.getElementById('arcArrowIn');
+    const arcArrowOut=document.getElementById('arcArrowOut');
+    const arcStatus=document.getElementById('arcStatus');
+    const arcResp=document.getElementById('arcResponse');
+    const arcRespTxt=document.getElementById('arcRespText');
+    if(!micIn||!arcResp)return;
+
+    // ── RESET to fully idle ──
+    if(speechBubble){speechBubble.style.borderColor='#2A3530';speechBubble.style.boxShadow='none';}
+    if(userTxt){userTxt.style.color='#F2F2F2';userTxt.style.opacity='.3';}
+    micIn.style.borderColor='#222C27'; micIn.style.boxShadow='none';
+    if(micInImg){micInImg.style.opacity='.25';micInImg.style.filter=DIM;}
+    if(micStatus){micStatus.textContent='Sleeping';micStatus.style.color='#888';}
+    if(arcBrainL){arcBrainL.style.opacity='.25';arcBrainL.style.filter=DIM;}
+    if(arcUnit){arcUnit.style.borderColor='#2A3530';arcUnit.style.boxShadow='none';}
+    if(arcArrowIn){arcArrowIn.style.opacity='.25';}
+    if(arcArrowOut){arcArrowOut.style.opacity='.25';}
+    if(arcStatus){arcStatus.textContent='Idle';arcStatus.style.color='#888';}
+    arcResp.style.borderColor='#2A3530';arcResp.style.boxShadow='none';arcResp.style.opacity='.3';
+    if(arcRespTxt){arcRespTxt.style.opacity='.3';}
+
+    // ── STEP 1 (400ms): Query appears in speech bubble ──
+    at(400,()=>{
+      if(speechBubble){speechBubble.style.borderColor='rgba(0,213,140,.5)';speechBubble.style.boxShadow='0 0 12px rgba(0,213,140,.12)';}
+      if(userTxt){userTxt.style.opacity='1';userTxt.textContent='"Hey Jemm, is Conference Room B free right now?"';}
+    });
+
+    // ── STEP 2 (1300ms): Mic node lights up (active listening) ──
+    at(1300,()=>{
+      // speech bubble dims back
+      if(speechBubble){speechBubble.style.borderColor='#2A3530';speechBubble.style.boxShadow='none';}
+      // mic wakes
+      micIn.style.borderColor='#00D58C';micIn.style.boxShadow='0 0 18px rgba(0,213,140,.4)';
+      if(micInImg){micInImg.style.opacity='1';micInImg.style.filter=GLOW;}
+      if(micStatus){micStatus.textContent='Active listening';micStatus.style.color='#00D58C';}
+      if(arcArrowIn){arcArrowIn.style.opacity='1';}
+      if(arcBrainL){arcBrainL.style.opacity='.6';arcBrainL.style.filter=GLOW;}
+      if(arcStatus){arcStatus.textContent='Receiving...';arcStatus.style.color='#00D58C';}
+    });
+
+    // ── STEP 3 (2400ms): Arc processes — border + logo fully light up ──
+    at(2400,()=>{
+      // mic dims back
+      micIn.style.borderColor='#222C27';micIn.style.boxShadow='none';
+      if(micInImg){micInImg.style.opacity='.25';micInImg.style.filter=DIM;}
+      if(micStatus){micStatus.textContent='Sleeping';micStatus.style.color='#888';}
+      // Arc unit border glows
+      if(arcUnit){arcUnit.style.borderColor='#00D58C';arcUnit.style.boxShadow='0 0 22px rgba(0,213,140,.35)';}
+      if(arcBrainL){arcBrainL.style.opacity='1';arcBrainL.style.filter=GLOW;}
+      if(arcStatus){arcStatus.textContent='Processing on local silicon...';arcStatus.style.color='#00D58C';}
+    });
+
+    // ── STEP 4 (3700ms): Response delivered ──
+    at(3700,()=>{
+      // Arc dims
+      if(arcUnit){arcUnit.style.borderColor='#2A3530';arcUnit.style.boxShadow='none';}
+      if(arcBrainL){arcBrainL.style.opacity='.25';arcBrainL.style.filter=DIM;}
+      if(arcArrowOut){arcArrowOut.style.opacity='1';}
+      if(arcStatus){arcStatus.textContent='Response sent';arcStatus.style.color='#00D58C';}
+      // response card reveals
+      arcResp.style.borderColor='rgba(0,213,140,.55)';arcResp.style.boxShadow='0 0 24px rgba(0,213,140,.18)';arcResp.style.opacity='1';
+      if(arcRespTxt){arcRespTxt.style.opacity='1';arcRespTxt.textContent='"Conference Room B is available. No bookings until 3 PM."';}
+    });
+
+    // ── STEP 5 (5800ms): Full idle reset ──
+    at(5800,()=>{
+      if(arcArrowIn){arcArrowIn.style.opacity='.25';}
+      if(arcArrowOut){arcArrowOut.style.opacity='.25';}
+      if(arcStatus){arcStatus.textContent='Idle';arcStatus.style.color='#888';}
+      arcResp.style.borderColor='#2A3530';arcResp.style.boxShadow='none';arcResp.style.opacity='.3';
+      if(arcRespTxt){arcRespTxt.style.opacity='.3';}
+    });
+  };
+
+  // Auto-run once on load
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(runArcTrace,1000));
+})();
 
 </script>
 </body>
