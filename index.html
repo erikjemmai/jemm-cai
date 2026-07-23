@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-  <meta name="build" content="1784755441">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+  <meta name="build" content="1784841862">
 <title>Jemm Behavioral Tenets &amp; Alignment Principles - v1.0</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -707,6 +710,17 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 @keyframes cai-rev-spin{to{transform:rotate(360deg)}}
 .cai-rev-spin{animation:cai-rev-spin .9s linear infinite;display:inline-block}
 </style>
+<script>
+/* ── ERROR CATCHER (separate block catches parse errors from main script) ── */
+window.__jsErrors=[];
+window.onerror=function(msg,src,line,col,err){
+  window.__jsErrors.push({msg,line,col,err});
+  let d=document.getElementById('__debugBanner');
+  if(!d){d=document.createElement('div');d.id='__debugBanner';d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#cc0000;color:#fff;padding:12px 16px;font:700 13px/1.5 monospace;white-space:pre-wrap;max-height:160px;overflow:auto;';document.body.appendChild(d);}
+  d.textContent=(d.textContent||'')+'\u274c JS '+msg+' (line '+line+', col '+col+')\n';
+  return false;
+};
+</script>
 </head>
 <body>
 <!-- TOPBAR -->
