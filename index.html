@@ -770,7 +770,7 @@ window.onerror=function(msg,src,line,col,err){
       <a href="#spatial-hardware" class="drawer-link" data-sec="spatial-hardware"><span class="dl-txt">Spatial Hardware</span></a>
       <a href="#tiers"    class="drawer-link" data-sec="tiers"><span class="dl-txt">Jemm Principles</span></a>
       <a href="#pipeline" class="drawer-link" data-sec="pipeline"><span class="dl-txt">Evaluation Loop</span></a>
-      <a href="#system-reliability" class="drawer-link" data-sec="system-reliability"><span class="dl-txt">System Memory</span></a>
+      <a href="#system-reliability" class="drawer-link" data-sec="system-reliability"><span class="dl-txt">Reliability & Memory</span></a>
       <a href="#evaluators" class="drawer-link" data-sec="evaluators"><span class="dl-txt">AI Personas (RLAIF)</span></a>
     </div>
     <!-- Group: Alignment Framework -->
@@ -1506,38 +1506,40 @@ window.onerror=function(msg,src,line,col,err){
 
 <!-- SYSTEM RELIABILITY -->
 <section class="section" id="system-reliability">
-<div class="sec-title-row"><h2 class="sec-h2">System Reliability &amp; Memory</h2><button class="anc-ico" onclick="copyAnchor('system-reliability',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-  <p class="sec-sub">As an air-gapped estate OS, Jemm operates with complete fault tolerance. External internet outages have zero impact on voice processing, lighting relays, or climate controls. If a local hardware sensor drops off the network bus, Jemm plainly states the affected device without confabulating state.</p>
-  <p class="sec-sub" style="margin-top:16px">Behavioral preference graphs built by local edge learning remain entirely transparent. L1 Owners maintain full control to inspect habit logs or issue a single voice command - <em>"Jemm, erase all learned habits for the Living Room"</em> - to permanently destroy local preference encryption keys with zero cloud residue.</p>
+<div class="sec-title-row"><h2 class="sec-h2">Fault Tolerance, Privacy Controls &amp; Memory</h2><button class="anc-ico" onclick="copyAnchor('system-reliability',this)" title="Copy link to section"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+  <p class="sec-sub">Jemm is built to keep your property running reliably no matter what happens to external networks. Because all processing runs locally inside your building, internet outages have zero impact on voice commands, lighting controls, or climate systems. If a hardware sensor goes offline or fails, Jemm tells you plainly which device is unresponsive without guessing or making up false status reports.</p>
+
+  <h3 class="sec-h3" style="margin-bottom:16px">Complete Control Over Your Learned Data</h3>
+  <p class="sec-sub">Your privacy and memory controls are completely transparent. Jemm builds occupant preference profiles locally, and Primary Admins retain total ownership over that data at all times.</p>
 
   <div class="sr-grid">
     <div class="sr-card">
       <div class="sr-card-hd">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span class="sr-card-lbl">Offline-First Architecture</span>
+        <span class="sr-card-lbl">100% Offline-First</span>
       </div>
-      <p class="sr-card-body">All voice processing, device control, and scene automation execute entirely on local node silicon. Internet connectivity is never a dependency for core estate functions.</p>
+      <p class="sr-card-body">Voice processing, room automations, and privacy guardrails operate entirely inside your building. Internet connectivity is never required for core property controls.</p>
     </div>
     <div class="sr-card">
       <div class="sr-card-hd">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         <span class="sr-card-lbl">Sensor Dropout Handling</span>
       </div>
-      <p class="sr-card-body">If a zone sensor goes offline, Jemm reports its absence accurately and halts predictions for that zone. No state is confabulated or assumed from cached data.</p>
+      <p class="sr-card-body">If a temperature or motion sensor loses power, Jemm accurately reports its absence and stops making automated predictions for that zone until the sensor is back online.</p>
     </div>
     <div class="sr-card">
       <div class="sr-card-hd">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.77"/></svg>
-        <span class="sr-card-lbl">Memory Transparency &amp; Erasure</span>
+        <span class="sr-card-lbl">Instant Habit Erasure</span>
       </div>
-      <p class="sr-card-body">L1 Owners can inspect full behavioral preference logs at any time. A single voice command permanently destroys local encryption keys for any zone, with zero cloud residue.</p>
+      <p class="sr-card-body">Primary Admins can view preference logs or issue a single voice command — <em>"Jemm, erase all learned habits for the Living Room"</em> — to permanently destroy local memory keys for that zone with zero cloud residue.</p>
     </div>
     <div class="sr-card">
       <div class="sr-card-hd">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span class="sr-card-lbl">Graceful Degradation</span>
+        <span class="sr-card-lbl">Isolated Zone Protection</span>
       </div>
-      <p class="sr-card-body">Hardware node failures isolate to their zone. The rest of the estate continues operating at full capacity with no cascading failures or system-wide resets required.</p>
+      <p class="sr-card-body">A hardware failure in one room stays contained to that room. The rest of the building continues working normally without cascading system crashes or full restarts.</p>
     </div>
   </div>
 </section>
