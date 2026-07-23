@@ -2687,7 +2687,7 @@ function updateSliders(){
     // cancel previous run
     timers.forEach(clearTimeout); timers.length=0;
 
-    // grab elements
+    // grab elements (all may be null if section not rendered)
     const speechBubble=document.getElementById('arcSpeechBubble');
     const userTxt=document.getElementById('arcUserText');
     const micIn=document.getElementById('arcMicIn');
@@ -2700,72 +2700,72 @@ function updateSliders(){
     const arcStatus=document.getElementById('arcStatus');
     const arcResp=document.getElementById('arcResponse');
     const arcRespTxt=document.getElementById('arcRespText');
+
+    // bail early if key elements missing
     if(!micIn||!arcResp)return;
 
+    // helper: safe style setter
+    function ss(el,prop,val){if(el&&el.style)el.style[prop]=val;}
+    function st(el,txt){if(el)el.textContent=txt;}
+
     // ── RESET to fully idle ──
-    if(speechBubble){speechBubble.style.borderColor='#2A3530';speechBubble.style.boxShadow='none';}
-    if(userTxt){userTxt.style.color='#F2F2F2';userTxt.style.opacity='.3';}
-    micIn.style.borderColor='#222C27'; micIn.style.boxShadow='none';
-    if(micInImg){micInImg.style.opacity='.25';micInImg.style.filter=DIM;}
-    if(micStatus){micStatus.textContent='Sleeping';micStatus.style.color='#888';}
-    if(arcBrainL){arcBrainL.style.opacity='.25';arcBrainL.style.filter=DIM;}
-    if(arcUnit){arcUnit.style.borderColor='#2A3530';arcUnit.style.boxShadow='none';}
-    if(arcArrowIn){arcArrowIn.style.opacity='.25';}
-    if(arcArrowOut){arcArrowOut.style.opacity='.25';}
-    if(arcStatus){arcStatus.textContent='Idle';arcStatus.style.color='#888';}
-    arcResp.style.borderColor='#2A3530';arcResp.style.boxShadow='none';arcResp.style.opacity='.3';
-    if(arcRespTxt){arcRespTxt.style.opacity='.3';}
+    ss(speechBubble,'borderColor','#2A3530'); ss(speechBubble,'boxShadow','none');
+    if(userTxt){ss(userTxt,'color','#F2F2F2'); ss(userTxt,'opacity','.3');}
+    ss(micIn,'borderColor','#222C27'); ss(micIn,'boxShadow','none');
+    if(micInImg){ss(micInImg,'opacity','.25'); ss(micInImg,'filter',DIM);}
+    if(micStatus){st(micStatus,'Sleeping'); ss(micStatus,'color','#888');}
+    if(arcBrainL){ss(arcBrainL,'opacity','.25'); ss(arcBrainL,'filter',DIM);}
+    if(arcUnit){ss(arcUnit,'borderColor','#2A3530'); ss(arcUnit,'boxShadow','none');}
+    if(arcArrowIn) ss(arcArrowIn,'opacity','.25');
+    if(arcArrowOut) ss(arcArrowOut,'opacity','.25');
+    if(arcStatus){st(arcStatus,'Idle'); ss(arcStatus,'color','#888');}
+    ss(arcResp,'borderColor','#2A3530'); ss(arcResp,'boxShadow','none'); ss(arcResp,'opacity','.3');
+    if(arcRespTxt) ss(arcRespTxt,'opacity','.3');
 
     // ── STEP 1 (400ms): Query appears in speech bubble ──
     at(400,()=>{
-      if(speechBubble){speechBubble.style.borderColor='rgba(0,213,140,.5)';speechBubble.style.boxShadow='0 0 12px rgba(0,213,140,.12)';}
-      if(userTxt){userTxt.style.opacity='1';userTxt.textContent='"Hey Jemm, is Conference Room B free right now?"';}
+      ss(speechBubble,'borderColor','rgba(0,213,140,.5)'); ss(speechBubble,'boxShadow','0 0 12px rgba(0,213,140,.12)');
+      if(userTxt){ss(userTxt,'opacity','1'); st(userTxt,'"Hey Jemm, is Conference Room B free right now?"');}
     });
 
     // ── STEP 2 (1300ms): Mic node lights up (active listening) ──
     at(1300,()=>{
-      // speech bubble dims back
-      if(speechBubble){speechBubble.style.borderColor='#2A3530';speechBubble.style.boxShadow='none';}
-      // mic wakes
-      micIn.style.borderColor='#00D58C';micIn.style.boxShadow='0 0 18px rgba(0,213,140,.4)';
-      if(micInImg){micInImg.style.opacity='1';micInImg.style.filter=GLOW;}
-      if(micStatus){micStatus.textContent='Active listening';micStatus.style.color='#00D58C';}
-      if(arcArrowIn){arcArrowIn.style.opacity='1';}
-      if(arcBrainL){arcBrainL.style.opacity='.6';arcBrainL.style.filter=GLOW;}
-      if(arcStatus){arcStatus.textContent='Receiving...';arcStatus.style.color='#00D58C';}
+      ss(speechBubble,'borderColor','#2A3530'); ss(speechBubble,'boxShadow','none');
+      ss(micIn,'borderColor','#00D58C'); ss(micIn,'boxShadow','0 0 18px rgba(0,213,140,.4)');
+      if(micInImg){ss(micInImg,'opacity','1'); ss(micInImg,'filter',GLOW);}
+      if(micStatus){st(micStatus,'Active listening'); ss(micStatus,'color','#00D58C');}
+      if(arcArrowIn) ss(arcArrowIn,'opacity','1');
+      if(arcBrainL){ss(arcBrainL,'opacity','.6'); ss(arcBrainL,'filter',GLOW);}
+      if(arcStatus){st(arcStatus,'Receiving...'); ss(arcStatus,'color','#00D58C');}
     });
 
-    // ── STEP 3 (2400ms): Arc processes — border + logo fully light up ──
+    // ── STEP 3 (2400ms): Arc processes ──
     at(2400,()=>{
-      // mic dims back
-      micIn.style.borderColor='#222C27';micIn.style.boxShadow='none';
-      if(micInImg){micInImg.style.opacity='.25';micInImg.style.filter=DIM;}
-      if(micStatus){micStatus.textContent='Sleeping';micStatus.style.color='#888';}
-      // Arc unit border glows
-      if(arcUnit){arcUnit.style.borderColor='#00D58C';arcUnit.style.boxShadow='0 0 22px rgba(0,213,140,.35)';}
-      if(arcBrainL){arcBrainL.style.opacity='1';arcBrainL.style.filter=GLOW;}
-      if(arcStatus){arcStatus.textContent='Processing on local silicon...';arcStatus.style.color='#00D58C';}
+      ss(micIn,'borderColor','#222C27'); ss(micIn,'boxShadow','none');
+      if(micInImg){ss(micInImg,'opacity','.25'); ss(micInImg,'filter',DIM);}
+      if(micStatus){st(micStatus,'Sleeping'); ss(micStatus,'color','#888');}
+      if(arcUnit){ss(arcUnit,'borderColor','#00D58C'); ss(arcUnit,'boxShadow','0 0 22px rgba(0,213,140,.35)');}
+      if(arcBrainL){ss(arcBrainL,'opacity','1'); ss(arcBrainL,'filter',GLOW);}
+      if(arcStatus){st(arcStatus,'Processing on local silicon...'); ss(arcStatus,'color','#00D58C');}
     });
 
     // ── STEP 4 (3700ms): Response delivered ──
     at(3700,()=>{
-      // Arc dims
-      if(arcUnit){arcUnit.style.borderColor='#2A3530';arcUnit.style.boxShadow='none';}
-      if(arcBrainL){arcBrainL.style.opacity='.25';arcBrainL.style.filter=DIM;}
-      if(arcArrowOut){arcArrowOut.style.opacity='1';}
-      if(arcStatus){arcStatus.textContent='Response sent';arcStatus.style.color='#00D58C';}
-      // response card reveals
-      arcResp.style.borderColor='rgba(0,213,140,.55)';arcResp.style.boxShadow='0 0 24px rgba(0,213,140,.18)';arcResp.style.opacity='1';
-      if(arcRespTxt){arcRespTxt.style.opacity='1';arcRespTxt.textContent='"Conference Room B is available. No bookings until 3 PM."';}
+      if(arcUnit){ss(arcUnit,'borderColor','#2A3530'); ss(arcUnit,'boxShadow','none');}
+      if(arcBrainL){ss(arcBrainL,'opacity','.25'); ss(arcBrainL,'filter',DIM);}
+      if(arcArrowOut) ss(arcArrowOut,'opacity','1');
+      if(arcStatus){st(arcStatus,'Response sent'); ss(arcStatus,'color','#00D58C');}
+      ss(arcResp,'borderColor','rgba(0,213,140,.55)'); ss(arcResp,'boxShadow','0 0 24px rgba(0,213,140,.18)'); ss(arcResp,'opacity','1');
+      if(arcRespTxt){ss(arcRespTxt,'opacity','1'); st(arcRespTxt,'"Conference Room B is available. No bookings until 3 PM."');}
     });
 
     // ── STEP 5 (5800ms): Full idle reset ──
     at(5800,()=>{
-      if(arcArrowIn){arcArrowIn.style.opacity='.25';}
-      if(arcArrowOut){arcArrowOut.style.opacity='.25';}
-      if(arcStatus){arcStatus.textContent='Idle';arcStatus.style.color='#888';}
-      arcResp.style.borderColor='#2A3530';arcResp.style.boxShadow='none';arcResp.style.opacity='.3';
-      if(arcRespTxt){arcRespTxt.style.opacity='.3';}
+      if(arcArrowIn) ss(arcArrowIn,'opacity','.25');
+      if(arcArrowOut) ss(arcArrowOut,'opacity','.25');
+      if(arcStatus){st(arcStatus,'Idle'); ss(arcStatus,'color','#888');}
+      ss(arcResp,'borderColor','#2A3530'); ss(arcResp,'boxShadow','none'); ss(arcResp,'opacity','.3');
+      if(arcRespTxt) ss(arcRespTxt,'opacity','.3');
     });
   };
 
