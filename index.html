@@ -111,8 +111,9 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 }
 .sb-backdrop{display:none;position:fixed;inset:0;z-index:89;background:rgba(0,0,0,.5)}
 .sb-backdrop.open{display:block}
-.content-wrap{max-width:var(--wrap);margin:0 auto;padding:40px 16px}
-@media(max-width:600px){.content-wrap{padding:20px 12px 32px}}
+.content-wrap{max-width:var(--wrap);margin:0 auto;padding:40px 40px}
+@media(max-width:1024px){.content-wrap{padding:40px 32px}}
+@media(max-width:480px){.content-wrap{padding:24px 16px}}
 /* ============================================================ UX BANNER */
 .ux-banner{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:#EFF6FF;border:1px solid rgba(59,130,246,.3);border-radius:10px;padding:13px 16px;margin:20px 0 32px}
 :root[data-theme=dark] .ux-banner{background:rgba(59,130,246,.07);border-color:rgba(59,130,246,.2)}
