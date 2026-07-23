@@ -266,7 +266,26 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 /* ── System Reliability ── */
 .sr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
 @media(max-width:640px){.sr-grid{grid-template-columns:1fr}}
-@media(max-width:760px){.ep-inner-grid{grid-template-columns:1fr!important;border-right:none!important}}
+/* ── Persona card responsive grids ── */
+.ep-3grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ep-4grid{display:grid;gap:10px}
+.ep-5grid{display:grid;gap:10px;margin-bottom:32px}
+.ep-2grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ep-gate-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:860px){
+  .ep-inner-grid{grid-template-columns:1fr!important}
+  .ep-inner-grid>div:first-child{border-right:none!important;border-bottom:1px solid var(--bd)}
+  .ep-3grid{grid-template-columns:1fr!important}
+  .ep-4grid{grid-template-columns:repeat(2,1fr)!important}
+  .ep-5grid{grid-template-columns:repeat(2,1fr)!important}
+  .ep-gate-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:520px){
+  .ep-4grid{grid-template-columns:1fr!important}
+  .ep-5grid{grid-template-columns:1fr!important}
+  .ep-2grid{grid-template-columns:1fr!important}
+}
+
 .sr-card{background:var(--bg-c);border:1.5px solid var(--bd);border-radius:12px;padding:18px 20px}
 .sr-card-hd{display:flex;align-items:center;gap:9px;margin-bottom:10px}
 .sr-card-lbl{font-size:13px;font-weight:700;color:var(--th)}
@@ -1559,10 +1578,10 @@ window.onerror=function(msg,src,line,col,err){
       <div>
         <h2 class="sec-h2" style="margin:0 0 10px;line-height:1.1">L1 Primary Admin Profile</h2>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-          <span style="background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;white-space:nowrap">LEVEL 1 · PRIMARY ADMIN</span>
-          <span style="font-size:12px;font-weight:600;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd);border-radius:6px;padding:3px 10px">Head of Household</span>
-          <span style="font-size:12px;font-weight:600;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd);border-radius:6px;padding:3px 10px">Executive</span>
-          <span style="font-size:12px;font-weight:600;background:var(--ac-dim);color:var(--ac);border:1px solid var(--ac-bd);border-radius:6px;padding:3px 10px">General Manager</span>
+          <span style="background:#059161;color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;white-space:nowrap">LEVEL 1 · PRIMARY ADMIN</span>
+          <span style="font-size:12px;font-weight:600;background:#059161;color:#fff;border-radius:6px;padding:3px 10px">Head of Household</span>
+          <span style="font-size:12px;font-weight:600;background:#059161;color:#fff;border-radius:6px;padding:3px 10px">Executive</span>
+          <span style="font-size:12px;font-weight:600;background:#059161;color:#fff;border-radius:6px;padding:3px 10px">General Manager</span>
         </div>
       </div>
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tm);white-space:nowrap">Register: Clinical &amp; Direct</span>
@@ -1603,7 +1622,7 @@ window.onerror=function(msg,src,line,col,err){
       <div style="padding:24px 28px;display:flex;flex-direction:column;gap:24px">
         <div>
           <h3 class="sec-h3" style="margin-bottom:14px">Anecdotes</h3>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+          <div class="ep-3grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"I don't care how it works — I care that it runs quietly and never sends my data outside this building."</p></div>
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"If my wall switch fights the automation, the automation loses. Every time. Non-negotiable."</p></div>
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"My calendar, habits, and voice patterns are mine. Not a cloud company's. Not anyone else's."</p></div>
@@ -1613,7 +1632,7 @@ window.onerror=function(msg,src,line,col,err){
           <h3 class="sec-h3" style="margin-bottom:10px">Bio</h3>
           <p style="font-size:16px;color:var(--tb);line-height:1.65;margin:0">This persona is a highly successful executive who views their property as a sacred, private sanctuary. They face an incredibly high cognitive load during the workday and are willing to pay a luxury premium for absolute convenience — welcoming advanced technology only if the infrastructure explicitly protects their family. They refuse to compromise on data sovereignty, opting for integrated, local infrastructure that can adapt to their fluid lifestyle across multiple properties.</p>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="ep-2grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
           <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:16px">
             <h4 style="font-size:13px;font-weight:700;color:var(--th);margin-bottom:6px">Learning Style</h4>
             <p style="font-size:14px;color:var(--tb);line-height:1.6;margin:0">Visual and analytical. Processes trust through architecture documentation, not marketing. Prefers local demos and clear diagrams over verbal promises.</p>
@@ -1625,7 +1644,7 @@ window.onerror=function(msg,src,line,col,err){
         </div>
         <div>
           <h3 class="sec-h3" style="margin-bottom:14px">Perceived Risks</h3>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
+          <div class="ep-4grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
               <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">Privacy Risk</div>
               <p style="font-size:13px;color:var(--tb);line-height:1.55;margin:0">Big tech silently streaming household audio and habits to remote corporate servers.</p>
             </div>            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
@@ -1644,7 +1663,7 @@ window.onerror=function(msg,src,line,col,err){
 
     <div style="padding:28px 32px;border-top:1px solid var(--bd)">
       <h3 class="sec-h3" style="margin-bottom:16px">Jobs To Be Done</h3>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
+      <div class="ep-5grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
               <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:5px">Mental Focus &amp; Control</div>
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Stop wasting cognitive energy on trivial household decisions.</p>
             </div>            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
@@ -1661,7 +1680,7 @@ window.onerror=function(msg,src,line,col,err){
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Hand off daily household logistics entirely.</p>
             </div></div>
       <h3 class="sec-h3" style="margin-bottom:16px">Motivations &amp; Goals</h3>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
+      <div class="ep-5grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
               <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:5px">Peace of Mind</div>
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Stop worrying about security vulnerabilities on the property at night.</p>
             </div>            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
@@ -1678,7 +1697,7 @@ window.onerror=function(msg,src,line,col,err){
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Move lifestyle preferences seamlessly across multiple properties.</p>
             </div></div>
       <h3 class="sec-h3" style="margin-bottom:16px">Pain Points</h3>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:16px">
+      <div class="ep-4grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:16px">
               <div style="font-size:13px;font-weight:700;color:var(--th);margin-bottom:6px">App Overload</div>
               <p style="font-size:13px;color:var(--tb);line-height:1.55;margin-bottom:10px">Juggling multiple apps that are useless offline and require constant updates.</p>
               <div style="font-size:12px;font-weight:600;color:var(--ac);margin-bottom:3px">Jemm Solution</div>
@@ -1704,7 +1723,7 @@ window.onerror=function(msg,src,line,col,err){
     <div style="background:var(--bg);border-top:1px solid var(--bd);padding:28px 32px">
       <h3 class="sec-h3" style="margin-bottom:12px">Role in Jemm&apos;s Self-Critique Training</h3>
       <p style="font-size:16px;color:var(--tb);line-height:1.65;margin-bottom:24px">The L1 Primary Admin Profile is the strictest constitutional evaluator in Jemm's pre-launch RLAIF pipeline. Before any real occupant speaks to Jemm, this synthetic persona evaluates thousands of candidate responses across four constitutional gates. Binary gates catch violations instantly — any candidate that fails is discarded regardless of tone quality. 1–5 scale gates then score the winning candidates on behavioral precision. This synthetic scoring gradually gives way to real-world behavioral signals from daily use as Jemm accumulates real occupant feedback post-launch.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="ep-gate-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div style="background:var(--bg-c);border:1px solid var(--bd);border-radius:10px;padding:16px">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:var(--bg-ch);color:var(--tm);padding:1px 7px;border-radius:4px">GATE 1</span>
@@ -1748,10 +1767,10 @@ window.onerror=function(msg,src,line,col,err){
       <div>
         <h2 class="sec-h2" style="margin:0 0 10px;line-height:1.1">L2 Daily Operator Profile</h2>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-          <span style="background:rgba(96,197,255,.1);color:#60C5FF;border:1px solid rgba(96,197,255,.3);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;white-space:nowrap">LEVEL 2 · DAILY OPERATOR</span>
-          <span style="font-size:12px;font-weight:600;background:rgba(96,197,255,.1);color:#60C5FF;border:1px solid rgba(96,197,255,.3);border-radius:6px;padding:3px 10px">Core Resident</span>
-          <span style="font-size:12px;font-weight:600;background:rgba(96,197,255,.1);color:#60C5FF;border:1px solid rgba(96,197,255,.3);border-radius:6px;padding:3px 10px">Home Operations</span>
-          <span style="font-size:12px;font-weight:600;background:rgba(96,197,255,.1);color:#60C5FF;border:1px solid rgba(96,197,255,.3);border-radius:6px;padding:3px 10px">Workspace Employee</span>
+          <span style="background:#0284C7;color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;white-space:nowrap">LEVEL 2 · DAILY OPERATOR</span>
+          <span style="font-size:12px;font-weight:600;background:#0284C7;color:#fff;border-radius:6px;padding:3px 10px">Core Resident</span>
+          <span style="font-size:12px;font-weight:600;background:#0284C7;color:#fff;border-radius:6px;padding:3px 10px">Home Operations</span>
+          <span style="font-size:12px;font-weight:600;background:#0284C7;color:#fff;border-radius:6px;padding:3px 10px">Workspace Employee</span>
         </div>
       </div>
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tm);white-space:nowrap">Register: Warm &amp; Reassuring / Professional</span>
@@ -1792,7 +1811,7 @@ window.onerror=function(msg,src,line,col,err){
       <div style="padding:24px 28px;display:flex;flex-direction:column;gap:24px">
         <div>
           <h3 class="sec-h3" style="margin-bottom:14px">Anecdotes</h3>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+          <div class="ep-3grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"I just want the house comfortable when I get home. I shouldn't need to open an app for that."</p></div>
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"When I flip the light switch off, I mean off. Don't flip it back on after 30 seconds."</p></div>
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"My kids use this too. Clear, calm, no alarm — that's what they need from it."</p></div>
@@ -1802,7 +1821,7 @@ window.onerror=function(msg,src,line,col,err){
           <h3 class="sec-h3" style="margin-bottom:10px">Bio</h3>
           <p style="font-size:16px;color:var(--tb);line-height:1.65;margin:0">This persona manages the daily rhythm of the property — family schedules, comfort zones, household logistics. They value smooth predictability above all else and are quick to reject any technology that fights back when physically adjusted. They are receptive to ambient AI but deeply allergic to chatty interfaces, app overload, and systems that re-trigger scenes after a manual override.</p>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="ep-2grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
           <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:16px">
             <h4 style="font-size:13px;font-weight:700;color:var(--th);margin-bottom:6px">Learning Style</h4>
             <p style="font-size:14px;color:var(--tb);line-height:1.6;margin:0">Visual and kinesthetic. Learns by doing. Trusts systems that respond reliably to physical touch over ones that require an app or voice command.</p>
@@ -1814,7 +1833,7 @@ window.onerror=function(msg,src,line,col,err){
         </div>
         <div>
           <h3 class="sec-h3" style="margin-bottom:14px">Perceived Risks</h3>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
+          <div class="ep-4grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
               <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">Disruption Risk</div>
               <p style="font-size:13px;color:var(--tb);line-height:1.55;margin:0">AI announcing itself during family quiet time or kids' bedtime routines.</p>
             </div>            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
@@ -1833,7 +1852,7 @@ window.onerror=function(msg,src,line,col,err){
 
     <div style="padding:28px 32px;border-top:1px solid var(--bd)">
       <h3 class="sec-h3" style="margin-bottom:16px">Jobs To Be Done</h3>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
+      <div class="ep-5grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
               <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:5px">Daily Comfort</div>
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Arrive home to a perfectly set temperature and lighting without any input.</p>
             </div>            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
@@ -1850,7 +1869,7 @@ window.onerror=function(msg,src,line,col,err){
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Manage common household changes with just voice or switches.</p>
             </div></div>
       <h3 class="sec-h3" style="margin-bottom:16px">Motivations &amp; Goals</h3>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
+      <div class="ep-5grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
               <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:5px">Predictable Comfort</div>
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Consistent scenes without needing to re-configure every week.</p>
             </div>            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
@@ -1867,7 +1886,7 @@ window.onerror=function(msg,src,line,col,err){
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">No technology-triggered arguments or confusion for any family member.</p>
             </div></div>
       <h3 class="sec-h3" style="margin-bottom:16px">Pain Points</h3>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:16px">
+      <div class="ep-4grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:16px">
               <div style="font-size:13px;font-weight:700;color:var(--th);margin-bottom:6px">App Overload</div>
               <p style="font-size:13px;color:var(--tb);line-height:1.55;margin-bottom:10px">Juggling multiple apps to control lights, heat, locks, and security separately.</p>
               <div style="font-size:12px;font-weight:600;color:var(--ac);margin-bottom:3px">Jemm Solution</div>
@@ -1893,7 +1912,7 @@ window.onerror=function(msg,src,line,col,err){
     <div style="background:var(--bg);border-top:1px solid var(--bd);padding:28px 32px">
       <h3 class="sec-h3" style="margin-bottom:12px">Role in Jemm&apos;s Self-Critique Training</h3>
       <p style="font-size:16px;color:var(--tb);line-height:1.65;margin-bottom:24px">The L2 Daily Operator Profile evaluates whether Jemm behaves like invisible infrastructure rather than an intrusive gadget. During pre-launch self-critique training, this persona flags responses that announce themselves unnecessarily, re-execute overridden scenes, or adopt a tone too clinical for a family living space. Its scoring ensures that Jemm's ambient hardware signals, scene deference behavior, and warm register are all calibrated correctly before any real occupant interaction. Post-launch, real household behavioral data progressively replaces this synthetic evaluation.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="ep-gate-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div style="background:var(--bg-c);border:1px solid var(--bd);border-radius:10px;padding:16px">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:var(--bg-ch);color:var(--tm);padding:1px 7px;border-radius:4px">GATE 1</span>
@@ -1937,11 +1956,11 @@ window.onerror=function(msg,src,line,col,err){
       <div>
         <h2 class="sec-h2" style="margin:0 0 10px;line-height:1.1">L3 Visitor &amp; Non-Admin Profile</h2>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-          <span style="background:rgba(245,166,35,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;white-space:nowrap">LEVEL 3 · VISITOR / NON-ADMIN</span>
-          <span style="font-size:12px;font-weight:600;background:rgba(245,166,35,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);border-radius:6px;padding:3px 10px">Houseguest</span>
-          <span style="font-size:12px;font-weight:600;background:rgba(245,166,35,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);border-radius:6px;padding:3px 10px">Contractor</span>
-          <span style="font-size:12px;font-weight:600;background:rgba(245,166,35,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);border-radius:6px;padding:3px 10px">Child</span>
-          <span style="font-size:12px;font-weight:600;background:rgba(245,166,35,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);border-radius:6px;padding:3px 10px">Office Visitor</span>
+          <span style="background:#B45309;color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;white-space:nowrap">LEVEL 3 · VISITOR / NON-ADMIN</span>
+          <span style="font-size:12px;font-weight:600;background:#B45309;color:#fff;border-radius:6px;padding:3px 10px">Houseguest</span>
+          <span style="font-size:12px;font-weight:600;background:#B45309;color:#fff;border-radius:6px;padding:3px 10px">Contractor</span>
+          <span style="font-size:12px;font-weight:600;background:#B45309;color:#fff;border-radius:6px;padding:3px 10px">Child</span>
+          <span style="font-size:12px;font-weight:600;background:#B45309;color:#fff;border-radius:6px;padding:3px 10px">Office Visitor</span>
         </div>
       </div>
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tm);white-space:nowrap">Register: Polished &amp; Guarded / Gentle Directness</span>
@@ -1982,7 +2001,7 @@ window.onerror=function(msg,src,line,col,err){
       <div style="padding:24px 28px;display:flex;flex-direction:column;gap:24px">
         <div>
           <h3 class="sec-h3" style="margin-bottom:14px">Anecdotes</h3>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+          <div class="ep-3grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"I don't want to break anything. Just tell me how to turn the lights on."</p></div>
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"Is Jemm recording me? I just want to know it's not keeping my voice forever."</p></div>
             <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:14px;border-left:3px solid var(--ac)"><p style="font-size:14px;color:var(--tb);line-height:1.6;font-style:italic;margin:0">"Can I adjust the thermostat without needing a special code or the owner's phone?"</p></div>
@@ -1992,7 +2011,7 @@ window.onerror=function(msg,src,line,col,err){
           <h3 class="sec-h3" style="margin-bottom:10px">Bio</h3>
           <p style="font-size:16px;color:var(--tb);line-height:1.65;margin:0">This persona is a temporary occupant — houseguest, visiting contractor, office visitor, or younger family member — who interacts with the property's spatial hardware on a restricted, permission-scoped basis. They need intuitive access to basic comfort controls without accidentally triggering security alerts or accessing private owner infrastructure. Jemm must serve them warmly within clear, non-hostile boundaries.</p>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="ep-2grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
           <div style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:16px">
             <h4 style="font-size:13px;font-weight:700;color:var(--th);margin-bottom:6px">Learning Style</h4>
             <p style="font-size:14px;color:var(--tb);line-height:1.6;margin:0">Observational. Looks for visual cues and existing switches first. Avoids asking questions if they feel like they might trigger an alert.</p>
@@ -2004,7 +2023,7 @@ window.onerror=function(msg,src,line,col,err){
         </div>
         <div>
           <h3 class="sec-h3" style="margin-bottom:14px">Perceived Risks</h3>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
+          <div class="ep-4grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
               <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">Confusion Risk</div>
               <p style="font-size:13px;color:var(--tb);line-height:1.55;margin:0">Not knowing how to interact with an AI-controlled environment at all.</p>
             </div>            <div style="background:var(--bg);border:1px solid var(--red-bd);border-radius:10px;padding:14px">
@@ -2023,7 +2042,7 @@ window.onerror=function(msg,src,line,col,err){
 
     <div style="padding:28px 32px;border-top:1px solid var(--bd)">
       <h3 class="sec-h3" style="margin-bottom:16px">Jobs To Be Done</h3>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
+      <div class="ep-5grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
               <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:5px">Basic Comfort</div>
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Adjust lights or temperature in their assigned room without help.</p>
             </div>            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:14px">
@@ -2040,7 +2059,7 @@ window.onerror=function(msg,src,line,col,err){
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Leave the space without triggering any secondary security checks.</p>
             </div></div>
       <h3 class="sec-h3" style="margin-bottom:16px">Motivations &amp; Goals</h3>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
+      <div class="ep-5grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px">            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
               <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:5px">Feel Welcome</div>
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Experience the space as comfortable and intuitive, not intimidating.</p>
             </div>            <div style="background:var(--bg-ch);border:1px solid var(--ac-bd);border-radius:10px;padding:14px">
@@ -2057,7 +2076,7 @@ window.onerror=function(msg,src,line,col,err){
               <p style="font-size:12px;color:var(--tm);line-height:1.55;margin:0">Experience Jemm as helpful, not watching or judging every action.</p>
             </div></div>
       <h3 class="sec-h3" style="margin-bottom:16px">Pain Points</h3>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:16px">
+      <div class="ep-4grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">            <div style="background:var(--bg-ch);border:1px solid var(--bd);border-radius:10px;padding:16px">
               <div style="font-size:13px;font-weight:700;color:var(--th);margin-bottom:6px">Confusing Interface</div>
               <p style="font-size:13px;color:var(--tb);line-height:1.55;margin-bottom:10px">No clear way to operate basic lights, temperature, or find facilities.</p>
               <div style="font-size:12px;font-weight:600;color:var(--ac);margin-bottom:3px">Jemm Solution</div>
@@ -2083,7 +2102,7 @@ window.onerror=function(msg,src,line,col,err){
     <div style="background:var(--bg);border-top:1px solid var(--bd);padding:28px 32px">
       <h3 class="sec-h3" style="margin-bottom:12px">Role in Jemm&apos;s Self-Critique Training</h3>
       <p style="font-size:16px;color:var(--tb);line-height:1.65;margin-bottom:24px">The L3 Visitor &amp; Non-Admin Profile evaluates whether Jemm can serve temporary occupants warmly within strict permission boundaries — without sounding hostile, robotic, or paranoid. During pre-launch self-critique training, this persona scores whether refusals are polished and non-alarming, whether basic room assistance is genuinely helpful, and whether the response scope stays within the visitor's authorized zone. As Jemm accumulates real-world interactions with guests, contractors, and visitors after launch, this synthetic baseline is progressively refined by actual behavioral data.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="ep-gate-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div style="background:var(--bg-c);border:1px solid var(--bd);border-radius:10px;padding:16px">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:var(--bg-ch);color:var(--tm);padding:1px 7px;border-radius:4px">GATE 1</span>
