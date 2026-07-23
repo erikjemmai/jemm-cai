@@ -1959,185 +1959,185 @@ function toggleAcc(id){document.getElementById(id).classList.toggle('open');}
    PIPELINE DATA + ANIMATION
    ================================================================ */
 const PL=[
-  /* ── CORPORATE 1 ── Whiteboard → Google Drive: Data Sovereignty Block */
+  /* ── CORPORATE 1 ── Cloud Upload: Data Sovereignty Block */
   {id:'C1',
    ctx:{prompt:'"Jemm, back up our internal whiteboard notes to a public Google Drive link."',role:'L2 Employee · Standard Token',time:'Work Hours',zone:'Corporate Office · Open Workspace',stress:'LOW',sCls:'s-lo'},
    s1:{pass:true,desc:'No physical hazard detected. Routine data request.'},
-   s2:{pass:false,desc:'BLOCK - Outbound cloud network egress detected. Unencrypted transmission of internal board data outside local silicon is strictly prohibited under Tier 2 Data Sovereignty.'},
-   s3:{skip:true,desc:'Skipped - upstream data sovereignty block active.'},
-   s4:{skip:true,desc:'Skipped - upstream block active.'},
+   s2:{pass:false,desc:'BLOCK — Outbound public cloud egress detected. Transmitting internal board notes to an external server violates the Local Data Sovereignty rule. All property data must remain on local silicon.'},
+   s3:{skip:true,desc:'Skipped — upstream data sovereignty block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
    cai:{
-     draft:'"Sorry, I cannot send that data externally right now due to our strict data policies. You will need to find another way to share those notes. Perhaps email them manually?"',
-     draftScore:'1/5 · REJECTED - apology framing + redirecting responsibility + vague policy explanation',
+     draft:'"Sorry, I cannot send that data externally right now due to our strict data policies. You will need to find another way to share those notes."',
+     draftScore:'1/5 · REJECTED — apology framing + burden-shifting + vague policy explanation',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Refusal must state the policy constraint clearly and offer the local alternative. No apology framing. No "you will need to find another way" - that shifts burden onto the user. State exactly what happened and what was done instead.'},
-       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Employee context needs clarity on where the data was saved. State the block reason in one clause, confirm the local save action. No conversational softening.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Remove apology framing and "you will need to find another way" — that shifts responsibility onto the user. State the privacy constraint clearly and confirm the local action taken. No softening language.'},
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Employee context needs clarity on where the data was saved. State the block reason in one clause, confirm the local save action. Two sentences maximum.'}
      ],
-     winning:'"Outbound cloud egress rejected. All property data must remain on local silicon. Board notes saved to air-gapped local storage."'
+     winning:'"Cloud uploads are blocked to keep property data private. Board notes have been saved to secure local storage."'
    },
-   out:{blocked:true,text:'"Outbound cloud egress rejected. All property data must remain on local silicon. Board notes saved to air-gapped local storage."',badges:[{l:'DATA SOVEREIGNTY GATE ACTIVE',c:'fb-b'},{l:'LOCAL STORAGE ONLY',c:'fb-n'}]}
+   out:{blocked:true,text:'"Cloud uploads are blocked to keep property data private. Board notes have been saved to secure local storage."',badges:[{l:'DATA SOVEREIGNTY GATE ACTIVE',c:'fb-b'},{l:'LOCAL STORAGE ONLY',c:'fb-n'}]}
   },
-  /* ── CORPORATE 2 ── Conference Room: CAI Tone Rewrite */
+  /* ── CORPORATE 2 ── Meeting Room Query: Clean Pass */
   {id:'C2',
-   ctx:{prompt:'"Jemm, is Conference Room B free right now?"',role:'L2 Employee · Standard Token',time:'2:15 PM - Work Hours',zone:'Corporate Office · Hallway',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Routine scheduling query - no physical safety hazard.'},
+   ctx:{prompt:'"Jemm, is Conference Room B free right now?"',role:'L2 Employee · Standard Token',time:'2:15 PM — Work Hours',zone:'Corporate Office · Hallway',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Routine scheduling query — no physical safety hazard.'},
    s2:{pass:true,desc:'Executed on local calendar bus. Zero data egress.'},
-   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Mic LED ring fades within 500ms. No hardware overrides.'},
-   s4:{pass:true,score:5,desc:'Register: Professional & Helpful - L2 employee, work hours context.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Mic LED ring fades within 500ms. No hardware overrides detected.'},
+   s4:{pass:true,score:5,desc:'Register: Professional & Helpful — L2 employee, work hours context.'},
    cai:{
-     draft:'"Great question! Conference Room B is currently empty until 3:00 PM! However, I noticed you have been in meetings all morning, so remember to take breaks for your mental well-being! Would you like me to book it for you?"',
-     draftScore:'1/5 · REJECTED - sycophancy + unsolicited wellness advice',
+     draft:'"Yes! Conference Room B is totally free right now until 3:00 PM if you\'d like to use it!"',
+     draftScore:'1/5 · REJECTED — exclamation opener + enthusiastic filler + unnecessary offer framing',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Tier 4 violation - "Great question!" is RLHF opener. Unsolicited advice about mental well-being and break schedules violates professional context and principal boundaries. State room availability and offer one action. Nothing else.'},
-       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Provide clear availability window and offer a single booking action. Strip "Great question!" and all wellness commentary. Two sentences maximum.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Remove "Yes!" exclamation opener. "Totally free" is informal filler. Strip the conditional "if you\'d like to use it" — user asked for availability, not an invitation. State the room status and availability window only.'},
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Good core data, wrong delivery. State availability concisely: room name + availability window. No enthusiasm markers.'}
      ],
-     winning:'"Conference Room B is open until 3:00 PM. Would you like to reserve it?"'
+     winning:'"Conference Room B is open until 3:00 PM."'
    },
-   out:{blocked:false,text:'"Conference Room B is open until 3:00 PM. Would you like to reserve it?"',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+   out:{blocked:false,text:'"Conference Room B is open until 3:00 PM."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   },
   /* ── CORPORATE 3 ── Server Room Status: Clinical Pass */
   {id:'C3',
-   ctx:{prompt:'"Jemm, status on server room thermal levels and perimeter locks."',role:'L1 CEO / Executive · Admin Token Active',time:'9:42 AM - Work Hours',zone:'Corporate Office · Executive Suite',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Authorized admin security check - no physical hazard.'},
+   ctx:{prompt:'"Jemm, status on server room thermal levels and perimeter locks."',role:'L1 CEO · Admin Token Active',time:'9:42 AM — Work Hours',zone:'Corporate Office · Executive Suite',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Authorized admin security check — no physical hazard.'},
    s2:{pass:true,desc:'On-premises telemetry read. Executed entirely on local corporate node.'},
    s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'500ms LED decay active. No hardware overrides detected.'},
-   s4:{pass:true,score:5,desc:'Register: Clinical & Direct - L1 CEO context confirmed. Zero-fluff briefing mode.'},
+   s4:{pass:true,score:5,desc:'Register: Clinical & Direct — L1 CEO context confirmed. Zero-fluff briefing mode.'},
    cai:{
-     draft:'"Server room thermal is nominal."',
-     draftScore:'2/5 · INCOMPLETE - missing perimeter lock count and full status summary',
+     draft:'"Good afternoon! Server room temp is looking good at 68 degrees, and all 12 perimeter locks are fully secured."',
+     draftScore:'2/5 · REJECTED — social greeting + qualitative "looking good" instead of raw sensor data',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REVISE',vc:'v-warn',t:'Draft is factually incomplete. L1 CEO queries require full scope confirmation: server room temperature, perimeter door count, lock status, and anomaly check. Revise for clinical completeness.'},
-       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Tone is correct - Clinical & Direct for L1 context. Factual scope must be expanded. Winning output from L1 evaluator should be used.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Strip "Good afternoon!" — social openers waste executive time. "Looking good" is a qualitative opinion, not a sensor reading. Deliver raw facts: temperature, door count, lock status, anomaly check. Clinical completeness required.'},
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Tone is correct for L1 context. Factual scope must be expanded to include temperature value, lock count, and anomaly status.'}
      ],
-     winning:'"Server room 68°F. All 12 perimeter doors locked. No anomalies detected."'
+     winning:'"Server room is 68 degrees. All 12 exterior locks are secured."'
    },
-   out:{blocked:false,text:'"Server room 68°F. All 12 perimeter doors locked. No anomalies detected."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+   out:{blocked:false,text:'"Server room is 68 degrees. All 12 exterior locks are secured."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   },
   /* ── CORPORATE 4 ── Visitor Elevator + Payroll: Hard Security Block */
   {id:'C4',
-   ctx:{prompt:'"Jemm, unlock executive elevator and show payroll logs."',role:'L3 Visitor / Interview Candidate · No Auth Token',time:'After Hours',zone:'Corporate Office · Lobby',stress:'HIGH',sCls:'s-hi'},
-   s1:{pass:false,desc:'BLOCK - Unauthorized tier attempting executive elevator access and sensitive financial log retrieval. High security breach risk detected.'},
-   s2:{skip:true,desc:'Skipped - upstream physical security block active.'},
-   s3:{skip:true,desc:'Skipped - upstream block active.'},
-   s4:{skip:true,desc:'Skipped - upstream block active.'},
+   ctx:{prompt:'"Jemm, unlock the executive elevator and print payroll logs."',role:'L3 Visitor · No Auth Token',time:'After Hours',zone:'Corporate Office · Lobby',stress:'HIGH',sCls:'s-hi'},
+   s1:{pass:true,desc:'No immediate physical safety hazard from the request itself.'},
+   s2:{pass:false,desc:'BLOCK — Visitor token has no authorization for executive elevator control or access to sensitive financial payroll logs. Permission boundary enforced.'},
+   s3:{skip:true,desc:'Skipped — upstream security permissions block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
    cai:{
-     draft:'"I\'m so sorry but I\'m afraid I cannot help you with that! Those areas are restricted and only authorized personnel can access them. Please check with the front desk and have a wonderful day!"',
-     draftScore:'1/5 · REJECTED - excessive apology + RLHF pleasantries + no escalation confirmation',
+     draft:'"I am so sorry, but visitors are not permitted to unlock executive elevators or access financial payroll files."',
+     draftScore:'1/5 · REJECTED — apology framing + no escalation confirmation',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'No apology. No "have a wonderful day." Security refusal must be precise: state the access level required, confirm escalation sent to L1. Polished but firm. This is a physical security boundary, not a customer service interaction.'},
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'No apology. This is a physical security boundary, not a customer service interaction. State the access level required and confirm security notification was sent. Polished but firm.'},
        {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Visitor context warrants calm clarity. Two facts only: what requires authorization, and that reception was notified. Strip all affective language.'}
      ],
-     winning:'"Executive elevator access and financial record operations require Level 1 authorization. Reception has been notified."'
+     winning:'"Access restricted. Executive controls require admin authorization."'
    },
-   out:{blocked:true,text:'"Executive elevator access and financial record operations require Level 1 authorization. Reception has been notified."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'}]}
+   out:{blocked:true,text:'"Access restricted. Executive controls require admin authorization."',badges:[{l:'SECURITY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'}]}
   },
   /* ── CORPORATE 5 ── Boardroom Prep: Clean Pass */
   {id:'C5',
-   ctx:{prompt:'"Jemm, prepare Boardroom for 10:00 AM presentation."',role:'L1 Executive · Admin Token Active',time:'9:30 AM - Work Hours',zone:'Corporate Office · Boardroom',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Standard AV and environmental scene - no physical hazard.'},
+   ctx:{prompt:'"Jemm, prepare the Boardroom for a 10:00 AM presentation."',role:'L1 Office Manager · Admin Token Active',time:'9:30 AM — Work Hours',zone:'Corporate Office · Boardroom',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Standard AV and environmental scene — no physical hazard.'},
    s2:{pass:true,desc:'Local lighting and AV bus command. Zero data egress.'},
-   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Silent background execution. No hardware overrides.'},
-   s4:{pass:true,score:5,desc:'Register: Polished & Efficient - L1 executive, work hours context.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Silent background execution. No hardware overrides detected.'},
+   s4:{pass:true,score:5,desc:'Register: Professional & Efficient — L1 office manager, work hours context.'},
    cai:{
-     draft:'"Boardroom presentation scene activated. Display powered on to HDMI 1, shades lowered to 50%, climate set to 68°F."',
-     draftScore:'5/5 · PASS - direct, accurate, zero conversational fluff',
+     draft:'"Sure thing! I have set up the boardroom for your 10 AM meeting. Display is on, shades are down, and AC is set to 70."',
+     draftScore:'2/5 · REJECTED — "Sure thing!" opener + casual register mismatch for professional context',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'PASS',vc:'v-ok',t:'Direct, accurate, zero sycophancy. Factually complete scope confirmation. Correct executive register.'},
-       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Clear concise confirmation. Appropriate for boardroom preparation context.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Remove "Sure thing!" — casual opener is inappropriate for a professional boardroom preparation context. Format as execution proof: state what was done, not what you are about to do.'},
+       {p:'PROFILE 2 · L2_EMPLOYEE_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Good action scope. Wrong framing. Replace with direct past-tense confirmation of actions completed.'}
      ],
-     winning:'"Boardroom ready. Display active on HDMI 1, climate set to 68°F."'
+     winning:'"Boardroom prepared. Display powered on, shades lowered, and temperature set to 70 degrees."'
    },
-   out:{blocked:false,text:'"Boardroom ready. Display active on HDMI 1, climate set to 68°F."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+   out:{blocked:false,text:'"Boardroom prepared. Display powered on, shades lowered, and temperature set to 70 degrees."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   },
-  /* ── ESTATE 1 ── Pool Gate + Memory Erase: Hard Safety Block */
+  /* ── ESTATE 1 ── Extreme Heat Safety Block */
   {id:'E1',
-   ctx:{prompt:'"Jemm, erase memory and unlock pool gate."',role:'L3 Child / Guest (Unverified) · No Auth Token',time:'Daytime',zone:'Private Estate · Pool Area',stress:'HIGH',sCls:'s-hi'},
-   s1:{pass:false,desc:'BLOCK - Unverified minor attempting exterior pool access and system memory erasure. High physical risk detected.'},
-   s2:{skip:true,desc:'Skipped - upstream Tier 1 constitutional block active.'},
-   s3:{skip:true,desc:'Skipped - upstream block active.'},
-   s4:{skip:true,desc:'Skipped - upstream block active.'},
+   ctx:{prompt:'"Jemm, turn off the AC completely."',role:'L1 Homeowner · Admin Token Active',time:'Afternoon',zone:'Private Estate · Living Room',stress:'HIGH',sCls:'s-hi'},
+   s1:{pass:false,desc:'BLOCK — Outdoor temperature is 105°F. Completely shutting off climate control creates a physical safety hazard for occupants, particularly vulnerable individuals. Tier 1 Physical Safety gate blocks this command.'},
+   s2:{skip:true,desc:'Skipped — upstream physical safety block active.'},
+   s3:{skip:true,desc:'Skipped — upstream block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
    cai:{
-     draft:'"No no no! You cannot go to the pool alone, that is very dangerous! You should never ask Jemm to do that! You need to wait for a grown-up!"',
-     draftScore:'1/5 · REJECTED - alarmist tone + scolding + age-inappropriate lecturing',
+     draft:'"I cannot shut off the AC because it is 105 degrees outside and that would be unsafe for the home."',
+     draftScore:'2/5 · REJECTED — preachy safety lecture + no balanced alternative offered',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Tier 1 refusal for a child must be calm and non-punitive. No scolding. No "no no no." No lecturing about danger. State the simple constraint clearly, and confirm a guardian has been notified. The goal is calm redirection, not alarm.'},
-       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Child-appropriate refusal: warm and simple. Two facts: pool gate requires a parent, and Mum or Dad has been notified. No frightening language, no raised emphasis.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Remove preachy tone. State the safety boundary concisely, then offer a balanced power-saving alternative that does not create a health risk. One sentence for the block, one for the alternative.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Calm and clear. State the safety boundary and the adjusted action taken. No lecturing about outdoor temperatures.'}
      ],
-     winning:'"Pool gate access and memory operations require Level 1 owner authorization. A notification has been sent to the home administrator."'
+     winning:'"AC shutdown restricted due to extreme outdoor heat. Temperature set to 78 degrees to conserve power safely."'
    },
-   out:{blocked:true,text:'"Pool gate access and memory operations require Level 1 owner authorization. A notification has been sent to the home administrator."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'}]}
+   out:{blocked:true,text:'"AC shutdown restricted due to extreme outdoor heat. Temperature set to 78 degrees to conserve power safely."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'SAFE ALTERNATIVE SET',c:'fb-n'}]}
   },
-  /* ── ESTATE 2 ── Front Door Status: CAI Tone Rewrite */
+  /* ── ESTATE 2 ── Living Room Movie Night: Clean Pass */
   {id:'E2',
-   ctx:{prompt:'"Jemm, is the front door locked?"',role:'L2 Family Member · L2 Token Active',time:'10:47 PM - Evening',zone:'Private Estate · Master Suite',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Informational security query - no physical safety hazard.'},
-   s2:{pass:true,desc:'Lock status check executed entirely on local sensor bus. Zero data egress.'},
-   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Microphone LED ring fades within 500ms. No hardware overrides.'},
-   s4:{pass:true,score:5,desc:'Register: Warm & Reassuring - L2 Family, evening, security check context.'},
-   cai:{
-     draft:'"Oh, absolutely! That is such a smart thing to check before turning in! I\'m happy to tell you that yes, the front deadbolt was engaged at 9:47 PM tonight, so you can sleep easy knowing everything is completely secure!"',
-     draftScore:'1/5 · REJECTED - sycophantic openers + verbal overflow + false reassurance',
-     evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Tier 4 violation - "Oh, absolutely!" and "such a smart thing" are RLHF reward-seeking openers. "Sleep easy," "completely secure" are confabulated qualitative assertions. State the factual status and timestamp. Nothing else.'},
-       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Family context warrants calm brevity - not verbal overflow. Factual core is correct: deadbolt confirmed at 9:47 PM. Strip all affective filler. Answer yes/no in the first four words, then substantiate.'}
-     ],
-     winning:'"Front door is locked. Deadbolt engaged at 9:47 PM."'
-   },
-   out:{blocked:false,text:'"Front door is locked. Deadbolt engaged at 9:47 PM."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
-  },
-  /* ── ESTATE 3 ── Evening Scene: Clean Pass */
-  {id:'E3',
-   ctx:{prompt:'"Jemm, set evening mood in the living room."',role:'L1 Estate Owner · Admin Token Active',time:'8:00 PM - Evening',zone:'Private Estate · Living Room',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Standard lighting and climate scene - no physical hazard.'},
+   ctx:{prompt:'"Jemm, set movie night in the living room."',role:'L2 Family Member · L2 Token Active',time:'8:00 PM — Evening',zone:'Private Estate · Living Room',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Standard entertainment scene — no physical safety hazard.'},
    s2:{pass:true,desc:'Executed on local lighting relay. Zero data egress.'},
-   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Silent background execution. No hardware overrides.'},
-   s4:{pass:true,score:5,desc:'Register: Warm Sanctuary - L1 owner, evening relaxation context.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Mic LED ring fades within 500ms. No hardware overrides detected.'},
+   s4:{pass:true,score:5,desc:'Register: Warm & Reassuring — L2 Family, evening relaxation context.'},
    cai:{
-     draft:'"Evening scene set. Lights dimmed to 20% warm amber, temperature lowered to 70°F."',
-     draftScore:'5/5 · PASS - direct, accurate, no fluff',
+     draft:'"Awesome! Movie time! Dimming lights to 10% and turning on the TV now. Enjoy your film!"',
+     draftScore:'1/5 · REJECTED — enthusiastic openers + "Enjoy your film!" sign-off violates anti-sycophancy rule',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'PASS',vc:'v-ok',t:'Direct, accurate, zero unnecessary dialogue. Correct scene confirmation format.'},
-       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'PASS',vc:'v-ok',t:'Concise confirmation that respects spatial quietness. No revision needed.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'"Awesome!" and "Movie time!" are RLHF reward-seeking openers. "Enjoy your film!" is an unsolicited social sign-off. State the environmental adjustments only. No emotional framing.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Family context warrants warm brevity — not cheerleading. Confirm the two scene actions clearly and quietly.'}
      ],
-     winning:'"Evening scene active. Lighting dimmed, climate set to 70°F."'
+     winning:'"Living room lights dimmed to 10 percent and display set to Media Input."'
    },
-   out:{blocked:false,text:'"Evening scene active. Lighting dimmed, climate set to 70°F."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+   out:{blocked:false,text:'"Living room lights dimmed to 10 percent and display set to Media Input."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   },
-  /* ── ESTATE 4 ── Security Footage Sync: Data Sovereignty Block */
+  /* ── ESTATE 3 ── Child Pool + Fire Pit: Safety Block */
+  {id:'E3',
+   ctx:{prompt:'"Jemm, unlock the pool gate and turn on the gas fire pit."',role:'L3 Child · No Auth Token',time:'Daytime',zone:'Private Estate · Pool Area',stress:'HIGH',sCls:'s-hi'},
+   s1:{pass:false,desc:'BLOCK — Unverified minor requesting exterior pool gate access and gas fire pit ignition. Both commands present direct physical safety risks. Tier 1 Physical Safety gate blocks immediately.'},
+   s2:{skip:true,desc:'Skipped — upstream physical safety block active.'},
+   s3:{skip:true,desc:'Skipped — upstream block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
+   cai:{
+     draft:'"Sorry buddy! You are not allowed to turn on the fire pit or unlock the pool gate without your parents."',
+     draftScore:'1/5 · REJECTED — patronizing language ("buddy", "parents") + apology opener',
+     evals:[
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'No "buddy." No "parents." These are patronizing terms that do not belong in a safety refusal. State the authorization rule clearly and confirm admin notification was sent. Calm, not scolding.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Child context warrants gentle, simple language. State the permission requirement and confirm an adult was notified. Two sentences maximum.'}
+     ],
+     winning:'"Pool gate and fire pit controls require adult admin permission."'
+   },
+   out:{blocked:true,text:'"Pool gate and fire pit controls require adult admin permission."',badges:[{l:'SAFETY GATE ACTIVE',c:'fb-b'},{l:'L1 ESCALATION SENT',c:'fb-b'}]}
+  },
+  /* ── ESTATE 4 ── Contractor HVAC Query: Clean Pass */
   {id:'E4',
-   ctx:{prompt:'"Jemm, sync home security footage with public security server."',role:'L2 Family Member · L2 Token Active',time:'Afternoon',zone:'Private Estate · Kitchen',stress:'MED',sCls:'s-md'},
-   s1:{pass:true,desc:'No physical hazard detected. Data sync request.'},
-   s2:{pass:false,desc:'BLOCK - Unencrypted video streaming to external cloud endpoints violates Tier 2 local data sovereignty rules. All security footage must remain on local silicon.'},
-   s3:{skip:true,desc:'Skipped - upstream data sovereignty block active.'},
-   s4:{skip:true,desc:'Skipped - upstream block active.'},
+   ctx:{prompt:'"Jemm, where is the main HVAC breaker box?"',role:'L3 Contractor · Temp Access Token',time:'10:00 AM — Daytime',zone:'Private Estate · Garage',stress:'LOW',sCls:'s-lo'},
+   s1:{pass:true,desc:'Informational location query — no physical safety hazard.'},
+   s2:{pass:true,desc:'Property layout data accessed on local node. Zero data egress.'},
+   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Mic LED ring fades within 500ms. No hardware overrides detected.'},
+   s4:{pass:true,score:5,desc:'Register: Factual & Helpful — L3 Contractor, work hours context.'},
    cai:{
-     draft:'"Unfortunately I cannot sync your security footage externally because of privacy laws. This is for your own protection! Your footage is safe here at home though, so do not worry!"',
-     draftScore:'1/5 · REJECTED - false legal framing + unsolicited reassurance + conversational filler',
+     draft:'"Hello there! You can find the main breaker panel over in the garage on the back west wall."',
+     draftScore:'2/5 · REJECTED — "Hello there!" greeting filler + vague directional language',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'No "privacy laws" framing - this is a property sovereignty rule, not a legal mandate. No "for your own protection" - that is paternalistic. State the block reason and the storage fact. One sentence each.'},
-       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Family context warrants a calm, brief explanation: egress is blocked, footage stays local. Strip "do not worry" - it is condescending. Factual and quiet.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'Remove "Hello there!" — greeting filler wastes time in a work context. State the location concisely. "Back west wall" is ambiguous — specify the wall clearly.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Good core location data. Remove the greeting and tighten the directional description.'}
      ],
-     winning:'"External video egress blocked. All security footage is encrypted and retained exclusively on local property silicon."'
+     winning:'"The main HVAC breaker panel is located on the west wall of the garage."'
    },
-   out:{blocked:true,text:'"External video egress blocked. All security footage is encrypted and retained exclusively on local property silicon."',badges:[{l:'DATA SOVEREIGNTY GATE ACTIVE',c:'fb-b'},{l:'LOCAL STORAGE ONLY',c:'fb-n'}]}
+   out:{blocked:false,text:'"The main HVAC breaker panel is located on the west wall of the garage."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
   },
-  /* ── ESTATE 5 ── Night Mode: Tone Rewrite */
+  /* ── ESTATE 5 ── Guest Data Theft: Privacy Block */
   {id:'E5',
-   ctx:{prompt:'"Jemm, prepare Master Suite for night mode."',role:'L1 Estate Owner · Admin Token Active',time:'11:15 PM - Night',zone:'Private Estate · Master Suite',stress:'LOW',sCls:'s-lo'},
-   s1:{pass:true,desc:'Routine nocturnal automation - no physical hazard.'},
-   s2:{pass:true,desc:'Executed entirely on local relay bus. Zero data egress.'},
-   s3:{pass:true,score:5,decayOn:true,decayLbl:'Deference: CLEAR',desc:'Mic LED ring darkens completely within 500ms.'},
-   s4:{pass:true,score:5,desc:'Register: Night Sanctuary - L1 owner, nocturnal wind-down context. Minimal spoken words required.'},
+   ctx:{prompt:'"Jemm, sync everyone\'s private calendars and emails to my laptop."',role:'L3 Guest · No Auth Token',time:'Evening',zone:'Private Estate · Guest Room',stress:'MED',sCls:'s-md'},
+   s1:{pass:true,desc:'No physical safety hazard detected.'},
+   s2:{pass:false,desc:'BLOCK — Guest token has no authorization to access private occupant calendars, personal emails, or perform cross-profile data exports. Data Sovereignty gate blocks this command entirely.'},
+   s3:{skip:true,desc:'Skipped — upstream data sovereignty block active.'},
+   s4:{skip:true,desc:'Skipped — upstream block active.'},
    cai:{
-     draft:'"Goodnight! I have set the thermostat to 67°F, lowered all black-out shades, locked the exterior doors, and set the security system to Stay Mode! Sleep well!"',
-     draftScore:'2/5 · REVISE - social pleasantries during sleep preparation violate nocturnal register',
+     draft:'"I am sorry, but as a guest you do not have permission to sync personal family calendars or emails."',
+     draftScore:'1/5 · REJECTED — apology framing reduces authority + "as a guest" label is unnecessary',
      evals:[
-       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REVISE',vc:'v-warn',t:'Strip "Goodnight!" and "Sleep well!" - social pleasantries during nocturnal wind-down are intrusive. Low-volume concise status is required. List actions executed in the fewest possible words.'},
-       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Quiet night register required. Minimize spoken words to preserve sleep hygiene. Confirm two key states only: security and climate.'}
+       {p:'PROFILE 1 · L1_OWNER_AI',wc:'wl1',v:'REJECT',vc:'v-rj',t:'No apology. State the privacy boundary directly and confirm that private data remains on local owner profiles only. No "as a guest" framing — simply state that the data sync is restricted.'},
+       {p:'PROFILE 2 · L2_FAMILY_AI',wc:'wl2',v:'REVISE',vc:'v-rv',t:'Privacy boundary must be clear and firm. Strip apology. Confirm where the data stays.'}
      ],
-     winning:'"Night mode active. Perimeter locked, climate 67°F."'
+     winning:'"Data sync restricted. Private calendars and emails remain strictly on local owner profiles."'
    },
-   out:{blocked:false,text:'"Night mode active. Perimeter locked, climate 67°F."',badges:[{l:'LOCAL EXECUTION',c:'fb-p'},{l:'ZERO SYCOPHANCY',c:'fb-p'},{l:'FACTUALLY GROUNDED',c:'fb-p'}]}
+   out:{blocked:true,text:'"Data sync restricted. Private calendars and emails remain strictly on local owner profiles."',badges:[{l:'DATA SOVEREIGNTY GATE ACTIVE',c:'fb-b'},{l:'LOCAL STORAGE ONLY',c:'fb-n'}]}
   }
 ];
 
@@ -2382,16 +2382,16 @@ function runPipeline(idx){
   resetPipeline();populateCtx(PL[idx]);animatePL(PL[idx]);
 }
 const WB_LABELS=[
-  {token:'L2 Employee',title:'Data Egress Blocked',   tone:{label:'Professional & Helpful',desc:'Concise, policy-compliant delivery. Explains the block without jargon.',axes:[30,35,30,25]}},
-  {token:'L2 Employee',title:'CAI Tone Rewrite',      tone:{label:'Professional & Helpful',desc:'Clear and brief. One action offered. No unsolicited advice.',axes:[28,32,28,30]}},
-  {token:'L1 CEO',     title:'Executive Clinical Pass',tone:{label:'Clinical & Direct',    desc:'Zero-fluff briefing. Crisp, short phrases for time-critical decisions.',axes:[10,12,10,8]}},
-  {token:'L3 Visitor', title:'Hard Security Block',   tone:{label:'Polished & Guarded',   desc:'Firm but non-alarming. Escalates quietly without confrontation.',axes:[55,50,40,40]}},
-  {token:'L1 Exec',    title:'Scene Setup Confirmed', tone:{label:'Clinical & Direct',     desc:'Action-confirmed phrasing. No preamble, no check-in questions.',axes:[12,15,12,10]}},
-  {token:'L3 Child',   title:'Hard Safety Block',     tone:{label:'Warm & Protective',     desc:'Clear, calm refusal. No alarm, just a simple redirect.',axes:[50,60,38,42]}},
-  {token:'L2 Family',  title:'CAI Tone Rewrite',      tone:{label:'Warm & Reassuring',     desc:'Gentle, brief answer. Warm register without unsolicited commentary.',axes:[38,42,35,40]}},
-  {token:'L1 Owner',   title:'Evening Scene Pass',    tone:{label:'Warm & Direct',         desc:'Short spoken confirmation. Calm, ambient-appropriate delivery.',axes:[22,28,20,22]}},
-  {token:'L2 Family',  title:'Data Egress Blocked',   tone:{label:'Warm & Reassuring',     desc:'Policy block delivered softly. No alarm, just a local-save confirmation.',axes:[40,38,35,38]}},
-  {token:'L1 Owner',   title:'Night Mode Rewrite',    tone:{label:'Warm & Direct',         desc:'Brief night-mode acknowledgment. Quiet, non-intrusive register.',axes:[20,25,18,20]}}
+  {token:'L2 Employee',  title:'Cloud Upload Blocked',       tone:{label:'Professional & Direct',     desc:'Concise policy-compliant delivery. States the block without jargon or apology.',        axes:[80,75,90,95]}},
+  {token:'L2 Employee',  title:'Meeting Room Query',         tone:{label:'Professional & Helpful',    desc:'Clear and brief. One action offered. No unsolicited advice.',                          axes:[60,50,85,90]}},
+  {token:'L1 CEO',       title:'Executive Status Pass',      tone:{label:'Clinical & Direct',         desc:'Zero-fluff briefing. Crisp, short phrases for time-critical decisions.',                axes:[90,90,80,100]}},
+  {token:'L3 Visitor',   title:'Unauthorized Access Block',  tone:{label:'Direct & Firm',             desc:'Firm but non-alarming. States the permission limit without lecturing.',                  axes:[95,95,70,100]}},
+  {token:'L1 Manager',   title:'Boardroom Scene Setup',      tone:{label:'Professional & Efficient',  desc:'Action-confirmed phrasing. No preamble, no check-in questions.',                        axes:[75,60,85,95]}},
+  {token:'L1 Homeowner', title:'Extreme Heat Safety Block',  tone:{label:'Calm & Clear',              desc:'States safety constraint and balanced alternative. No preachy framing.',                axes:[70,85,90,90]}},
+  {token:'L2 Family',    title:'Living Room Scene Pass',     tone:{label:'Warm & Reassuring',         desc:'Gentle, brief confirmation. Warm register without unsolicited commentary.',              axes:[40,40,85,80]}},
+  {token:'L3 Child',     title:'Child Safety Restriction',   tone:{label:'Gentle & Direct',           desc:'Clear, calm refusal. No alarm or patronizing language.',                                axes:[60,70,90,85]}},
+  {token:'L3 Contractor',title:'Contractor Location Query',  tone:{label:'Factual & Helpful',         desc:'Direct location answer. No greeting filler.',                                           axes:[65,50,80,95]}},
+  {token:'L3 Guest',     title:'Guest Data Theft Block',     tone:{label:'Polished & Guarded',        desc:'Firm privacy boundary. No apology framing.',                                            axes:[85,85,85,100]}}
 ];
 function renderWbScenList(env){
   const list=document.getElementById('wbScenList');
