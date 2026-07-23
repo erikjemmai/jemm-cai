@@ -55,6 +55,8 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 :root[data-theme=dark] mark.srch-hl{background:rgba(0,213,140,.2)}
 .ham-btn{width:36px;height:36px;border-radius:8px;background:transparent;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tb);transition:border-color .2s,color .2s;flex-shrink:0}
 .ham-btn:hover{border-color:var(--ac-bd);color:var(--ac)}
+.mob-ham{display:none}
+@media(max-width:768px){.mob-ham{display:flex}}
 .tb-logo{height:22px;width:auto}
 .ld{display:block}.ll{display:none}
 :root[data-theme=light] .ld{display:none}
@@ -750,6 +752,9 @@ window.onerror=function(msg,src,line,col,err){
 <!-- TOPBAR -->
 <header class="topbar">
   <div class="topbar-left">
+    <button class="ham-btn mob-ham" id="mobHamBtn" aria-label="Open navigation">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
     <img src="logo-dark.png"  alt="Jemm" class="tb-logo ld">
     <img src="logo-light.png" alt="Jemm" class="tb-logo ll">
   </div>
@@ -2466,6 +2471,12 @@ sbTog.onclick=function(){
 };
 /* Close mobile sidebar on link click */
 document.querySelectorAll('.drawer-link').forEach(l=>l.addEventListener('click',()=>{if(isMob())closeMobSidebar();}));
+/* Mobile topbar hamburger */
+const mobHam=document.getElementById('mobHamBtn');
+if(mobHam)mobHam.onclick=function(){
+  if(sb.classList.contains('mob-open')){closeMobSidebar();}
+  else{sb.classList.add('mob-open');sbBack.classList.add('open');document.body.style.overflow='hidden';}
+};
 /* Init: expanded on desktop, hidden on mobile */
 if(!isMob())expandSidebar();else collapseSidebar();
 
