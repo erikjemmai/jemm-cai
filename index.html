@@ -1749,6 +1749,8 @@ const html=document.documentElement,tPill=document.getElementById('tPill'),tPill
 function applyTheme(t){html.setAttribute('data-theme',t);tPillLbl.textContent=t==='dark'?'Dark':'Light';localStorage.setItem('jemm-theme',t);}
 applyTheme(localStorage.getItem('jemm-theme')||'light');
 tPill.onclick=()=>applyTheme(html.getAttribute('data-theme')==='dark'?'light':'dark');
+/* ── JS HEALTH DOT ── visible in topbar to confirm JS is running ── */
+(function(){const dot=document.createElement('div');dot.id='jsHealthDot';dot.title='JavaScript Active';dot.style.cssText='width:8px;height:8px;border-radius:50%;background:#00D58C;flex-shrink:0;box-shadow:0 0 6px #00D58C;margin-left:4px;';const tb=document.querySelector('.topbar-right');if(tb)tb.prepend(dot);})();
 
 /* ── KEYWORD SEARCH ──────────────────────────────────────── */
 (function(){
