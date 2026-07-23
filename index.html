@@ -184,6 +184,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .wsb-step.wsb-done{opacity:.7}
 .wsb-num{width:28px;height:28px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .25s,color .25s,border-color .25s}
 .wsb-step.wsb-active .wsb-num{background:var(--ac);border-color:var(--ac);color:#000;animation:wsb-bounce .5s ease}
+:root[data-theme=light] .wsb-step.wsb-active .wsb-num{color:#fff}
 @keyframes wsb-bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 .wsb-step.wsb-done .wsb-num{background:var(--ac-dim);border-color:var(--ac-bd);color:var(--ac)}
 .wsb-lbl{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;white-space:nowrap}
@@ -192,6 +193,7 @@ mark.srch-hl{background:rgba(5,145,97,.25);color:inherit;border-radius:2px;paddi
 .wsb-arrow{color:var(--tm);font-size:14px;line-height:1;flex-shrink:0}
 .wb-env-btn{padding:8px 10px;border-radius:7px;border:none;background:transparent;color:var(--tm);font-size:11px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.06em;cursor:pointer;transition:all .2s;text-align:center}
 .wb-env-btn.active{background:var(--ac);color:#000}
+:root[data-theme=light] .wb-env-btn.active{color:#fff}
 .wb-scen-list{display:flex;flex-direction:column;gap:8px}
 /* ── Scenario selection cards (Figma) ── */
 /* ── Scenario cards ─────────────────────────────────────── */
